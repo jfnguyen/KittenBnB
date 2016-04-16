@@ -38,16 +38,31 @@
     }
 
     a.brand-link {
+      color: rgba(255, 90, 95, .85);
+
       font-size: 20px;
       font-weight: bold;
       padding-right: 10px;
     }
 
     a {
-      color: rgba(255, 90, 95, .85);
+      color: rgb(86, 90, 92);
+      font-weight: 200;
       line-height: 60px;
       padding-bottom: 0px;
       padding-top: 0px;
+    }
+
+    li {
+      border: 0px;
+      border-left: 1px;
+      border-style: solid;
+      border-left-color: rgba(195, 195, 195, 0.4);
+
+      a {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
     }
   }
 
@@ -78,6 +93,7 @@
       width: 75%;
     }
 
+    // TODO: Breaks on smaller screens.
     div.inline-form-control {
       height: 36px;
       width: 32%;
