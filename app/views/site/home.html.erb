@@ -16,16 +16,30 @@
   </div>
 </nav>
 
-<div data-looper="go" class="hero looper xfade">
+<div class="hero-main">
+  <div data-looper="go" data-interval="3000" class="looper looper-hero xfade">
     <div class="looper-inner">
-        <div class="item">
-            <%= image_tag "hero1.jpg" %>
-        </div>
-        <div class="item">
-            <%= image_tag "hero2.jpg" %>
-        </div>
-        <div class="item">
-            <%= image_tag "hero3.jpg" %>
-        </div>
+      <% (1..9).to_a.shuffle!.each do |i| %>
+      <div class="item">
+        <%= image_tag "hero#{i}.jpg" %>
+      </div>
+      <% end %>
     </div>
+  </div>
+
+  <div class="hero-search">
+    <div class="searchbar">
+      <div class="item">
+        Location
+      </div><div class="item">
+        Check In
+      </div><div class="item">
+        Check Out
+      </div><div class="item">
+        # Guests
+      </div><div class="item">
+        Search!
+      </div>
+    </div>
+  </div>
 </div>
