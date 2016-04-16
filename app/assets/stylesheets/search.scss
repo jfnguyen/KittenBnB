@@ -47,7 +47,6 @@
 
     a {
       color: rgb(86, 90, 92);
-      font-weight: 200;
       line-height: 60px;
       padding-bottom: 0px;
       padding-top: 0px;
@@ -122,6 +121,10 @@
     .mycheckbox {
       background-color: rgb(237, 239, 237);
       display: inline-block;
+
+      .icon {
+        height: 18px;
+      }
     }
 
     select {
