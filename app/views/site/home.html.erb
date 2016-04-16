@@ -31,7 +31,7 @@
   <div class="hero-heading">
     <div class="hero-heading-inner">
       <h1>WELCOME HOME</h1>
-      <h4>Rent unique places to stay from local hosts in 190+ countries</h4>
+      <h4>Rent unique places to stay from local hosts in 190+ countries.</h4>
     </div>
   </div>
 
@@ -47,9 +47,12 @@
         →
       </div><div class="item date-range-end">
         Check Out
-      </div><div class="last-item item">
-        # Guests
-      </div><button class="item">
+      </div><select class="last-item item">
+        <option>1 Guest</option>
+        <% (2..6).each do |i| %>
+          <option><%= i %> Guests</option>
+        <% end %>
+      </select><button class="item">
         Search
       </button>
     </div>

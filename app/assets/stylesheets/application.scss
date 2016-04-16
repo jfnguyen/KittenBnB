@@ -96,6 +96,8 @@ body {
   }
 
   .item {
+    font-size: 12pt;
+
     background-color: white;
     border: 1px;
     border-color: white;
@@ -115,6 +117,12 @@ body {
     }
   }
 
+  select.item {
+    -webkit-appearance: none;
+    -webkit-border-radius: 0px;
+    text-indent: 15px;
+  }
+
   button.item {
     background-color: rgb(255, 90, 95);
     border-color: rgb(255, 90, 95);
@@ -132,7 +140,7 @@ nav.hero-nav {
   width: 100%;
 
   a {
-    color: rgba(255, 90, 95, .75);
+    color: rgba(255, 90, 95, .85);
     font-weight: bold;
   }
 
