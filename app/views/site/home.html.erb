@@ -40,13 +40,12 @@
     <div class="searchbar">
       <div class="first-item item">
         <input type="text" placeholder="Where do you want to go?">
-      </div><div class="item datepicker-div">
-        <input type="text" style="width: 0px; padding-left: 0px" data-provide="datepicker" data-date-autoclose="true">
-        Check In
+      </div><div class="item date-range-start">
+        <input id="date-range" type="text" style="width: 0px; padding-left: 0px">
+        <span class="date-range-start-value">Check In</span>
       </div><div class="graphic-item item">
         →
-      </div><div class="item datepicker-div">
-        <input type="text" style="width: 0px; padding-left: 0px" data-provide="datepicker" data-date-autoclose="true">
+      </div><div class="item date-range-end">
         Check Out
       </div><div class="last-item item">
         # Guests
@@ -58,8 +57,21 @@
 </div>
 
 <script>
-  $(".item.datepicker-div").on("click", function () {
-    var dateInput = $(this).find("input");
-    dateInput.datepicker("show");
+  var $input = $("#date-range");
+  $input.daterangepicker({
+    autoApply: true,
+    drops: "up"
+  });
+
+  $input.on("didUpdateStart", function (e, date) {
+    $(".date-range-start-value").text(date.format("MM/DD/YYYY"));
+  });
+
+  $input.on("didUpdateEnd", function (e, date) {
+    $(".date-range-end").text(date.format("MM/DD/YYYY"));
+  });
+
+  $(".date-range-start, .date-range-end").on("click", function () {
+    $("#date-range").trigger("click");
   });
 </script>
