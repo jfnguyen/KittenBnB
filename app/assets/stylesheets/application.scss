@@ -46,12 +46,43 @@
 .searchbar {
   text-align: center;
 
+  .item.first-item {
+    width: 380px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-right: 1px;
+    border-style: solid;
+    border-right-color: rgb(195, 195, 195);
+  }
+
   .item {
     background-color: white;
+    border: 1px;
+    border-color: white;
+    border-style: solid;
     display: inline-block;
-    height: 44px;
-    line-height: 44px;
+    height: 42px;
+    line-height: 42px;
     width: 123px;
+
+    input[type=text] {
+      border: 0px;
+      height: 100%;
+      width: 100%;
+      border-style: none;
+      padding: 0px;
+      padding-left: 10px;
+    }
+  }
+
+  button.item {
+    background-color: rgb(255, 90, 95);
+    border-color: rgb(255, 90, 95);
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    padding: 0px;
+    color: white;
+    font-weight: bold;
   }
 }
 
