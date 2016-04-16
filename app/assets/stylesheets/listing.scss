@@ -1,0 +1,39 @@
+.listings {
+  .half {
+    width: 50%;
+    float: left;
+
+    padding-left: 12.5px;
+    padding-right: 12.5px;
+  }
+
+  .listing {
+  }
+
+  .listing-img-container {
+    position: relative;
+  }
+
+  img.listing-photo {
+    width: 100%;
+  }
+
+  .price-container {
+    position: absolute;
+    bottom: 30px;
+    left: 0px;
+
+    padding: 0px 10px 0px 10px;
+
+    background: rgba(0, 0, 0, 0.6);
+
+    .inner-price-container {
+      sup {
+        font-size: 14px;
+      }
+
+      color: white;
+      font-size: 24px;
+    }
+  }
+}
