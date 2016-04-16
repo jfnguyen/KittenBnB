@@ -57,6 +57,18 @@ body {
     border-right-color: rgb(195, 195, 195);
   }
 
+  .item.graphic-item {
+    width: 30px;
+    line-height: 42px;
+    text-align: center;
+  }
+
+  .item.last-item {
+    border-left: 1px;
+    border-style: solid;
+    border-left-color: rgb(195, 195, 195);
+  }
+
   .item {
     background-color: white;
     border: 1px;
