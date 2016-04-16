@@ -52,7 +52,7 @@ body {
 
     h1 {
       font-size: 60px;
-      color: rgba(255, 255, 255, 0.85);
+      color: rgba(255, 255, 255, 0.95);
     }
 
     h4 {
@@ -63,8 +63,8 @@ body {
 }
 
 .hero-search {
-  background-color: rgba(0,0,0,0.6);
-  bottom: 0;
+  /*background-color: rgba(0,0,0,0.6);*/
+  bottom: 40vh;
   position: absolute;
   left: 0;
   right: 0;

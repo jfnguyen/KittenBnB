@@ -39,7 +39,7 @@
   <div class="hero-search">
     <div class="searchbar">
       <div class="first-item item">
-        <input type="text" placeholder="Where do you want to go?">
+        <input type="text" id="location" placeholder="Where do you want to go?">
       </div><div class="item date-range-start">
         <input id="date-range" type="text" style="width: 0px; padding-left: 0px">
         <span class="date-range-start-value">Check In</span>
@@ -60,7 +60,7 @@
   var $input = $("#date-range");
   $input.daterangepicker({
     autoApply: true,
-    drops: "up"
+    drops: "down"
   });
 
   $input.on("didUpdateStart", function (e, date) {
@@ -74,4 +74,16 @@
   $(".date-range-start, .date-range-end").on("click", function () {
     $("#date-range").trigger("click");
   });
+
+  function initPlaces () {
+   var options = {
+    types: ['(cities)'],
+   };
+
+   var input = document.getElementById("location");
+   var autocomplete = new google.maps.places.Autocomplete(input, options);
+  }
 </script>
+
+<!-- TODO: Remove secret key -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.places_api_key %>&libraries=places&callback=initPlaces"></script>
