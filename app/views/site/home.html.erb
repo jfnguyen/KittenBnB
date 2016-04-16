@@ -97,7 +97,7 @@
    autocomplete.addListener("place_changed", function () {
      var location = autocomplete.getPlace().geometry.location;
      var latLng = [location.lat(), location.lng()];
-     $("#location-lat-lng").val("[" + latLng + "]")
+     $("#location-lat-lng").val("[" + latLng.toString() + "]")
    });
   }
 </script>
