@@ -36,6 +36,27 @@
     }
   }
 
+  .photo-container {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+
+    height: 60px;
+    width: 60px;
+    transform: translate(-20%, +50%);
+
+    .photo-round {
+      border-radius: 50%;
+      border: 1px solid white;
+      overflow: hidden;
+
+      img {
+        height: 60px;
+        width: 60px;
+      }
+    }
+  }
+
   .listing-title-detail-wrapper {
     padding: 10px;
   }
