@@ -1,13 +1,94 @@
-.search-sidebar {
-  position: fixed;
-  width: 60%;
-  height: 100vh;
-  background-color: blue;
-}
+.search {
+  .navbar, .search-nav {
+    height: 7vh;
+    margin-bottom: 0;
 
-.map-sidebar {
-  position: fixed;
-  height: 100vh;
-  width: 40%;
-  left: 60%;
+    border: 0px;
+    border-bottom: 1px;
+    border-color: rgb(195, 195, 195);
+    border-style: solid;
+  }
+
+  .search-sidebar {
+    position: fixed;
+    width: 60vw;
+    height: 93vh;
+    top: 7vh;
+  }
+
+  .form-row {
+    padding: 15px 20px 15px 20px;
+    height: 69px;
+
+    label {
+      float: left;
+      width: 17%;
+      height: 100%;
+
+      font-weight: normal;
+
+      line-height: 36px;
+      vertical-align: middle;
+    }
+
+    form {
+      float: left;
+      width: 75%;
+    }
+
+    input, select, .mycheckbox {
+      padding: 8px 10px 8px 10px;
+      height: 36px;
+      width: 32%;
+
+      border: 1px;
+      border-color: rgb(195, 195, 195);
+      border-style: solid;
+    }
+
+    input, select {
+      line-height: 36px;
+      vertical-align: middle;
+    }
+
+    .mycheckbox {
+      background-color: rgb(237, 239, 237);
+      display: inline-block;
+    }
+
+    select {
+      background-color: white;
+      -webkit-appearance: none;
+      -webkit-border-radius: 0px;
+    }
+  }
+
+  .form-row-tall {
+    height: 116px;
+  }
+
+  .form-break {
+    padding: 0px 20px 0px 20px;
+    .break {
+      height: 1px;
+      background-color: rgba(195, 195, 195, 0.4);
+    }
+  }
+
+  .results {
+    background-color: #f5f5f5;
+    min-height: 100%;
+  }
+
+  .map-sidebar {
+    position: fixed;
+    height: 93vh;
+    top: 7vh;
+    width: 40vw;
+    left: 60vw;
+  }
+
+  #map {
+    height: 100%
+  }
 }

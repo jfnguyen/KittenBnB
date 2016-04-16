@@ -1,14 +1,83 @@
-<div class="search-sidebar"></div>
-<div id="map-sidebar" class="map-sidebar"></div>
+<div class="search">
+  <nav class="navbar search-nav">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <li class="active">
+          <a href="#">
+            ❤ kittenbnb
+          </a>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Help</a></li>
+        <li><a href="#">Sign Up</a></li>
+        <li><a href="#">Log In</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="search-sidebar">
+    <div class="form-row">
+      <label>Dates</label>
+
+      <form>
+        <input type="text">
+        <input type="text">
+        <select>
+          Num Guests
+        </select>
+      </form>
+    </div>
+
+    <div class="form-break">
+      <div class="break"></div>
+    </div>
+
+    <div class="form-row">
+      <label>Room Type</label>
+
+      <form>
+        <div class="mycheckbox">
+          Entire home/apt
+        </div>
+        <div class="mycheckbox">
+          Private room
+        </div>
+        <div class="mycheckbox">
+          Shared room
+        </div>
+      </form>
+    </div>
+
+    <div class="form-break">
+      <div class="break"></div>
+    </div>
+
+    <div class="form-row form-row-tall">
+      <label>Price Range</label>
+    </div>
+
+    <div class="results">
+      I am the rest of the results!
+    </div>
+  </div>
+
+  <div class="map-sidebar">
+    <div id="map"></div>
+  </div>
+</div>
 
 <script>
   function initMap () {
-    map = new google.maps.Map(document.getElementById("map-sidebar"), {
+    map = new google.maps.Map(document.getElementById("map"), {
       center: {
         lat: <%= @lat_lng[0] %>,
         lng: <%= @lat_lng[1] %>
-      },
-      zoom: 8
+  },
+  disableDefaultUI: true,
+  zoomControl: true,
+      zoom: 12
     });
   }
 </script>
