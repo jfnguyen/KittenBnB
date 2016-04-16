@@ -11,6 +11,9 @@
  * file per style scope.
  *
  *= require daterangepicker
+ *= require nouislider
+ *= require nouislider.pips
+ *= require nouislider.tooltips
  *= require_tree .
  *= require_self
  */

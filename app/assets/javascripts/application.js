@@ -16,4 +16,5 @@
 //= require bootstrap-datepicker
 //= require moment
 //= require daterangepicker
+//= require nouislider
 //= require_tree .

@@ -166,6 +166,45 @@
       background-color: white;
       -webkit-appearance: none;
     }
+
+    .noUi-target {
+      height: 24px;
+
+      border: none;
+      box-shadow: none;
+    }
+
+    .noUi-background {
+      height: 4px;
+      border-bottom: 2px solid white;
+
+      background: #dce0e0;
+    }
+
+    .noUi-base {
+      background: #dce0e0;
+      height: 24px;
+      border-bottom: 11px solid white;
+      border-top: 11px solid white;
+    }
+
+    .noUi-connect {
+      background: #ff5a5f;
+      height: 4px;
+      box-shadow: none;
+    }
+
+    .noUi-handle {
+      border-radius: 100%;
+      height: 24px;
+      width: 24px;
+      top: -10px;
+    }
+
+    .noUi-handle:before,
+    .noUi-handle:after {
+      content: none;
+    }
   }
 
   .form-row-tall {

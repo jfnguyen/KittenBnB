@@ -81,6 +81,10 @@
 
     <div class="form-row form-row-tall">
       <label>Price Range</label>
+
+      <form>
+        <div id="price-range"></div>
+      </form>
     </div>
 
     <div class="results">
@@ -105,6 +109,19 @@
       zoom: 12
     });
   }
+</script>
+
+<script>
+  var slider = document.getElementById('price-range');
+
+  noUiSlider.create(slider, {
+    start: [20, 80],
+    connect: true,
+    range: {
+      'min': 0,
+      'max': 100
+    }
+  });
 </script>
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.places_api_key %>&libraries=places&callback=initMap" defer async></script>
