@@ -108,7 +108,7 @@
       width: 100%;
 
       border: 1px;
-      border-color: rgb(195, 195, 195);
+      border-color: rgba(195, 195, 195, 1.0);
       border-style: solid;
     }
 
@@ -120,10 +120,45 @@
 
     .mycheckbox {
       background-color: rgb(237, 239, 237);
+      padding: 8px 0px 8px 10px;
       display: inline-block;
+
+      border-color: rgba(195, 195, 195, 0.4);
 
       .icon {
         height: 18px;
+      }
+
+      input[type=checkbox] {
+        display: inline-block;
+        float: right;
+        position: relative;
+
+        margin: 0;
+        padding: 0;
+        margin-right: 5px;
+
+        background-color: white;
+        -webkit-appearance: none;
+        height: 1.25em;
+        width: 1.25em;
+      }
+
+      input[type="checkbox"]:checked:before {
+        content: "";
+        position: absolute;
+        background-color: #ff5a5f;
+        color: #ff5a5f;
+        left: 1px;
+        top: 1px;
+        bottom: 1px;
+        right: 1px;
+
+        border-radius: 1px;
+      }
+
+      input[type="checkbox"]:focus {
+        outline: none;
       }
     }
 
