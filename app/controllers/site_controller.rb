@@ -4,6 +4,6 @@ class SiteController < ApplicationController
   end
 
   def search
-    render json: params["search"]
+    render :search
   end
 end

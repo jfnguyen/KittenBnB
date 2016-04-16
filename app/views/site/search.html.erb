@@ -1,2 +1,12 @@
 <div class="search-sidebar"></div>
-<div class="map-sidebar"</div>
+<div id="map-sidebar" class="map-sidebar"></div>
+
+<script>
+  function initMap () {
+    map = new google.maps.Map(document.getElementById("map-sidebar"), {
+      zoom: 8
+    });
+  }
+</script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.places_api_key %>&libraries=places&callback=initMap" defer async></script>

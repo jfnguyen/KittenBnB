@@ -43,6 +43,9 @@
                name="search[location]"
                id="location"
                placeholder="Where do you want to go?">
+        <input type="hidden"
+               name="search[location-lat-lng]"
+               id="location-lat-lng">
       </div><div class="item date-range-start">
         <input name="search[date-range]"
                id="date-range"
@@ -91,8 +94,13 @@
 
    var input = document.getElementById("location");
    var autocomplete = new google.maps.places.Autocomplete(input, options);
+   autocomplete.addListener("place_changed", function () {
+     var location = autocomplete.getPlace().geometry.location;
+     var latLng = [location.lat(), location.lng()];
+     $("#location-lat-lng").val("[" + latLng + "]")
+   });
   }
 </script>
 
 <!-- TODO: Remove secret key -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.places_api_key %>&libraries=places&callback=initPlaces"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.places_api_key %>&libraries=places&callback=initPlaces" defer async></script>
