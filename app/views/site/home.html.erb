@@ -3,7 +3,7 @@
   <ul class="nav navbar-nav">
     <li class="active">
       <a href="#">
-        kittenbnb
+        ❤ kittenbnb
       </a>
     </li>
   </ul>
@@ -21,7 +21,8 @@
     <div class="looper-inner">
       <% (1..9).to_a.shuffle!.each do |i| %>
       <div class="item">
-        <%= image_tag "hero#{i}.jpg" %>
+        <div class="img" style="background: url(<%= asset_url "hero#{i}.jpg" %>); background-size: cover">
+        </div>
       </div>
       <% end %>
     </div>
