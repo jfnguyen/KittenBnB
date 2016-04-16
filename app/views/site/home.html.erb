@@ -37,17 +37,23 @@
 
   <!-- TODO: Make this responsive later -->
   <div class="hero-search">
-    <div class="searchbar">
+    <form class="searchbar" action="/search" method="GET">
       <div class="first-item item">
-        <input type="text" id="location" placeholder="Where do you want to go?">
+        <input type="text"
+               name="search[location]"
+               id="location"
+               placeholder="Where do you want to go?">
       </div><div class="item date-range-start">
-        <input id="date-range" type="text" style="width: 0px; padding-left: 0px">
+        <input name="search[date-range]"
+               id="date-range"
+               type="text"
+               style="width: 0px; padding-left: 0px">
         <span class="date-range-start-value">Check In</span>
       </div><div class="graphic-item item">
         →
       </div><div class="item date-range-end">
         Check Out
-      </div><select class="last-item item">
+      </div><select name="search[num-guests]" class="last-item item">
         <option>1 Guest</option>
         <% (2..6).each do |i| %>
           <option><%= i %> Guests</option>
@@ -55,7 +61,7 @@
       </select><button class="item">
         Search
       </button>
-    </div>
+    </form>
   </div>
 </div>
 
