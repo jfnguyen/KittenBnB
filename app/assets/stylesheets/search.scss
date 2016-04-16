@@ -95,7 +95,7 @@
     // TODO: Breaks on smaller screens.
     div.inline-form-control {
       height: 36px;
-      width: 32%;
+      width: calc(100% / 3);
 
       display: inline-block;
       padding-left: 6.25px;
@@ -167,11 +167,23 @@
       -webkit-appearance: none;
     }
 
-    .noUi-target {
+    // Slider stuff.
+    form.slider-form {
+      position: relative;
+      width: 75%;
+      border-left: 6.25px;
+      border-right: 12.5px;
+    }
+
+    #price-range {
       height: 24px;
 
       border: none;
       box-shadow: none;
+      background: transparent;
+
+      padding-left: 6.25px;
+      padding-right: 6.25px;
     }
 
     .noUi-background {
@@ -204,6 +216,18 @@
     .noUi-handle:before,
     .noUi-handle:after {
       content: none;
+    }
+
+    .min-price {
+      position: absolute;
+      left: 0px;
+      transform: translate(-50%, 0%);
+    }
+
+    .max-price {
+      position: absolute;
+      right: 0px;
+      transform: translate(25%, 0%);
     }
   }
 

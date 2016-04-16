@@ -28,11 +28,9 @@
       <form>
         <div class="inline-form-control">
           <input type="text">
-        </div>
-        <div class="inline-form-control">
+        </div><div class="inline-form-control">
           <input type="text">
-        </div>
-        <div class="inline-form-control">
+        </div><div class="inline-form-control">
           <select>
             Num Guests
           </select>
@@ -55,16 +53,14 @@
 
             <input type="checkbox">
           </div>
-        </div>
-        <div class="inline-form-control">
+        </div><div class="inline-form-control">
           <div class="mycheckbox">
             <%= image_tag("private-room_airglyphs.svg", class: :icon) %>
             Private room
 
             <input type="checkbox">
           </div>
-        </div>
-        <div class="inline-form-control">
+        </div><div class="inline-form-control">
           <div class="mycheckbox">
             <%= image_tag("shared-room_airglyphs.svg", class: :icon) %>
             Shared room
@@ -79,11 +75,14 @@
       <div class="break"></div>
     </div>
 
-    <div class="form-row form-row-tall">
+    <div class="form-row">
       <label>Price Range</label>
 
-      <form>
+      <form class="slider-form">
         <div id="price-range"></div>
+
+        <div class="min-price">$100</div>
+        <div class="max-price">$999</div>
       </form>
     </div>
 
