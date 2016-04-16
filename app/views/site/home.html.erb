@@ -19,7 +19,7 @@
 <div class="hero-main">
   <div data-looper="go" data-interval="3000" class="looper looper-hero xfade">
     <div class="looper-inner">
-      <% (1..9).to_a.shuffle!.each do |i| %>
+      <% [1, 4, 5, 7].to_a.shuffle!.each do |i| %>
       <div class="item">
         <div class="img" style="background: url(<%= asset_url "hero#{i}.jpg" %>); background-size: cover">
         </div>
