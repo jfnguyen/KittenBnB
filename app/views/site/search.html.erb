@@ -1,13 +1,16 @@
 <div class="search">
   <nav class="navbar search-nav">
     <div class="container-fluid">
-      <ul class="nav navbar-nav">
-        <li class="active">
-          <a href="#">
-            ❤ kittenbnb
-          </a>
-        </li>
-      </ul>
+      <div class="nav navbar-left">
+        <a class="brand-link" href="#">
+          ❤ kittenbnb
+        </a>
+      </div>
+
+      <div class="nav navbar-left search-bar">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        <input type="text">
+      </div>
 
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Help</a></li>
@@ -17,16 +20,23 @@
     </div>
   </nav>
 
+
   <div class="search-sidebar">
     <div class="form-row">
       <label>Dates</label>
 
       <form>
-        <input type="text">
-        <input type="text">
-        <select>
-          Num Guests
-        </select>
+        <div class="inline-form-control">
+          <input type="text">
+        </div>
+        <div class="inline-form-control">
+          <input type="text">
+        </div>
+        <div class="inline-form-control">
+          <select>
+            Num Guests
+          </select>
+        </div>
       </form>
     </div>
 
@@ -38,14 +48,21 @@
       <label>Room Type</label>
 
       <form>
-        <div class="mycheckbox">
-          Entire home/apt
+        <div class="inline-form-control">
+          <div class="mycheckbox">
+            <i class="fa fa-home" aria-hidden="true"></i>
+            Entire home/apt
+          </div>
         </div>
-        <div class="mycheckbox">
-          Private room
+        <div class="inline-form-control">
+          <div class="mycheckbox">
+            Private room
+          </div>
         </div>
-        <div class="mycheckbox">
-          Shared room
+        <div class="inline-form-control">
+          <div class="mycheckbox">
+            Shared room
+          </div>
         </div>
       </form>
     </div>

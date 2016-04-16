@@ -1,19 +1,61 @@
 .search {
   .navbar, .search-nav {
-    height: 7vh;
+    height: 60px;
     margin-bottom: 0;
 
     border: 0px;
     border-bottom: 1px;
-    border-color: rgb(195, 195, 195);
+    border-color: rgba(195, 195, 195, 0.4);
     border-style: solid;
+
+    .search-bar {
+      height: 60px;
+
+      border: 0px;
+      border-left: 1px;
+      border-style: solid;
+      border-left-color: rgba(195, 195, 195, 0.4);
+      padding-left: 15px;
+
+      i.fa {
+        color: rgba(195, 195, 195, 0.6);
+        font-size: 20px;
+        line-height: 60px;
+      }
+
+      input {
+        background-color: transparent;
+        height: 60px;
+        vertical-align: top;
+        border: 0px;
+        padding-left: 10px;
+        width: 300px;
+      }
+
+      input:focus {
+        outline: none;
+      }
+    }
+
+    a.brand-link {
+      font-size: 20px;
+      font-weight: bold;
+      padding-right: 10px;
+    }
+
+    a {
+      color: rgba(255, 90, 95, .85);
+      line-height: 60px;
+      padding-bottom: 0px;
+      padding-top: 0px;
+    }
   }
 
   .search-sidebar {
     position: fixed;
     width: 60vw;
-    height: 93vh;
-    top: 7vh;
+    bottom: 0px;
+    top: 60px;
   }
 
   .form-row {
@@ -36,10 +78,19 @@
       width: 75%;
     }
 
-    input, select, .mycheckbox {
-      padding: 8px 10px 8px 10px;
+    div.inline-form-control {
       height: 36px;
       width: 32%;
+
+      display: inline-block;
+      padding-left: 6.25px;
+      padding-right: 6.25px;
+    }
+
+    input, select, .mycheckbox {
+      height: 36px;
+      padding: 8px 10px 8px 10px;
+      width: 100%;
 
       border: 1px;
       border-color: rgb(195, 195, 195);
@@ -49,6 +100,7 @@
     input, select {
       line-height: 36px;
       vertical-align: middle;
+      border-radius: 2px;
     }
 
     .mycheckbox {
@@ -59,7 +111,6 @@
     select {
       background-color: white;
       -webkit-appearance: none;
-      -webkit-border-radius: 0px;
     }
   }
 
@@ -82,8 +133,8 @@
 
   .map-sidebar {
     position: fixed;
-    height: 93vh;
-    top: 7vh;
+    bottom: 0px;
+    top: 60px;
     width: 40vw;
     left: 60vw;
   }
