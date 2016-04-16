@@ -34,6 +34,32 @@ body {
   z-index: -50;
 }
 
+.hero-heading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 60vh;
+  width: 100%;
+  display: table;
+
+  .hero-heading-inner {
+    height: 100%;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+
+    h1 {
+      font-size: 60px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    h4 {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+  }
+}
+
 .hero-search {
   background-color: rgba(0,0,0,0.6);
   bottom: 0;
@@ -59,8 +85,6 @@ body {
 
   .item.graphic-item {
     width: 30px;
-    line-height: 42px;
-    text-align: center;
   }
 
   .item.last-item {
