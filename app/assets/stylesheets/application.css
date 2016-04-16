@@ -24,3 +24,10 @@
   width: 100%;
   height: auto;
 }
+
+nav.hero-nav {
+  top: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+}
