@@ -1,106 +1,108 @@
-<nav class="navbar hero-nav">
-  <div class="container-fluid">
-  <ul class="nav navbar-nav">
-    <li class="active">
-      <a class="brand-link" href="#">
-        ❤ kittenbnb
-      </a>
-    </li>
-  </ul>
+<div class="home">
+  <nav class="navbar hero-nav">
+    <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li class="active">
+        <a class="brand-link" href="#">
+          ❤ kittenbnb
+        </a>
+      </li>
+    </ul>
 
-  <ul class="nav navbar-nav navbar-right">
-    <li><a href="#">Help</a></li>
-    <li><a href="#">Sign Up</a></li>
-    <li><a href="#">Log In</a></li>
-  </ul>
-  </div>
-</nav>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#">Help</a></li>
+      <li><a href="#">Sign Up</a></li>
+      <li><a href="#">Log In</a></li>
+    </ul>
+    </div>
+  </nav>
 
-<div class="hero-main">
-  <div data-looper="go" data-interval="3000" class="looper looper-hero xfade">
-    <div class="looper-inner">
-      <% [1, 4, 5, 7].to_a.shuffle!.each do |i| %>
-      <div class="item">
-        <div class="img" style="background: url(<%= asset_url "hero#{i}.jpg" %>); background-size: cover">
+  <div class="hero-main">
+    <div data-looper="go" data-interval="3000" class="looper looper-hero xfade">
+      <div class="looper-inner">
+        <% [1, 4, 5, 7].to_a.shuffle!.each do |i| %>
+        <div class="item">
+          <div class="img" style="background: url(<%= asset_url "hero#{i}.jpg" %>); background-size: cover">
+          </div>
         </div>
-      </div>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="hero-heading">
-    <div class="hero-heading-inner">
-      <h1>WELCOME HOME</h1>
-      <h4>Rent unique places to stay from local hosts in 190+ countries.</h4>
-    </div>
-  </div>
-
-  <!-- TODO: Make this responsive later -->
-  <div class="hero-search">
-    <form class="searchbar" action="/search" method="GET">
-      <div class="first-item item">
-        <input type="text"
-               name="search[location]"
-               id="location"
-               placeholder="Where do you want to go?">
-        <input type="hidden"
-               name="search[location-lat-lng]"
-               id="location-lat-lng">
-      </div><div class="item date-range-start">
-        <input name="search[date-range]"
-               id="date-range"
-               type="text"
-               style="width: 0px; padding-left: 0px">
-        <span class="date-range-start-value">Check In</span>
-      </div><div class="graphic-item item">
-        →
-      </div><div class="item date-range-end">
-        Check Out
-      </div><select name="search[num-guests]" class="last-item item">
-        <option>1 Guest</option>
-        <% (2..6).each do |i| %>
-          <option><%= i %> Guests</option>
         <% end %>
-      </select><button class="item">
-        Search
-      </button>
-    </form>
+      </div>
+    </div>
+
+    <div class="hero-heading">
+      <div class="hero-heading-inner">
+        <h1>WELCOME HOME</h1>
+        <h4>Rent unique places to stay from local hosts in 190+ countries.</h4>
+      </div>
+    </div>
+
+    <!-- TODO: Make this responsive later -->
+    <div class="hero-search">
+      <form class="searchbar" action="/search" method="GET">
+        <div class="first-item item">
+          <input type="text"
+                 name="search[location]"
+                 id="location"
+                 placeholder="Where do you want to go?">
+          <input type="hidden"
+                 name="search[location-lat-lng]"
+                 id="location-lat-lng">
+        </div><div class="item date-range-start">
+          <input name="search[date-range]"
+                 id="date-range"
+                 type="text"
+                 style="width: 0px; padding-left: 0px">
+          <span class="date-range-start-value">Check In</span>
+        </div><div class="graphic-item item">
+          →
+        </div><div class="item date-range-end">
+          Check Out
+        </div><select name="search[num-guests]" class="last-item item">
+          <option>1 Guest</option>
+          <% (2..6).each do |i| %>
+            <option><%= i %> Guests</option>
+          <% end %>
+        </select><button class="item">
+          Search
+        </button>
+      </form>
+    </div>
   </div>
+
+  <script>
+    var $input = $("#date-range");
+    $input.daterangepicker({
+      autoApply: true,
+      drops: "down"
+    });
+
+    $input.on("didUpdateStart", function (e, date) {
+      $(".date-range-start-value").text(date.format("MM/DD/YYYY"));
+    });
+
+    $input.on("didUpdateEnd", function (e, date) {
+      $(".date-range-end").text(date.format("MM/DD/YYYY"));
+    });
+
+    $(".date-range-start, .date-range-end").on("click", function () {
+      $("#date-range").trigger("click");
+    });
+
+    function initPlaces () {
+     var options = {
+      types: ['(cities)'],
+     };
+
+     var input = document.getElementById("location");
+     var autocomplete = new google.maps.places.Autocomplete(input, options);
+     autocomplete.addListener("place_changed", function () {
+       var location = autocomplete.getPlace().geometry.location;
+       var latLng = [location.lat(), location.lng()];
+       $("#location-lat-lng").val("[" + latLng.toString() + "]")
+     });
+    }
+  </script>
+
+  <!-- TODO: Remove secret key -->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.places_api_key %>&libraries=places&callback=initPlaces" defer async></script>
 </div>
-
-<script>
-  var $input = $("#date-range");
-  $input.daterangepicker({
-    autoApply: true,
-    drops: "down"
-  });
-
-  $input.on("didUpdateStart", function (e, date) {
-    $(".date-range-start-value").text(date.format("MM/DD/YYYY"));
-  });
-
-  $input.on("didUpdateEnd", function (e, date) {
-    $(".date-range-end").text(date.format("MM/DD/YYYY"));
-  });
-
-  $(".date-range-start, .date-range-end").on("click", function () {
-    $("#date-range").trigger("click");
-  });
-
-  function initPlaces () {
-   var options = {
-    types: ['(cities)'],
-   };
-
-   var input = document.getElementById("location");
-   var autocomplete = new google.maps.places.Autocomplete(input, options);
-   autocomplete.addListener("place_changed", function () {
-     var location = autocomplete.getPlace().geometry.location;
-     var latLng = [location.lat(), location.lng()];
-     $("#location-lat-lng").val("[" + latLng.toString() + "]")
-   });
-  }
-</script>
-
-<!-- TODO: Remove secret key -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.places_api_key %>&libraries=places&callback=initPlaces" defer async></script>
