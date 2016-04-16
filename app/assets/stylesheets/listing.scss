@@ -5,9 +5,8 @@
 
     padding-left: 12.5px;
     padding-right: 12.5px;
-  }
 
-  .listing {
+    margin-bottom: 12.5px;
   }
 
   .listing-img-container {
@@ -35,5 +34,23 @@
       color: white;
       font-size: 24px;
     }
+  }
+
+  .listing-title-detail-wrapper {
+    padding: 10px;
+  }
+
+  .listing-title {
+    color: rgb(86, 90, 92);
+    font-size: 16px;
+    font-weight: normal;
+    padding: 0;
+    margin-top: 6.25px;
+    margin-bottom: 0px;
+  }
+
+  .listing-details {
+    font-size: 13px;
+    color: rgba(86, 90, 92, 0.8);
   }
 }

@@ -52,6 +52,11 @@
       padding-top: 0px;
     }
 
+    a:hover,
+    a:focus {
+      text-decoration: none;
+    }
+
     li {
       border: 0px;
       border-left: 1px;

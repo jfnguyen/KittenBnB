@@ -89,7 +89,12 @@
     </div>
 
     <div class="listings">
-      <%= render "listing" %>
+      <% ["3e9cdcf7-0fa1-448c-98ce-baa8113d4f1b.jpg",
+          "852901bc-b93e-427f-9654-5c8826df0a90.jpg",
+          "df1d3cb2_original.jpg",
+         "5ca802f1_original.jpg"].each do |src| %>
+        <%= render "listing", src: src %>
+      <% end %>
     </div>
   </div>
 
