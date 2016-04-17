@@ -1,6 +1,5 @@
 class SearchTool extends React.Component {
   constructor(props) {
-    // React doesn't autobind ES6 methods.
     super(props);
 
     // The singleton instance of SearchTool:
@@ -12,6 +11,8 @@ class SearchTool extends React.Component {
       location: "",
       numGuests: 1
     };
+
+    // React doesn't autobind ES6 methods.
     this.submitForm = this.submitForm.bind(this);
     this.triggerClick = this.triggerClick.bind(this);
   }
@@ -37,24 +38,6 @@ class SearchTool extends React.Component {
     });
   }
 
-  validationErrors() {
-    if (this.state.location == "") {
-      return "Destination location cannot be blank.";
-    } else if (this.state.dateRangeStartInput == "Check In") {
-      return "Check in date cannot be blank.";
-    } else if (this.state.dateRangeEndInput == "Check Out") {
-      return "Check out date cannot be blank.";
-    }
-
-    var validDates = (moment(new Date(this.state.dateRangeStartInput)).isBefore(
-      moment(new Date(this.state.dateRangeEndInput))));
-    if (!validDates) {
-      return "Check out must occur after check-in."
-    }
-
-    return null;
-  }
-
   render() {
     var locationInput = (
       <input type="text"
@@ -63,12 +46,6 @@ class SearchTool extends React.Component {
              placeholder="Where do you want to go?"
              onChange={(e) => this.setState({location: e.target.value})}
              value={this.state.location} />
-    );
-
-    var hiddenLatLngInput = (
-      <input type="hidden"
-             name="search[locationLatLng]"
-             id="location-lat-lng" />
     );
 
     // Input exists only for datepicker to interact with.
@@ -119,7 +96,6 @@ class SearchTool extends React.Component {
         <form className="searchbar" action="/search" method="GET">
           <div className="first-item item">
             {locationInput}
-            {hiddenLatLngInput}
           </div>{dateRangeStartInput}<div className="graphic-item item">
             →
           </div>{ [dateRangeEndInput, numGuestsSelect, submitButton] }
@@ -132,17 +108,33 @@ class SearchTool extends React.Component {
   }
 
   submitForm(e) {
-    var errors = this.validationErrors();
-    if (errors) {
+    var error = this.validationErrors();
+    if (error) {
       e.preventDefault();
-      this.setState({ currentError: errors });
-    } else {
-      // Should let them pass!
+      this.setState({ currentError: error });
     }
   }
 
   triggerClick() {
     $(this.refs.dateRange).trigger("click");
+  }
+
+  validationErrors() {
+    if (this.state.location == "") {
+      return "Destination location cannot be blank.";
+    } else if (this.state.dateRangeStartInput == "Check In") {
+      return "Check in date cannot be blank.";
+    } else if (this.state.dateRangeEndInput == "Check Out") {
+      return "Check out date cannot be blank.";
+    }
+
+    var validDates = (moment(new Date(this.state.dateRangeStartInput)).isBefore(
+      moment(new Date(this.state.dateRangeEndInput))));
+    if (!validDates) {
+      return "Check out must occur after check-in.";
+    }
+
+    return null;
   }
 }
 
@@ -154,23 +146,15 @@ function setupMainSearch(domEl) {
 }
 
 function initMainSearchPlaces () {
-  var options = {
-    types: ['(cities)'],
-  };
-
+  // Show dropdown.
   var locationInput = SearchTool.instance.refs.locationInput;
   var autocomplete = new google.maps.places.Autocomplete(
-    locationInput, options
+    locationInput, {
+      types: ['(cities)']
+    }
   );
-
   autocomplete.addListener("place_changed", function () {
     var placeAddress = autocomplete.getPlace().formatted_address;
-    SearchTool.instance.setState({location: placeAddress});
-
-    /*
-    var location = autocomplete.getPlace().geometry.location;
-    var latLng = [location.lat(), location.lng()];
-    $("#location-lat-lng").val("[" + latLng.toString() + "]")
-    */
+    SearchTool.instance.setState({ location: placeAddress });
   });
 }
