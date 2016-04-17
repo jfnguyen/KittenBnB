@@ -37,72 +37,13 @@
     </div>
 
     <!-- TODO: Make this responsive later -->
-    <div class="hero-search">
-      <form class="searchbar" action="/search" method="GET">
-        <div class="first-item item">
-          <input type="text"
-                 name="search[location]"
-                 id="location"
-                 placeholder="Where do you want to go?">
-          <input type="hidden"
-                 name="search[location-lat-lng]"
-                 id="location-lat-lng">
-        </div><div class="item date-range-start">
-          <input name="search[date-range]"
-                 id="date-range"
-                 type="text"
-                 style="width: 0px; padding-left: 0px">
-          <span class="date-range-start-value">Check In</span>
-        </div><div class="graphic-item item">
-          →
-        </div><div class="item date-range-end">
-          Check Out
-        </div><select name="search[num-guests]" class="last-item item">
-          <option>1 Guest</option>
-          <% (2..6).each do |i| %>
-            <option><%= i %> Guests</option>
-          <% end %>
-        </select><button class="item">
-          Search
-        </button>
-      </form>
+    <div id="hero-search">
     </div>
   </div>
 
   <script>
-    var $input = $("#date-range");
-    $input.daterangepicker({
-      autoApply: true,
-      drops: "down"
-    });
-
-    $input.on("didUpdateStart", function (e, date) {
-      $(".date-range-start-value").text(date.format("MM/DD/YYYY"));
-    });
-
-    $input.on("didUpdateEnd", function (e, date) {
-      $(".date-range-end").text(date.format("MM/DD/YYYY"));
-    });
-
-    $(".date-range-start, .date-range-end").on("click", function () {
-      $("#date-range").trigger("click");
-    });
-
-    function initPlaces () {
-     var options = {
-      types: ['(cities)'],
-     };
-
-     var input = document.getElementById("location");
-     var autocomplete = new google.maps.places.Autocomplete(input, options);
-     autocomplete.addListener("place_changed", function () {
-       var location = autocomplete.getPlace().geometry.location;
-       var latLng = [location.lat(), location.lng()];
-       $("#location-lat-lng").val("[" + latLng.toString() + "]")
-     });
-    }
+    setupMainSearch(document.getElementById("hero-search"));
   </script>
 
-  <!-- TODO: Remove secret key -->
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.places_api_key %>&libraries=places&callback=initPlaces" defer async></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.places_api_key %>&libraries=places&callback=initMainSearchPlaces" defer async></script>
 </div>
