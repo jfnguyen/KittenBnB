@@ -4,6 +4,8 @@ class SiteController < ApplicationController
   end
 
   def search
-    render json: params.require(:search)
+    @search_params = params.require(:search)
+    gon.search = params.require(:search)
+    render :search
   end
 end

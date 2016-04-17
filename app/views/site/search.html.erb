@@ -9,7 +9,7 @@
 
       <div class="nav navbar-left search-bar">
         <i class="fa fa-search" aria-hidden="true"></i>
-        <input type="text">
+        <input type="text" value="<%= @search_params[:location] %>">
       </div>
 
       <ul class="nav navbar-nav navbar-right">
@@ -103,31 +103,4 @@
   </div>
 </div>
 
-<script>
-  function initMap () {
-    map = new google.maps.Map(document.getElementById("map"), {
-      center: {
-        lat: <%= @lat_lng[0] %>,
-        lng: <%= @lat_lng[1] %>
-  },
-  disableDefaultUI: true,
-  zoomControl: true,
-      zoom: 12
-    });
-  }
-</script>
-
-<script>
-  var slider = document.getElementById('price-range');
-
-  noUiSlider.create(slider, {
-    start: [20, 80],
-    connect: true,
-    range: {
-      'min': 0,
-      'max': 100
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.places_api_key %>&libraries=places&callback=initMap" defer async></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.places_api_key %>&libraries=places&callback=initSearch" defer async></script>
