@@ -18,7 +18,7 @@ class HomeSearchTool extends React.Component {
   }
 
   componentDidMount() {
-    var $dateRangeInput = $(this.refs.dateRange);
+    let $dateRangeInput = $(this.refs.dateRange);
 
     $dateRangeInput.daterangepicker({
       autoApply: true,
@@ -39,7 +39,7 @@ class HomeSearchTool extends React.Component {
   }
 
   render() {
-    var locationInput = (
+    let locationInput = (
       <input type="text"
              name="search[location]"
              ref="locationInput"
@@ -49,7 +49,7 @@ class HomeSearchTool extends React.Component {
     );
 
     // Input exists only for datepicker to interact with.
-    var dateRangeStartInput = (
+    let dateRangeStartInput = (
       <div className="item" onClick={this.triggerClick}>
         <input name="search[dateRange]"
                ref="dateRange"
@@ -63,7 +63,7 @@ class HomeSearchTool extends React.Component {
       </div>
     );
 
-    var dateRangeEndInput = (
+    let dateRangeEndInput = (
       <div className="item"
            key="dateRangeEndInput"
            onClick={this.triggerClick}>
@@ -75,8 +75,8 @@ class HomeSearchTool extends React.Component {
       </div>
     );
 
-    var nums = [2, 3, 4, 5, 6]
-    var numGuestsSelect = (
+    let nums = [2, 3, 4, 5, 6]
+    let numGuestsSelect = (
       <select name="search[numGuests]"
               className="last-item item"
               key="numGuestsSelect"
@@ -87,13 +87,13 @@ class HomeSearchTool extends React.Component {
       </select>
     );
 
-    var submitButton = (
+    let submitButton = (
       <button className="item" key="submitButton" onClick={this.submitForm}>
         Search
       </button>
     );
 
-    var errorMessage = this.state.currentError == null ? null : (
+    let errorMessage = this.state.currentError == null ? null : (
         <div className="error-message">
           <span>{this.state.currentError}</span>
         </div>
@@ -116,7 +116,7 @@ class HomeSearchTool extends React.Component {
   }
 
   submitForm(e) {
-    var error = this.validationErrors();
+    let error = this.validationErrors();
     if (error) {
       e.preventDefault();
       this.setState({ currentError: error });
@@ -136,7 +136,7 @@ class HomeSearchTool extends React.Component {
       return "Check out date cannot be blank.";
     }
 
-    var validDates = (moment(new Date(this.state.dateRangeStart)).isBefore(
+    let validDates = (moment(new Date(this.state.dateRangeStart)).isBefore(
       moment(new Date(this.state.dateRangeEnd))));
     if (!validDates) {
       return "Check out must occur after check-in.";
