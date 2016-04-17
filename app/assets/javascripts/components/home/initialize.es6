@@ -1,7 +1,7 @@
 window.Home = {
   initialize(domEl) {
     ReactDOM.render(
-      <HomeHeroMain />,
+      <HomeMain />,
       domEl
     );
   },
