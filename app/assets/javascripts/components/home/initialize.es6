@@ -17,7 +17,7 @@ window.Home = {
 
     autocomplete.addListener("place_changed", () => {
       let placeAddress = autocomplete.getPlace().formatted_address;
-      SearchTool.instance.setState({ location: placeAddress });
+      HomeSearchTool.instance.setState({ location: placeAddress });
     });
   }
 }
