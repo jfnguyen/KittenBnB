@@ -5,6 +5,9 @@ window.Search = {
       document.getElementById("search")
     );
 
+    // TODO: Kind of nasty how I use geElementById so much here...
+
+    // TODO: should prolly move this inside SearchMapSidebar.
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode({'address': gon.search.location}, (results, status) => {
       if (status === google.maps.GeocoderStatus.OK) {
