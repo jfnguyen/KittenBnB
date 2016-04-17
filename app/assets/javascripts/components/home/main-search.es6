@@ -1,9 +1,9 @@
-class SearchTool extends React.Component {
+class HomeSearchTool extends React.Component {
   constructor(props) {
     super(props);
 
     // The singleton instance of SearchTool:
-    SearchTool.instance = this;
+    HomeSearchTool.instance = this;
 
     this.state = {
       dateRangeStart: "Check In",
@@ -100,7 +100,7 @@ class SearchTool extends React.Component {
     );
 
     return (
-      <div>
+      <div id="hero-search">
         <form className="searchbar" action="/search" method="GET">
           <div className="first-item item">
             {locationInput}
@@ -144,25 +144,4 @@ class SearchTool extends React.Component {
 
     return null;
   }
-}
-
-function setupMainSearch(domEl) {
-  ReactDOM.render(
-    <SearchTool />,
-    domEl
-  );
-}
-
-function initMainSearchPlaces () {
-  // Show dropdown.
-  var locationInput = SearchTool.instance.refs.locationInput;
-  var autocomplete = new google.maps.places.Autocomplete(
-    locationInput, {
-      types: ['(cities)']
-    }
-  );
-  autocomplete.addListener("place_changed", function () {
-    var placeAddress = autocomplete.getPlace().formatted_address;
-    SearchTool.instance.setState({ location: placeAddress });
-  });
 }

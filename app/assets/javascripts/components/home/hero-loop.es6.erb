@@ -1,0 +1,30 @@
+class HomeHeroLoop extends React.Component {
+  render() {
+    let heroImgSrcs = [
+    <% [1, 4, 5, 7].to_a.each do |i| %>
+      "<%= asset_url "hero#{i}.jpg" %>",
+    <% end %>
+    ];
+
+    let heroImgItems = heroImgSrcs.map((imgSrc) => {
+      let style = {
+        background: "url(" + imgSrc + ")",
+        backgroundSize: "cover"
+      };
+
+      return (
+        <div className="item" key={imgSrc}>
+          <div className="img" style={style} />
+        </div>
+      );
+    });
+
+    return (
+      <div data-looper="go" data-interval="3000" className="looper looper-hero xfade">
+        <div className="looper-inner">
+          {heroImgItems}
+        </div>
+      </div>
+    );
+  }
+}

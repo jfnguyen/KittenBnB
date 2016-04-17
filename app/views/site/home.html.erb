@@ -1,49 +1,7 @@
-<div class="home">
-  <nav class="navbar hero-nav">
-    <div class="container-fluid">
-    <ul class="nav navbar-nav">
-      <li class="active">
-        <a class="brand-link" href="#">
-          ❤ kittenbnb
-        </a>
-      </li>
-    </ul>
-
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="#">Help</a></li>
-      <li><a href="#">Sign Up</a></li>
-      <li><a href="#">Log In</a></li>
-    </ul>
-    </div>
-  </nav>
-
-  <div class="hero-main">
-    <div data-looper="go" data-interval="3000" class="looper looper-hero xfade">
-      <div class="looper-inner">
-        <% [1, 4, 5, 7].to_a.shuffle!.each do |i| %>
-        <div class="item">
-          <div class="img" style="background: url(<%= asset_url "hero#{i}.jpg" %>); background-size: cover">
-          </div>
-        </div>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="hero-heading">
-      <div class="hero-heading-inner">
-        <h1>WELCOME HOME</h1>
-        <h4>Rent unique places to stay from local hosts in 190+ countries.</h4>
-      </div>
-    </div>
-
-    <!-- TODO: Make this responsive later -->
-    <div id="hero-search">
-    </div>
-  </div>
-
-  <script>
-    setupMainSearch(document.getElementById("hero-search"));
-  </script>
-
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.places_api_key %>&libraries=places&callback=initMainSearchPlaces" defer async></script>
+<div id="home">
 </div>
+
+<script>
+  Home.initialize(document.getElementById("home"));
+</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.places_api_key %>&libraries=places&callback=Home.initializeAutocompletion" defer async></script>
