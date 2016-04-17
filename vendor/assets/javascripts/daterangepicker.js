@@ -435,9 +435,14 @@
         // if attached to a text input, set the initial value
         //
 
-        if (this.element.is('input') && !this.singleDatePicker && this.autoUpdateInput) {
+      if (this.element.is('input') && !this.singleDatePicker && this.autoUpdateInput) {
+        /*
+          ME: I removed this because auto-updating doesn't mean I need
+          a default value...
+
             this.element.val(this.startDate.format(this.locale.format) + this.locale.separator + this.endDate.format(this.locale.format));
             this.element.trigger('change');
+        */
         } else if (this.element.is('input') && this.autoUpdateInput) {
             this.element.val(this.startDate.format(this.locale.format));
             this.element.trigger('change');

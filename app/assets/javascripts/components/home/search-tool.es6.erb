@@ -51,13 +51,12 @@ class HomeSearchTool extends React.Component {
     // First input exists only for datepicker to interact with.
     let dateRangeStartInput = (
       <div className="item" onClick={this.triggerClick}>
-        <input name="search[dateRange]"
-               ref="dateRange"
-               type="text"
+        <input ref="dateRange"
+               type="text" id="xyz"
                style={{ width: "0px", paddingLeft: "0px" }} />
         <input name="search[dateRangeStart]"
                type="text"
-               style={{ width: "0px", paddingLeft: "0px" }}
+               style={{ display: "none" }}
                value={this.state.dateRangeStart} readOnly />
         {this.state.dateRangeStart}
       </div>
@@ -69,7 +68,7 @@ class HomeSearchTool extends React.Component {
            onClick={this.triggerClick}>
         <input name="search[dateRangeEnd]"
                type="text"
-               style={{ width: "0px", paddingLeft: "0px" }}
+               style={{ display: "none" }}
                value={this.state.dateRangeEnd} readOnly />
         {this.state.dateRangeEnd}
       </div>
