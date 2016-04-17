@@ -48,7 +48,7 @@ class HomeSearchTool extends React.Component {
              value={this.state.location} />
     );
 
-    // Input exists only for datepicker to interact with.
+    // First input exists only for datepicker to interact with.
     let dateRangeStartInput = (
       <div className="item" onClick={this.triggerClick}>
         <input name="search[dateRange]"
@@ -59,7 +59,7 @@ class HomeSearchTool extends React.Component {
                type="text"
                style={{ width: "0px", paddingLeft: "0px" }}
                value={this.state.dateRangeStart} readOnly />
-        <span>{this.state.dateRangeStart}</span>
+        {this.state.dateRangeStart}
       </div>
     );
 
@@ -75,7 +75,7 @@ class HomeSearchTool extends React.Component {
       </div>
     );
 
-    let nums = [2, 3, 4, 5, 6]
+    let nums = [2, 3, 4, 5, 6];
     let numGuestsSelect = (
       <select name="search[numGuests]"
               className="last-item item"
