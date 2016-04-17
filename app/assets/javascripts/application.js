@@ -17,4 +17,7 @@
 //= require moment
 //= require daterangepicker
 //= require nouislider
+//= require react
+//= require react_ujs
+//= require components
 //= require_tree .
