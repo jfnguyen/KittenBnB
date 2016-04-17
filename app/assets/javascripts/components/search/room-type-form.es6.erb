@@ -1,0 +1,34 @@
+class SearchRoomTypeForm extends React.Component {
+  render() {
+    return (
+      <div className="form-row">
+        <label>Room Type</label>
+
+        <form>
+          <div className="inline-form-control">
+            <div className="mycheckbox">
+              <img src="<%= image_url "home_airglyphs.svg" %>" className="icon" />
+              Entire home/apt
+
+              <input type="checkbox" />
+            </div>
+          </div><div className="inline-form-control">
+            <div className="mycheckbox">
+              <img src="<%= image_url "private-room_airglyphs.svg" %>" className="icon" />
+              Private room
+
+              <input type="checkbox" />
+            </div>
+          </div><div className="inline-form-control">
+            <div className="mycheckbox">
+              <img src="<%= image_url "shared-room_airglyphs.svg" %>" className="icon" />
+              Shared room
+
+              <input type="checkbox" />
+            </div>
+          </div>
+        </form>
+      </div>
+    );
+  }
+}

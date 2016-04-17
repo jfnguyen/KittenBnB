@@ -1,0 +1,39 @@
+class SearchListing extends React.Component {
+  constructor(props) {
+    super(props)
+    console.log(props);
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="half">
+          <div className="listing">
+            <div className="listing-img-container">
+              <img src={this.props.src} className="listing-photo" />
+
+              <div className="price-container">
+                <div className="inner-price-container">
+                  <sup>$</sup>331
+                </div>
+              </div>
+
+              <div className="photo-container">
+                <div className="photo-round">
+                  <img src="<%= image_url "george.jpg" %>" />
+                </div>
+              </div>
+            </div>
+
+            <div className="listing-title-detail-wrapper">
+              <h3 className="listing-title">The Langtry: Beautiful 2BR Suite</h3>
+              <div className="listing-details">
+                Private Room • Stars • 14 Reviews
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}

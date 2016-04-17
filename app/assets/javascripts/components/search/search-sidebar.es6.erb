@@ -1,0 +1,19 @@
+class SearchSearchSidebar extends React.Component {
+  render() {
+    let imageSrcs = [
+      "<%= image_url "3e9cdcf7-0fa1-448c-98ce-baa8113d4f1b.jpg" %>",
+      "<%= image_url "852901bc-b93e-427f-9654-5c8826df0a90.jpg" %>",
+      "<%= image_url "df1d3cb2_original.jpg" %>",
+      "<%= image_url "5ca802f1_original.jpg" %>"
+    ];
+
+    return (
+      <div className="search-sidebar">
+        <SearchForms />
+        <div className="listings">
+          {imageSrcs.map((src, idx) => <SearchListing src={src} key={idx} />)}
+        </div>
+      </div>
+    );
+  }
+}

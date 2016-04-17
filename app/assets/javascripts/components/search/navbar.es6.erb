@@ -1,0 +1,26 @@
+class SearchNavbar extends React.Component {
+  render() {
+    return (
+      <nav className="navbar search-nav">
+        <div className="container-fluid">
+          <div className="nav navbar-left">
+            <a className="brand-link" href="/">
+              ❤ kittenbnb
+            </a>
+          </div>
+
+          <div className="nav navbar-left search-bar">
+            <i className="fa fa-search" aria-hidden="true"></i>
+            <input type="text" />
+          </div>
+
+          <ul className="nav navbar-nav navbar-right">
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Sign Up</a></li>
+            <li><a href="#">Log In</a></li>
+          </ul>
+        </div>
+      </nav>
+    );
+  }
+}
