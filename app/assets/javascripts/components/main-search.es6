@@ -9,6 +9,7 @@ class SearchTool extends React.Component {
     this.state = {
       dateRangeStartInput: "Check In",
       dateRangeEndInput: "Check Out",
+      location: "",
       numGuests: 1
     };
     this.submitForm = this.submitForm.bind(this);
@@ -34,6 +35,24 @@ class SearchTool extends React.Component {
         dateRangeEndInput: date.format("MM/DD/YYYY")
       });
     });
+  }
+
+  validationErrors() {
+    if (this.state.location == "") {
+      return "Destination location cannot be blank.";
+    } else if (this.state.dateRangeStartInput == "Check In") {
+      return "Check in date cannot be blank.";
+    } else if (this.state.dateRangeEndInput == "Check Out") {
+      return "Check out date cannot be blank.";
+    }
+
+    var validDates = (moment(new Date(this.state.dateRangeStartInput)).isBefore(
+      moment(new Date(this.state.dateRangeEndInput))));
+    if (!validDates) {
+      return "Check out must occur after check-in."
+    }
+
+    return null;
   }
 
   render() {
@@ -89,21 +108,37 @@ class SearchTool extends React.Component {
       </button>
     );
 
+    var errorMessage = this.state.currentError == null ? null : (
+        <div className="error-message">
+          <span>{this.state.currentError}</span>
+        </div>
+    );
+
     return (
-      <form className="searchbar" action="/search" method="GET">
-        <div className="first-item item">
-          {locationInput}
-          {hiddenLatLngInput}
-        </div>{dateRangeStartInput}<div className="graphic-item item">
-          →
-        </div>{ [dateRangeEndInput, numGuestsSelect, submitButton] }
-      </form>
+      <div>
+        <form className="searchbar" action="/search" method="GET">
+          <div className="first-item item">
+            {locationInput}
+            {hiddenLatLngInput}
+          </div>{dateRangeStartInput}<div className="graphic-item item">
+            →
+          </div>{ [dateRangeEndInput, numGuestsSelect, submitButton] }
+
+        </form>
+
+        {errorMessage}
+      </div>
     );
   }
 
   submitForm(e) {
-    e.preventDefault();
-    console.log(this.state);
+    var errors = this.validationErrors();
+    if (errors) {
+      e.preventDefault();
+      this.setState({ currentError: errors });
+    } else {
+      // Should let them pass!
+    }
   }
 
   triggerClick() {
