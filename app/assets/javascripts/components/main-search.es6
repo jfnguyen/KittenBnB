@@ -6,8 +6,8 @@ class SearchTool extends React.Component {
     SearchTool.instance = this;
 
     this.state = {
-      dateRangeStartInput: "Check In",
-      dateRangeEndInput: "Check Out",
+      dateRangeStart: "Check In",
+      dateRangeEnd: "Check Out",
       location: "",
       numGuests: 1
     };
@@ -27,13 +27,13 @@ class SearchTool extends React.Component {
 
     $dateRangeInput.on("didUpdateStart", (e, date) => {
       this.setState({
-        dateRangeStartInput: date.format("MM/DD/YYYY")
+        dateRangeStart: date.format("MM/DD/YYYY")
       });
     });
 
     $dateRangeInput.on("didUpdateEnd", (e, date) => {
       this.setState({
-        dateRangeEndInput: date.format("MM/DD/YYYY")
+        dateRangeEnd: date.format("MM/DD/YYYY")
       });
     });
   }
@@ -55,15 +55,23 @@ class SearchTool extends React.Component {
                ref="dateRange"
                type="text"
                style={{ width: "0px", paddingLeft: "0px" }} />
-        <span>{this.state.dateRangeStartInput}</span>
+        <input name="search[dateRangeStart]"
+               type="text"
+               style={{ width: "0px", paddingLeft: "0px" }}
+               value={this.state.dateRangeStart} readOnly />
+        <span>{this.state.dateRangeStart}</span>
       </div>
     );
 
     var dateRangeEndInput = (
-        <div className="item"
-             key="dateRangeEndInput"
-             onClick={this.triggerClick}>
-        {this.state.dateRangeEndInput}
+      <div className="item"
+           key="dateRangeEndInput"
+           onClick={this.triggerClick}>
+        <input name="search[dateRangeEnd]"
+               type="text"
+               style={{ width: "0px", paddingLeft: "0px" }}
+               value={this.state.dateRangeEnd} readOnly />
+        {this.state.dateRangeEnd}
       </div>
     );
 
@@ -74,7 +82,7 @@ class SearchTool extends React.Component {
               key="numGuestsSelect"
               onChange={(e) => this.setState({numGuests: e.target.value}) }
               value={this.state.numGuests}>
-        <option>1 Guest</option>
+        <option value="1">1 Guest</option>
         { nums.map(i => <option key={i} value={i}>{i} Guests</option>) }
       </select>
     );
@@ -122,14 +130,14 @@ class SearchTool extends React.Component {
   validationErrors() {
     if (this.state.location == "") {
       return "Destination location cannot be blank.";
-    } else if (this.state.dateRangeStartInput == "Check In") {
+    } else if (this.state.dateRangeStart == "Check In") {
       return "Check in date cannot be blank.";
-    } else if (this.state.dateRangeEndInput == "Check Out") {
+    } else if (this.state.dateRangeEnd == "Check Out") {
       return "Check out date cannot be blank.";
     }
 
-    var validDates = (moment(new Date(this.state.dateRangeStartInput)).isBefore(
-      moment(new Date(this.state.dateRangeEndInput))));
+    var validDates = (moment(new Date(this.state.dateRangeStart)).isBefore(
+      moment(new Date(this.state.dateRangeEnd))));
     if (!validDates) {
       return "Check out must occur after check-in.";
     }

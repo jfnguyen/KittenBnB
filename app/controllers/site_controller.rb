@@ -4,7 +4,6 @@ class SiteController < ApplicationController
   end
 
   def search
-    @lat_lng = JSON.parse params.require(:search).require("location-lat-lng")
-    render :search
+    render json: params.require(:search)
   end
 end
