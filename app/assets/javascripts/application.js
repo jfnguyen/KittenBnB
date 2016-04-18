@@ -16,6 +16,7 @@
 //= require bootstrap-datepicker
 //= require moment
 //= require daterangepicker
+//= require looper
 //= require nouislider
 //= require react
 //= require react_ujs
