@@ -48,6 +48,17 @@ let SearchStateStore = {
   },
 
   initialize(initialSearchState) {
+    initialSearchState = {
+      entireHome: false,
+      privateRoom: false,
+      sharedRoom: false,
+
+      minPrice: 10,
+      maxPrice: 999,
+
+      ...initialSearchState
+    };
+
     this.storeInstance = Redux.createStore(
       this.searchStateReducer,
       initialSearchState
