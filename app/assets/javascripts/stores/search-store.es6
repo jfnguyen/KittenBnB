@@ -1,52 +1,67 @@
-const UPDATE_SEARCH = 'UPDATE_SEARCH';
+let SearchStateStore = {
+  UPDATE_SEARCH: 'UPDATE_SEARCH',
+  storeInstance: null,
 
-function updateSearch(props) {
-  return {
-    type: UPDATE_SEARCH,
-    props: props
-  }
-}
-
-function searchStateReducer(state, action) {
-  switch (action.type) {
-  case UPDATE_SEARCH:
+  updateSearch(props) {
     return {
-      ...state,
-      ...action.props
+      type: this.UPDATE_SEARCH,
+      props: props
+    }
+  },
+
+  searchStateReducer(state, action) {
+    switch (action.type) {
+    case this.UPDATE_SEARCH:
+      return {
+        ...state,
+        ...action.props
+      };
+    default:
+      return state;
+    }
+  },
+
+  onChangeCallbacks(dispatch) {
+    return {
+      onValuesChange: (props) => {
+        dispatch(this.updateSearch(props));
+      },
+
+      onBoolValueChange: (propName, event) => {
+        dispatch(this.updateSearch({
+          [propName]: event.target.value === "true"
+        }));
+      },
+
+      onIntValueChange: (propName, event) => {
+        dispatch(this.updateSearch({
+          [propName]: parseInt(event.target.value)
+        }));
+      },
+
+      onStringValueChange: (propName, event) => {
+        dispatch(this.updateSearch({
+          [propName]: event.target.value
+        }));
+      },
     };
-  default:
-    return state;
+  },
+
+  initialize(initialSearchState) {
+    this.storeInstance = Redux.createStore(
+      this.searchStateReducer,
+      initialSearchState
+    );
+  },
+};
+
+// Will carefully autobind methods here.
+Object.keys(SearchStateStore).forEach(function (methodName) {
+  var method = SearchStateStore[methodName];
+
+  if (!(typeof method === "function")) {
+    return;
   }
-}
 
-let SearchStateOnChangeCallbacks = (dispatch) => ({
-  onValuesChange(props) {
-    dispatch(updateSearch(props));
-  },
-
-  onBoolValueChange(propName, event) {
-    dispatch(updateSearch({
-      [propName]: event.target.value === "true"
-    }));
-  },
-
-  onIntValueChange(propName, event) {
-    dispatch(updateSearch({
-      [propName]: parseInt(event.target.value)
-    }));
-  },
-
-  onStringValueChange(propName, event) {
-    dispatch(updateSearch({
-      [propName]: event.target.value
-    }));
-  },
+  SearchStateStore[methodName] = method.bind(SearchStateStore);
 });
-
-let searchStateStore = null;
-function initializeSearchStateStore(initialSearchState) {
-  searchStateStore = Redux.createStore(
-    searchStateReducer,
-    initialSearchState
-  );
-}

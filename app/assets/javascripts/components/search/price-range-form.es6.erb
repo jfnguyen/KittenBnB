@@ -44,5 +44,5 @@ SearchPriceRangeForm = ReactRedux.connect(
     minPrice: searchState.minPrice,
     maxPrice: searchState.maxPrice,
   }),
-  SearchStateOnChangeCallbacks
+  SearchStateStore.onChangeCallbacks,
 )(SearchPriceRangeForm);

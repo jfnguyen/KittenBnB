@@ -35,5 +35,5 @@ SearchDatesForm = ReactRedux.connect(
     dateRangeEnd: searchState.dateRangeEnd,
     numGuests: searchState.numGuests,
   }),
-  SearchStateOnChangeCallbacks
+  SearchStateStore.onChangeCallbacks,
 )(SearchDatesForm);

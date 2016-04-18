@@ -11,10 +11,10 @@ let Search = {
        maxPrice: 999
     };
 
-    initializeSearchStateStore(initialSearchState);
+    SearchStateStore.initialize(initialSearchState);
 
     ReactDOM.render(
-      <ReactRedux.Provider store={searchStateStore}>
+      <ReactRedux.Provider store={SearchStateStore.storeInstance}>
         <SearchMain />
       </ReactRedux.Provider>,
       document.getElementById("search")
