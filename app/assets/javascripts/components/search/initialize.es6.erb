@@ -9,7 +9,8 @@ window.Search = {
 
        minPrice: 10,
        maxPrice: 999
-    }
+    };
+
     initializeSearchStateStore(initialSearchState);
 
     ReactDOM.render(
@@ -18,8 +19,6 @@ window.Search = {
       </ReactRedux.Provider>,
       document.getElementById("search")
     );
-
-    // TODO: Kind of nasty how I use geElementById so much here...
 
     // TODO: should prolly move this inside SearchMapSidebar.
     let geocoder = new google.maps.Geocoder();
@@ -36,16 +35,6 @@ window.Search = {
         });
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
-      }
-    });
-
-    let slider = document.getElementById('price-range');
-    noUiSlider.create(slider, {
-      start: [20, 80],
-      connect: true,
-      range: {
-        'min': 0,
-        'max': 100
       }
     });
   }

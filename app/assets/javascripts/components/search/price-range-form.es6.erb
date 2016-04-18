@@ -1,11 +1,22 @@
 class SearchPriceRangeForm extends React.Component {
+  componentDidMount() {
+    noUiSlider.create(this.refs.slider, {
+      start: [this.props.minPrice, this.props.maxPrice],
+      connect: true,
+      range: {
+        'min': 0,
+        'max': 999
+      }
+    });
+  }
+
   render() {
     return (
       <div className="form-row">
         <label>Price Range</label>
 
         <form className="slider-form">
-          <div id="price-range"></div>
+          <div ref="slider" className="slider"></div>
 
           <div className="min-price">${this.props.minPrice}</div>
           <div className="max-price">${this.props.maxPrice}</div>

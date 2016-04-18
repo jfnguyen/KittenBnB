@@ -187,61 +187,61 @@
       width: 75%;
       border-left: 6.25px;
       border-right: 12.5px;
-    }
 
-    #price-range {
-      height: 24px;
+      .slider {
+        height: 24px !important;
 
-      border: none;
-      box-shadow: none;
-      background: transparent;
+        border: none;
+        box-shadow: none;
+        background: transparent !important;
 
-      padding-left: 6.25px;
-      padding-right: 6.25px;
-    }
+        padding-left: 6.25px;
+        padding-right: 6.25px;
+      }
 
-    .noUi-background {
-      height: 4px;
-      border-bottom: 2px solid white;
+      .noUi-background {
+        height: 4px;
+        border-bottom: 2px solid white;
 
-      background: #dce0e0;
-    }
+        background: #dce0e0;
+      }
 
-    .noUi-base {
-      background: #dce0e0;
-      height: 24px;
-      border-bottom: 11px solid white;
-      border-top: 11px solid white;
-    }
+      .noUi-base {
+        background: #dce0e0;
+        height: 24px;
+        border-bottom: 11px solid white;
+        border-top: 11px solid white;
+      }
 
-    .noUi-connect {
-      background: #ff5a5f;
-      height: 4px;
-      box-shadow: none;
-    }
+      .noUi-connect {
+        background: #ff5a5f;
+        height: 4px;
+        box-shadow: none;
+      }
 
-    .noUi-handle {
-      border-radius: 100%;
-      height: 24px;
-      width: 24px;
-      top: -10px;
-    }
+      .noUi-handle {
+        border-radius: 100%;
+        height: 24px;
+        width: 24px;
+        top: -10px;
+      }
 
-    .noUi-handle:before,
-    .noUi-handle:after {
-      content: none;
-    }
+      .noUi-handle:before,
+      .noUi-handle:after {
+        content: none;
+      }
 
-    .min-price {
-      position: absolute;
-      left: 0px;
-      transform: translate(-50%, 0%);
-    }
+      .min-price {
+        position: absolute;
+        left: 0px;
+        transform: translate(-50%, 0%);
+      }
 
-    .max-price {
-      position: absolute;
-      right: 0px;
-      transform: translate(25%, 0%);
+      .max-price {
+        position: absolute;
+        right: 0px;
+        transform: translate(25%, 0%);
+      }
     }
   }
 
