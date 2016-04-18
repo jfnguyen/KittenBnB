@@ -124,9 +124,12 @@
     }
 
     input, select {
-      line-height: 36px;
       vertical-align: middle;
       border-radius: 2px;
+    }
+
+    input {
+      line-height: 36px;
     }
 
     .mycheckbox {

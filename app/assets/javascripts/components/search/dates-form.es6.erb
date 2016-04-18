@@ -30,9 +30,9 @@ SearchDatesForm = ReactRedux.connect(
     numGuests: searchState.numGuests
   }),
   (dispatch) => ({
-    onNumGuestsChange(event) {
+    onNumGuestsChange(value) {
       dispatch(updateSearch({
-        numGuests: event.target.value
+        numGuests: value
       }));
     },
 
