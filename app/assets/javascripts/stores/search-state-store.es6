@@ -56,7 +56,7 @@ let SearchStateStore = {
       minPrice: 10,
       maxPrice: 999,
 
-      searchBounds: null,
+      geoBounds: null,
 
       ...initialSearchState
     };

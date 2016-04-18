@@ -43,7 +43,6 @@ class SearchMapSidebar extends React.Component {
       }
     };
 
-    console.log(geoBounds);
     this.props.onValuesChange("geoBounds", geoBounds);
   }
 
