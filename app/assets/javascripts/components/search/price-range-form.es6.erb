@@ -7,10 +7,23 @@ class SearchPriceRangeForm extends React.Component {
         <form className="slider-form">
           <div id="price-range"></div>
 
-          <div className="min-price">$100</div>
-          <div className="max-price">$999</div>
+          <div className="min-price">${this.props.minPrice}</div>
+          <div className="max-price">${this.props.maxPrice}</div>
         </form>
       </div>
     );
   }
 }
+
+SearchPriceRangeForm.propTypes = {
+  minPrice: React.PropTypes.number.isRequired,
+  maxPrice: React.PropTypes.number.isRequired
+};
+
+SearchPriceRangeForm = ReactRedux.connect(
+  (searchState) => ({
+    minPrice: searchState.minPrice,
+    maxPrice: searchState.maxPrice,
+  }),
+  SearchStateOnChangeCallbacks
+)(SearchPriceRangeForm);
