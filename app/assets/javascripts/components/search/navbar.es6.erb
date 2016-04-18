@@ -44,6 +44,6 @@ class SearchNavbar extends React.Component {
 
 SearchNavbar = ReactRedux.connect(
   (searchState) => ({
-    location: searchState.location
+    location: searchState.params.location
   })
 )(SearchNavbar)

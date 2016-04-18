@@ -9,7 +9,13 @@ let SearchStateStore = {
     }
   },
 
-  searchStateReducer(state, action) {
+  paramsReducer(state, action) {
+    if (state === undefined) {
+      // Satisfy assertReducerSanity silliness. I will always give an
+      // initial state...
+      return {};
+    }
+
     switch (action.type) {
     case this.UPDATE_SEARCH:
       return {
@@ -19,6 +25,17 @@ let SearchStateStore = {
     default:
       return state;
     }
+  },
+
+  resultsReducer(state, action) {
+    if (state === undefined) {
+      // Satisfy assertReducerSanity silliness. I will always give an
+      // initial state...
+      return {};
+    }
+
+    // TODO!
+    return state;
   },
 
   onChangeCallbacks(dispatch) {
@@ -47,8 +64,8 @@ let SearchStateStore = {
     };
   },
 
-  initialize(initialSearchState) {
-    initialSearchState = {
+  initialize(initialParams) {
+    initialParams = {
       entireHome: false,
       privateRoom: false,
       sharedRoom: false,
@@ -58,12 +75,22 @@ let SearchStateStore = {
 
       geoBounds: null,
 
-      ...initialSearchState
+      ...initialParams
+    };
+
+    let initialResults = {
+      isFetching: false,
+      listings: []
     };
 
     this.storeInstance = Redux.createStore(
-      this.searchStateReducer,
-      initialSearchState
+      Redux.combineReducers({
+        params: this.paramsReducer,
+        results: this.resultsReducer
+      }), {
+        params: initialParams,
+        results: initialResults
+      }
     );
   },
 };

@@ -42,8 +42,8 @@ SearchPriceRangeForm.propTypes = {
 
 SearchPriceRangeForm = ReactRedux.connect(
   (searchState) => ({
-    minPrice: searchState.minPrice,
-    maxPrice: searchState.maxPrice,
+    minPrice: searchState.params.minPrice,
+    maxPrice: searchState.params.maxPrice,
   }),
   SearchStateStore.onChangeCallbacks,
 )(SearchPriceRangeForm);

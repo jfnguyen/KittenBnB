@@ -1,11 +1,11 @@
 let Search = {
   initialize () {
-    let initialSearchState = {
+    let initialSearchParams = {
        ...gon.search,
        numGuests: parseInt(gon.search.numGuests),
     };
 
-    SearchStateStore.initialize(initialSearchState);
+    SearchStateStore.initialize(initialSearchParams);
 
     ReactDOM.render(
       <ReactRedux.Provider store={SearchStateStore.storeInstance}>

@@ -31,9 +31,9 @@ SearchDatesForm.propTypes = {
 
 SearchDatesForm = ReactRedux.connect(
   (searchState) => ({
-    dateRangeStart: searchState.dateRangeStart,
-    dateRangeEnd: searchState.dateRangeEnd,
-    numGuests: searchState.numGuests,
+    dateRangeStart: searchState.params.dateRangeStart,
+    dateRangeEnd: searchState.params.dateRangeEnd,
+    numGuests: searchState.params.numGuests,
   }),
   SearchStateStore.onChangeCallbacks,
 )(SearchDatesForm);

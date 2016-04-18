@@ -47,9 +47,9 @@ SearchRoomTypeForm.propTypes = {
 
 SearchRoomTypeForm = ReactRedux.connect(
   (searchState) => ({
-    entireHome: searchState.entireHome,
-    privateRoom: searchState.privateRoom,
-    sharedRoom: searchState.sharedRoom,
+    entireHome: searchState.params.entireHome,
+    privateRoom: searchState.params.privateRoom,
+    sharedRoom: searchState.params.sharedRoom,
   }),
   SearchStateStore.onChangeCallbacks,
 )(SearchRoomTypeForm);

@@ -61,7 +61,7 @@ SearchMapSidebar.propTypes = {
 
 SearchMapSidebar = ReactRedux.connect(
   (searchState) => ({
-    location: searchState.location
+    location: searchState.params.location
   }),
   SearchStateStore.onChangeCallbacks
 )(SearchMapSidebar);
