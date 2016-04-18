@@ -6,16 +6,16 @@ class SearchDatesForm extends React.Component {
 
         <form>
           <div className="inline-form-control">
-        <input type="text"
-               value={this.props.startDate}
-               onChange={this.props.onStartDateChange} />
+            <input type="text"
+                   value={this.props.startDate}
+                   onChange={this.props.onStartDateChange} />
           </div><div className="inline-form-control">
-        <input type="text"
-               value={this.props.endDate}
-               onChange={this.props.onEndDateChange} />
+            <input type="text"
+                   value={this.props.endDate}
+                   onChange={this.props.onEndDateChange} />
           </div><div className="inline-form-control">
-        <NumGuestsSelect onChange={this.props.onNumGuestsChange}
-        value={this.props.numGuests} />
+            <NumGuestsSelect onChange={this.props.onNumGuestsChange}
+                             value={this.props.numGuests} />
           </div>
         </form>
       </div>
