@@ -1,12 +1,20 @@
 class SearchPriceRangeForm extends React.Component {
   componentDidMount() {
-    noUiSlider.create(this.refs.slider, {
+    let slider = noUiSlider.create(this.refs.slider, {
       start: [this.props.minPrice, this.props.maxPrice],
       connect: true,
       range: {
         'min': 0,
         'max': 999
-      }
+      },
+      step: 1
+    });
+
+    slider.on("update", (values, handle) => {
+      this.props.onValuesChange({
+        minPrice: Math.round(values[0]),
+        maxPrice: Math.round(values[1])
+      });
     });
   }
 

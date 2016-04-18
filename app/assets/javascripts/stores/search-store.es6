@@ -20,6 +20,10 @@ function searchStateReducer(state, action) {
 }
 
 var SearchStateOnChangeCallbacks = (dispatch) => ({
+  onValuesChange(props) {
+    dispatch(updateSearch(props));
+  },
+
   onBoolValueChange(propName, event) {
     dispatch(updateSearch({
       [propName]: event.target.value === "true"
