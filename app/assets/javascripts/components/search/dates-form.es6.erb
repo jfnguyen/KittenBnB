@@ -14,9 +14,8 @@ class SearchDatesForm extends React.Component {
                value={this.props.endDate}
                onChange={this.props.onEndDateChange} />
           </div><div className="inline-form-control">
-            <select>
-              Num Guests
-            </select>
+        <NumGuestsSelect onChange={this.props.onNumGuestsChange}
+        value={this.props.numGuests} />
           </div>
         </form>
       </div>
@@ -31,6 +30,12 @@ SearchDatesForm = ReactRedux.connect(
     numGuests: searchState.numGuests
   }),
   (dispatch) => ({
+    onNumGuestsChange(event) {
+      dispatch(updateSearch({
+        numGuests: event.target.value
+      }));
+    },
+
     onStartDateChange(event) {
       dispatch(updateSearch({
         dateRangeStart: event.target.value
@@ -41,6 +46,6 @@ SearchDatesForm = ReactRedux.connect(
       dispatch(updateSearch({
         dateRangeEnd: event.target.value
       }));
-    }
+    },
   })
 )(SearchDatesForm);

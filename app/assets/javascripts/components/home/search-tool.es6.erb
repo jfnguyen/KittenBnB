@@ -75,16 +75,12 @@ class HomeSearchTool extends React.Component {
       </div>
     );
 
-    let nums = [2, 3, 4, 5, 6];
     let numGuestsSelect = (
-      <select name="search[numGuests]"
-              className="last-item item"
-              key="numGuestsSelect"
-              onChange={(e) => this.setState({numGuests: e.target.value}) }
-              value={this.state.numGuests}>
-        <option value="1">1 Guest</option>
-        { nums.map(i => <option key={i} value={i}>{i} Guests</option>) }
-      </select>
+      <NumGuestsSelect name="search[numGuests]"
+                       className="last-item item"
+                       key="numGuestsSelect"
+                       onChange={(v) => this.setState({numGuests: v}) }
+                       value={this.state.numGuests} />
     );
 
     let submitButton = (
