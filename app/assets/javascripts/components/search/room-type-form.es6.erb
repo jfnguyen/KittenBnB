@@ -10,21 +10,27 @@ class SearchRoomTypeForm extends React.Component {
               <img src="<%= image_url "home_airglyphs.svg" %>" className="icon" />
               Entire home/apt
 
-              <input type="checkbox" />
+             <input type="checkbox"
+                    value={this.props.entireHome}
+                    onChange={(e) => this.props.onBoolChange("entireHome", e)} />
             </div>
           </div><div className="inline-form-control">
             <div className="mycheckbox">
               <img src="<%= image_url "private-room_airglyphs.svg" %>" className="icon" e/>
               Private room
 
-              <input type="checkbox" />
+             <input type="checkbox"
+                    value={this.props.entireHome}
+                    onChange={(e) => this.props.onBoolChange("privateRoom", e)} />
             </div>
           </div><div className="inline-form-control">
             <div className="mycheckbox">
               <img src="<%= image_url "shared-room_airglyphs.svg" %>" className="icon" />
               Shared room
 
-              <input type="checkbox" />
+             <input type="checkbox"
+                    value={this.props.entireHome}
+                    onChange={(e) => this.props.onBoolChange("sharedRoom", e)} />
             </div>
           </div>
         </form>
@@ -32,3 +38,25 @@ class SearchRoomTypeForm extends React.Component {
     );
   }
 }
+
+SearchRoomTypeForm.propTypes = {
+  entireHome: React.PropTypes.bool.isRequired,
+  privateRoom: React.PropTypes.bool.isRequired,
+  sharedRoom: React.PropTypes.bool.isRequired,
+};
+
+SearchRoomTypeForm = ReactRedux.connect(
+  (searchState) => ({
+    entireHome: searchState.entireHome,
+    privateRoom: searchState.privateRoom,
+    sharedRoom: searchState.sharedRoom,
+  }),
+
+  (dispatch) => ({
+    onBoolChange(propName, event) {
+      dispatch(updateSearch({
+        [propName]: event.target.value === "true"
+      }));
+    }
+  })
+)(SearchRoomTypeForm);
