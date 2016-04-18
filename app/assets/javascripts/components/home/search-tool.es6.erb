@@ -75,11 +75,14 @@ class HomeSearchTool extends React.Component {
       </div>
     );
 
+    let numGuestsOnChange = (e) => {
+      this.setState({ numGuests: parseInt(e.target.value)});
+    };
     let numGuestsSelect = (
       <NumGuestsSelect name="search[numGuests]"
                        className="last-item item"
                        key="numGuestsSelect"
-                       onChange={(v) => this.setState({numGuests: v}) }
+                       onChange={numGuestsOnChange}
                        value={this.state.numGuests} />
     );
 
