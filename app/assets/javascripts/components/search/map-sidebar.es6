@@ -12,13 +12,39 @@ class SearchMapSidebar extends React.Component {
         lng: results[0].geometry.location.lng(),
       }
 
-      let map = new google.maps.Map(this.refs.map, {
+      this.mapInstance = new google.maps.Map(this.refs.map, {
         center: center,
         disableDefaultUI: true,
         zoomControl: true,
         zoom: 12,
       });
+
+      // Reduce speed of bounds changed reports.
+      this.mapInstance.addListener("bounds_changed", _.debounce(
+        this.onBoundsChanged.bind(this),
+        250
+      ));
     });
+  }
+
+  onBoundsChanged() {
+    let northEast = this.mapInstance.getBounds().getNorthEast();
+    let southWest = this.mapInstance.getBounds().getSouthWest();
+
+    let geoBounds = {
+      northEast: {
+        lat: northEast.lat(),
+        lng: northEast.lng()
+      },
+
+      southWest: {
+        lat: southWest.lat(),
+        lng: southWest.lng()
+      }
+    };
+
+    console.log(geoBounds);
+    this.props.onValuesChange("geoBounds", geoBounds);
   }
 
   render() {
@@ -30,8 +56,13 @@ class SearchMapSidebar extends React.Component {
   }
 }
 
+SearchMapSidebar.propTypes = {
+  location: React.PropTypes.string.isRequired
+};
+
 SearchMapSidebar = ReactRedux.connect(
   (searchState) => ({
     location: searchState.location
-  })
+  }),
+  SearchStateStore.onChangeCallbacks
 )(SearchMapSidebar);
