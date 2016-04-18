@@ -8,11 +8,11 @@ function updateSearch(props) {
 }
 
 function searchStateReducer(state, action) {
-  switch (action) {
+  switch (action.type) {
   case UPDATE_SEARCH:
     return {
       ...state,
-      ...newState
+      ...action.props
     };
   default:
     return state;
