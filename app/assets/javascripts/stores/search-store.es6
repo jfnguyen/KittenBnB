@@ -19,7 +19,7 @@ function searchStateReducer(state, action) {
   }
 }
 
-var SearchStateOnChangeCallbacks = (dispatch) => ({
+let SearchStateOnChangeCallbacks = (dispatch) => ({
   onValuesChange(props) {
     dispatch(updateSearch(props));
   },
@@ -43,8 +43,9 @@ var SearchStateOnChangeCallbacks = (dispatch) => ({
   },
 });
 
+let searchStateStore = null;
 function initializeSearchStateStore(initialSearchState) {
-  window.searchStateStore = Redux.createStore(
+  searchStateStore = Redux.createStore(
     searchStateReducer,
     initialSearchState
   );

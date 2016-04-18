@@ -1,4 +1,4 @@
-window.Home = {
+let Home = {
   initialize(domEl) {
     ReactDOM.render(
       <HomeMain />,
