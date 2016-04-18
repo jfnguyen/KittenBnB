@@ -3,6 +3,7 @@ class SearchPriceRangeForm extends React.Component {
     let slider = noUiSlider.create(this.refs.slider, {
       start: [this.props.minPrice, this.props.maxPrice],
       connect: true,
+      margin: 10,
       range: {
         'min': 0,
         'max': 999
