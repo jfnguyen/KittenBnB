@@ -22,5 +22,6 @@
 //= require react_ujs
 //= require redux
 //= require react-redux
+//= require_tree ./stores
 //= require components
 //= require_tree .

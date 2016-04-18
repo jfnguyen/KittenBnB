@@ -12,7 +12,7 @@ class SearchRoomTypeForm extends React.Component {
 
              <input type="checkbox"
                     value={this.props.entireHome}
-                    onChange={(e) => this.props.onBoolChange("entireHome", e)} />
+                    onChange={(e) => this.props.onBoolValueChange("entireHome", e)} />
             </div>
           </div><div className="inline-form-control">
             <div className="mycheckbox">
@@ -21,7 +21,7 @@ class SearchRoomTypeForm extends React.Component {
 
              <input type="checkbox"
                     value={this.props.entireHome}
-                    onChange={(e) => this.props.onBoolChange("privateRoom", e)} />
+                    onChange={(e) => this.props.onBoolValueChange("privateRoom", e)} />
             </div>
           </div><div className="inline-form-control">
             <div className="mycheckbox">
@@ -30,7 +30,7 @@ class SearchRoomTypeForm extends React.Component {
 
              <input type="checkbox"
                     value={this.props.entireHome}
-                    onChange={(e) => this.props.onBoolChange("sharedRoom", e)} />
+                    onChange={(e) => this.props.onBoolValueChange("sharedRoom", e)} />
             </div>
           </div>
         </form>
@@ -51,12 +51,5 @@ SearchRoomTypeForm = ReactRedux.connect(
     privateRoom: searchState.privateRoom,
     sharedRoom: searchState.sharedRoom,
   }),
-
-  (dispatch) => ({
-    onBoolChange(propName, event) {
-      dispatch(updateSearch({
-        [propName]: event.target.value === "true"
-      }));
-    }
-  })
+  SearchStateOnChangeCallbacks
 )(SearchRoomTypeForm);

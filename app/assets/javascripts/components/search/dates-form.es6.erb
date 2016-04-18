@@ -8,14 +8,14 @@ class SearchDatesForm extends React.Component {
           <div className="inline-form-control">
             <input type="text"
                    value={this.props.startDate}
-                   onChange={this.props.onStartDateChange} />
+                   onChange={(e) => this.props.onStringValueChange("rangeStartDate", e)} />
           </div><div className="inline-form-control">
             <input type="text"
                    value={this.props.endDate}
-                   onChange={this.props.onEndDateChange} />
+                   onChange={(e) => this.props.onStringValueChange("rangeEndDate", e)} />
           </div><div className="inline-form-control">
-            <NumGuestsSelect onChange={this.props.onNumGuestsChange}
-                             value={this.props.numGuests} />
+            <NumGuestsSelect value={this.props.numGuests}
+                             onChange={(e) => this.props.onIntValueChange("numGuests", e)} />
           </div>
         </form>
       </div>
@@ -27,26 +27,7 @@ SearchDatesForm = ReactRedux.connect(
   (searchState) => ({
     startDate: searchState.dateRangeStart,
     endDate: searchState.dateRangeEnd,
-    numGuests: searchState.numGuests
+    numGuests: searchState.numGuests,
   }),
-
-  (dispatch) => ({
-    onNumGuestsChange(value) {
-      dispatch(updateSearch({
-        numGuests: value
-      }));
-    },
-
-    onStartDateChange(event) {
-      dispatch(updateSearch({
-        dateRangeStart: event.target.value
-      }));
-    },
-
-    onEndDateChange(event) {
-      dispatch(updateSearch({
-        dateRangeEnd: event.target.value
-      }));
-    },
-  })
+  SearchStateOnChangeCallbacks
 )(SearchDatesForm);

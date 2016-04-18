@@ -19,6 +19,26 @@ function searchStateReducer(state, action) {
   }
 }
 
+var SearchStateOnChangeCallbacks = (dispatch) => ({
+  onBoolValueChange(propName, event) {
+    dispatch(updateSearch({
+      [propName]: event.target.value === "true"
+    }));
+  },
+
+  onIntValueChange(propName, event) {
+    dispatch(updateSearch({
+      [propName]: parseInt(event.target.value)
+    }));
+  },
+
+  onStringValueChange(propName, event) {
+    dispatch(updateSearch({
+      [propName]: event.target.value
+    }));
+  },
+});
+
 function initializeSearchStateStore(initialSearchState) {
   window.searchStateStore = Redux.createStore(
     searchStateReducer,

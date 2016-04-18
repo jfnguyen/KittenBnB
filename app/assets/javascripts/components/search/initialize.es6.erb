@@ -1,6 +1,13 @@
 window.Search = {
   initialize () {
-    initializeSearchStateStore(gon.search);
+    let initialSearchState = {
+       ...gon.search,
+       numGuests: parseInt(gon.search.numGuests),
+       entireHome: gon.search.entireHome || false,
+       privateRoom: gon.search.privateRoom || false,
+       sharedRoom: gon.search.sharedRoom || false,
+    }
+    initializeSearchStateStore(initialSearchState);
 
     ReactDOM.render(
       <ReactRedux.Provider store={searchStateStore}>
