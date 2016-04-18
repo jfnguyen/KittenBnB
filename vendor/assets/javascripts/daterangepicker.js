@@ -421,10 +421,11 @@
             .on('mouseleave.daterangepicker', 'li', $.proxy(this.updateFormInputs, this));
 
         if (this.element.is('input')) {
-            this.element.on({
+          // ME: Removed this because I won't use datepicker with a textbox they can touch?
+          //                 'keyup.daterangepicker': $.proxy(this.elementChanged, this),
+          this.element.on({
                 'click.daterangepicker': $.proxy(this.show, this),
                 'focus.daterangepicker': $.proxy(this.show, this),
-                'keyup.daterangepicker': $.proxy(this.elementChanged, this),
                 'keydown.daterangepicker': $.proxy(this.keydown, this)
             });
         } else {

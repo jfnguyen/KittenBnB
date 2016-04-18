@@ -22,7 +22,8 @@ class HomeSearchTool extends React.Component {
 
     $dateRangeInput.daterangepicker({
       autoApply: true,
-      drops: "down"
+      drops: "down",
+      minDate: moment().startOf('day'),
     });
 
     $dateRangeInput.on("didUpdateStart", (e, date) => {
