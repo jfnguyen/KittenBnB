@@ -1,7 +1,11 @@
 window.Search = {
   initialize () {
+    initializeSearchStateStore(gon.search);
+
     ReactDOM.render(
-      <SearchMain />,
+      <ReactRedux.Provider store={searchStateStore}>
+        <SearchMain />
+      </ReactRedux.Provider>,
       document.getElementById("search")
     );
 
