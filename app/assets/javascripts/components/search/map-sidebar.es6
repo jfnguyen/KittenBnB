@@ -1,4 +1,11 @@
 class SearchMapSidebar extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.mapInstance = null;
+    this.markers = null;
+  }
+
   recenterMap() {
     // There may not be a map instance on the initial centering.
     if (this.mapInstance) {
@@ -41,6 +48,8 @@ class SearchMapSidebar extends React.Component {
     if (!_(prevProps.geoCenter).isEqual(this.props.geoCenter)) {
       this.recenterMap();
     }
+
+    this.resetMarkers();
   }
 
   onBoundsChanged() {
@@ -70,6 +79,21 @@ class SearchMapSidebar extends React.Component {
       </div>
     );
   }
+
+  resetMarkers() {
+    if (this.markers !== null) {
+      this.markers.forEach((marker) => {
+        marker.setMap(null);
+      });
+    }
+
+    this.markers = this.props.listings.map((listing) => {
+      return new google.maps.Marker({
+        position: new google.maps.LatLng(listing.latitude, listing.longitude),
+        map: this.mapInstance,
+      });
+    });
+  }
 }
 
 SearchMapSidebar.propTypes = {
@@ -79,6 +103,7 @@ SearchMapSidebar.propTypes = {
 SearchMapSidebar = ReactRedux.connect(
   (searchState) => ({
     geoCenter: searchState.params.geoCenter,
+    listings: searchState.results.listings,
     location: searchState.params.location
   }),
   SearchStateStore.onChangeCallbacks

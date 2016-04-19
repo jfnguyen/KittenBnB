@@ -45,7 +45,6 @@ let SearchStateStore = {
   resultsReducer(results, action) {
     switch (action.type) {
     case this.REPLACE_LISTINGS:
-      console.log(action.listings)
       return {
         listings: action.listings
       };
@@ -110,7 +109,6 @@ let SearchStateStore = {
     };
 
     let initialResults = {
-      isFetching: false,
       listings: []
     };
 
