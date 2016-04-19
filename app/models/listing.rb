@@ -25,7 +25,7 @@ class Listing < ActiveRecord::Base
   end
 
   def self.search_force_results(search_params)
-    listings = self.search(search_params).to_a
+    listings = self.search(search_params).order(:id).take(20).to_a
     until listings.length >= 20
       lats, lngs = get_bounds(search_params)
 
