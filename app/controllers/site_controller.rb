@@ -12,7 +12,7 @@ class SiteController < ApplicationController
       end
 
       format.json do
-        render json: Listing.search(@search_params)
+        render json: Listing.search_force_results(@search_params)
       end
     end
   end
