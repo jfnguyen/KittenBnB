@@ -26,6 +26,8 @@ class SearchDatesForm extends React.Component {
 
       if (invalidDateRangeEnd) {
         $dateRangeEndInput.trigger("click");
+      } else {
+        this.props.fetchResults();
       }
     });
 
@@ -42,10 +44,16 @@ class SearchDatesForm extends React.Component {
 
     $dateRangeEndInput.on("apply.daterangepicker", (e) => {
       this.props.onStringValueChange("dateRangeEnd", e);
+      this.props.fetchResults();
     });
   }
 
   render() {
+    let numGuestsChangeHandler = (event) => {
+      this.props.onIntValueChange("numGuests", event);
+      this.props.fetchResults();
+    };
+
     return (
       <div className="form-row">
         <label>Dates</label>
@@ -63,7 +71,7 @@ class SearchDatesForm extends React.Component {
                    readOnly />
           </div><div className="inline-form-control">
             <NumGuestsSelect value={this.props.numGuests}
-                             onChange={(e) => this.props.onIntValueChange("numGuests", e)} />
+                             onChange={numGuestsChangeHandler} />
           </div>
         </form>
       </div>
