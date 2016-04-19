@@ -105,6 +105,8 @@ let SearchStateStore = {
       geoBounds: null,
       geoCenter: null,
 
+      candidateLocations: [],
+
       ...initialParams
     };
 

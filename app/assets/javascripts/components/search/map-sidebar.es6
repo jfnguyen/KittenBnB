@@ -78,7 +78,18 @@ class SearchMapSidebar extends React.Component {
       geoCenter: geoCenter
     });
 
-    this.props.fetchResults();
+    // TODO: random sampling prolly doesn't belong inside here?
+    StaticMap.sampleRandomPoints(this.mapInstance)
+      .then((randomPoints) => {
+        this.props.onValuesChange({
+          candidateLocations: randomPoints
+        });
+
+        // Shouldn't typically reset here; only because we aren't
+        // fetching ATM.
+        this.resetMarkers();
+        //this.props.fetchResults();
+      });
   }
 
   render() {
@@ -96,12 +107,21 @@ class SearchMapSidebar extends React.Component {
       });
     }
 
+    this.markers = this.props.candidateLocations.map((latLng) => {
+      return new google.maps.Marker({
+        position: latLng,
+        map: this.mapInstance
+      });
+    });
+
+    /*
     this.markers = this.props.listings.map((listing) => {
       return new google.maps.Marker({
         position: new google.maps.LatLng(listing.latitude, listing.longitude),
         map: this.mapInstance,
       });
     });
+    */
   }
 }
 
@@ -111,6 +131,7 @@ SearchMapSidebar.propTypes = {
 
 SearchMapSidebar = ReactRedux.connect(
   (searchState) => ({
+    candidateLocations: searchState.params.candidateLocations,
     geoBounds: searchState.params.geoBounds,
     geoCenter: searchState.params.geoCenter,
     listings: searchState.results.listings,
