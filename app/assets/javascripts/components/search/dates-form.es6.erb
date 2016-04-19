@@ -1,4 +1,50 @@
 class SearchDatesForm extends React.Component {
+  componentDidMount() {
+    let $dateRangeStartInput = $(this.refs.dateRangeStartInput);
+    let $dateRangeEndInput = $(this.refs.dateRangeEndInput);
+
+    $dateRangeStartInput.daterangepicker({
+      autoApply: true,
+      drops: "down",
+      minDate: moment().startOf('day'),
+      singleDatePicker: true,
+    });
+
+    $dateRangeStartInput.on("apply.daterangepicker", (e) => {
+      let dateRangeStart = moment(new Date(e.target.value));
+      let dateRangeEnd = moment(new Date(this.props.dateRangeEnd));
+
+      let invalidDateRangeEnd = !dateRangeStart.isBefore(dateRangeEnd)
+      if (invalidDateRangeEnd) {
+        dateRangeEnd = dateRangeStart.clone().add(1, 'day');
+      }
+
+      this.props.onValuesChange({
+        dateRangeStart: dateRangeStart.format("MM/DD/YYYY"),
+        dateRangeEnd: dateRangeEnd.format("MM/DD/YYYY"),
+      });
+
+      if (invalidDateRangeEnd) {
+        $dateRangeEndInput.trigger("click");
+      }
+    });
+
+    $dateRangeEndInput.daterangepicker({
+      autoApply: true,
+      drops: "down",
+      singleDatePicker: true,
+      isInvalidDate: (date) => {
+        let dateRangeStart = this.props.dateRangeStart;
+        let dateRangeEnd = moment(date);
+        return !dateRangeEnd.isAfter(new Date(dateRangeStart));
+      }
+    })
+
+    $dateRangeEndInput.on("apply.daterangepicker", (e) => {
+      this.props.onStringValueChange("dateRangeEnd", e);
+    });
+  }
+
   render() {
     return (
       <div className="form-row">
@@ -7,12 +53,14 @@ class SearchDatesForm extends React.Component {
         <form>
           <div className="inline-form-control">
             <input type="text"
+                   ref="dateRangeStartInput"
                    value={this.props.dateRangeStart}
-                   onChange={(e) => this.props.onStringValueChange("dateRangeStart", e)} />
+                   readOnly />
           </div><div className="inline-form-control">
             <input type="text"
+                   ref="dateRangeEndInput"
                    value={this.props.dateRangeEnd}
-                   onChange={(e) => this.props.onStringValueChange("dateRangeEnd", e)} />
+                   readOnly />
           </div><div className="inline-form-control">
             <NumGuestsSelect value={this.props.numGuests}
                              onChange={(e) => this.props.onIntValueChange("numGuests", e)} />
