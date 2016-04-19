@@ -74,9 +74,9 @@ let SearchStateStore = {
         dispatch(this.updateSearch(props));
       },
 
-      onBoolValueChange: (propName, event) => {
+      onBoolValueChange: (propName, value) => {
         dispatch(this.updateSearch({
-          [propName]: event.target.value === "true"
+          [propName]: value
         }));
       },
 
