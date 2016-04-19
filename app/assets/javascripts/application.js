@@ -23,6 +23,7 @@
 //= require react_ujs
 //= require redux
 //= require react-redux
+//= require redux-thunk
 //= require_tree ./stores
 //= require components
 //= require_tree .
