@@ -68,7 +68,16 @@ class SearchMapSidebar extends React.Component {
       }
     };
 
-    this.props.onValuesChange({ geoBounds: geoBounds });
+    let geoCenter = {
+      lat: this.mapInstance.getCenter().lat(),
+      lng: this.mapInstance.getCenter().lng(),
+    };
+
+    this.props.onValuesChange({
+      geoBounds: geoBounds,
+      geoCenter: geoCenter
+    });
+
     this.props.fetchResults();
   }
 
@@ -102,6 +111,7 @@ SearchMapSidebar.propTypes = {
 
 SearchMapSidebar = ReactRedux.connect(
   (searchState) => ({
+    geoBounds: searchState.params.geoBounds,
     geoCenter: searchState.params.geoCenter,
     listings: searchState.results.listings,
     location: searchState.params.location
