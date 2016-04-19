@@ -65,6 +65,11 @@ let SearchStateStore = {
 
   onChangeCallbacks(dispatch) {
     return {
+      fetchResults: () => {
+        // TODO: prolly should rename onChangeCallbacks...
+        dispatch(this.fetchResults());
+      },
+
       onValuesChange: (props) => {
         dispatch(this.updateSearch(props));
       },

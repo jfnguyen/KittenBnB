@@ -1,5 +1,16 @@
 class SearchRoomTypeForm extends React.Component {
   render() {
+    let changeHandlers = _([
+      "entireHome",
+      "privateRoom",
+      "sharedRoom",
+    ]).map((propName) => {
+      return [propName, (event) => {
+        this.props.onBoolValueChange(propName, event);
+        this.props.fetchResults();
+      }];
+    }).fromPairs().value();
+
     return (
       <div className="form-row">
         <label>Room Type</label>
@@ -12,7 +23,7 @@ class SearchRoomTypeForm extends React.Component {
 
              <input type="checkbox"
                     value={this.props.entireHome}
-                    onChange={(e) => this.props.onBoolValueChange("entireHome", e)} />
+                    onChange={changeHandlers.entireHome} />
             </div>
           </div><div className="inline-form-control">
             <div className="mycheckbox">
@@ -21,7 +32,7 @@ class SearchRoomTypeForm extends React.Component {
 
              <input type="checkbox"
                     value={this.props.entireHome}
-                    onChange={(e) => this.props.onBoolValueChange("privateRoom", e)} />
+                    onChange={changeHandlers.privateRoom} />
             </div>
           </div><div className="inline-form-control">
             <div className="mycheckbox">
@@ -30,7 +41,7 @@ class SearchRoomTypeForm extends React.Component {
 
              <input type="checkbox"
                     value={this.props.entireHome}
-                    onChange={(e) => this.props.onBoolValueChange("sharedRoom", e)} />
+                    onChange={changeHandlers.sharedRoom} />
             </div>
           </div>
         </form>
