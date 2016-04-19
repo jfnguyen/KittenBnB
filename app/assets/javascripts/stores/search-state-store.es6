@@ -67,31 +67,24 @@ let SearchStateStore = {
     return {
       onValuesChange: (props) => {
         dispatch(this.updateSearch(props));
-        dispatch(this.fetchResults());
       },
 
       onBoolValueChange: (propName, event) => {
         dispatch(this.updateSearch({
           [propName]: event.target.value === "true"
         }));
-
-        dispatch(this.fetchResults());
       },
 
       onIntValueChange: (propName, event) => {
         dispatch(this.updateSearch({
           [propName]: parseInt(event.target.value)
         }));
-
-        dispatch(this.fetchResults());
       },
 
       onStringValueChange: (propName, event) => {
         dispatch(this.updateSearch({
           [propName]: event.target.value
         }));
-
-        dispatch(this.fetchResults());
       },
     };
   },
