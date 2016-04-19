@@ -2,6 +2,20 @@ let SearchStateStore = {
   UPDATE_SEARCH: 'UPDATE_SEARCH',
   storeInstance: null,
 
+  fetchResults() {
+    return (dispatch, getResults) => {
+      let searchParams = getResults().params
+
+      $.ajax({
+        url: "/search.json",
+        data: searchParams,
+      }).then(function (results) {
+        // TODO: Do nothing for now!
+        console.log(results);
+      });
+    };
+  },
+
   updateSearch(props) {
     return {
       type: this.UPDATE_SEARCH,
@@ -31,37 +45,38 @@ let SearchStateStore = {
       results: this.resultsReducer(state.results, action)
     }
 
-    newState = this.queryReducer(newState);
-
     return newState;
-  },
-
-  queryReducer(rootState, action) {
-    return rootState;
   },
 
   onChangeCallbacks(dispatch) {
     return {
       onValuesChange: (props) => {
         dispatch(this.updateSearch(props));
+        dispatch(this.fetchResults());
       },
 
       onBoolValueChange: (propName, event) => {
         dispatch(this.updateSearch({
           [propName]: event.target.value === "true"
         }));
+
+        dispatch(this.fetchResults());
       },
 
       onIntValueChange: (propName, event) => {
         dispatch(this.updateSearch({
           [propName]: parseInt(event.target.value)
         }));
+
+        dispatch(this.fetchResults());
       },
 
       onStringValueChange: (propName, event) => {
         dispatch(this.updateSearch({
           [propName]: event.target.value
         }));
+
+        dispatch(this.fetchResults());
       },
     };
   },
@@ -89,7 +104,8 @@ let SearchStateStore = {
       this.rootReducer, {
         params: initialParams,
         results: initialResults
-      }
+      },
+      Redux.applyMiddleware(ReduxThunk.default)
     );
   },
 };
