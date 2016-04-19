@@ -22,6 +22,11 @@ class SearchPriceRangeForm extends React.Component {
         maxPrice: Math.round(values[1])
       });
     });
+
+    // Fetch when finished dragging.
+    slider.on("set", () => {
+      this.props.fetchResults();
+    });
   }
 
   render() {
