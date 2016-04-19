@@ -5,7 +5,15 @@ class SiteController < ApplicationController
 
   def search
     @search_params = params.require(:search)
-    gon.search = params.require(:search)
-    render :search
+    respond_to do |format|
+      format.html do
+        gon.search = params.require(:search)
+        render :search
+      end
+
+      format.json do
+        render json: []
+      end
+    end
   end
 end

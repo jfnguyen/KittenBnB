@@ -1,4 +1,5 @@
 let SearchStateStore = {
+  REPLACE_LISTINGS: 'REPLACE_LISTINGS',
   UPDATE_SEARCH: 'UPDATE_SEARCH',
   storeInstance: null,
 
@@ -8,18 +9,24 @@ let SearchStateStore = {
 
       $.ajax({
         url: "/search.json",
-        data: searchParams,
-      }).then(function (results) {
-        // TODO: Do nothing for now!
-        console.log(results);
+        data: { search: searchParams },
+      }).then((resultListings) => {
+        dispatch(this.replaceListings(resultListings));
       });
+    };
+  },
+
+  replaceListings(listings) {
+    return {
+      type: this.REPLACE_LISTINGS,
+      listings
     };
   },
 
   updateSearch(props) {
     return {
       type: this.UPDATE_SEARCH,
-      props: props
+      props
     }
   },
 
@@ -36,7 +43,15 @@ let SearchStateStore = {
   },
 
   resultsReducer(results, action) {
-    return results;
+    switch (action.type) {
+    case this.REPLACE_LISTINGS:
+      console.log(action.listings)
+      return {
+        listings: action.listings
+      };
+    default:
+      return results;
+    }
   },
 
   rootReducer(state, action) {
