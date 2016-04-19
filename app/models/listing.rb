@@ -21,15 +21,44 @@ class Listing < ActiveRecord::Base
               .where("latitude BETWEEN ? AND ?", *lats)
               .where("longitude BETWEEN ? AND ?", *lngs)
 
-    results
+    # I think ActiveRecord doesn't like to interpolate floats??  It
+    # won't hurt too much to use `to_i` here instead.  This is
+    # horrible; too lazy to sanitize, since order doesn't do it for
+    # me...
+    lat = search_params["geoCenter"]["lat"].to_f
+    lng = search_params["geoCenter"]["lng"].to_f
+    results = results.order(<<-SQL)
+power(latitude - #{lat}, 2) + power(longitude - #{lng}, 2)
+SQL
+
+    results.to_a
   end
 
   def self.search_force_results(search_params)
-    listings = self.search(search_params).order(:id).take(20).to_a
+    distFn = -> (listing) do
+      lat = search_params["geoCenter"]["lat"].to_f
+      lng = search_params["geoCenter"]["lng"].to_f
 
-    until (listings.length >= 20) || (search_params["candidateLocations"].empty?)
+      ((listing.latitude - lat) ** 2 + (listing.longitude - lng) ** 2) ** 0.5
+    end
+
+    distFilterFn = -> (listing) do
+      boundsWidth = (search_params["geoBounds"]["southWest"]["lng"].to_f
+                     - search_params["geoBounds"]["northEast"]["lng"].to_f)
+      dist = distFn.call(listing)
+      return false if dist > (0.75 * boundsWidth)
+      rand > 0.5 ? true : false
+    end
+
+    # Take only those listings pretty close to the center.
+    listings = self.search(search_params).to_a
+    listings.select!(&distFilterFn)
+    listings = listings.shuffle!.take(20)
+
+    # Create more listings if not enough are close to the center.
+    until (listings.count >= 20) || (search_params["candidateLocations"].empty?)
       location = search_params["candidateLocations"].shift
-      p location
+
       lat = location[1]["lat"]
       lng = location[1]["lng"]
 
@@ -41,7 +70,7 @@ class Listing < ActiveRecord::Base
       max_price = search_params["maxPrice"].to_f
       price_per_night = min_price + (rand * (max_price - min_price))
 
-      listings << Listing.create!(
+      listing = Listing.new(
         host_id: rand(1000),
         latitude: lat,
         longitude: lng,
@@ -51,6 +80,11 @@ class Listing < ActiveRecord::Base
         price_per_night: price_per_night,
         room_type: get_room_types(search_params).sample
       )
+
+      if distFilterFn.call(listing)
+        listing.save!
+        listings << listing
+      end
     end
 
     listings

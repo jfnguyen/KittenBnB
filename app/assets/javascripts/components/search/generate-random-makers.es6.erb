@@ -141,7 +141,7 @@ let StaticMap = {
         // Return up to 100 random points.
         let randomPoints = [];
 
-        _(100).times(() => {
+        _(20).times(() => {
           let randomPoint = this._sampleRandomPoint(
             imageContext, pixelDims, latLngDims
           );
@@ -151,7 +151,7 @@ let StaticMap = {
           };
         });
 
-        return _(randomPoints).take(20).value();
+        return randomPoints;
       });
   },
 }
