@@ -1,0 +1,161 @@
+let StaticMap = {
+  _calculatePixelDims(map) {
+    let pixelDims = {
+      big: {},
+      small: {},
+    };
+
+    pixelDims.big.height = map.getDiv().offsetHeight;
+    pixelDims.big.width  = map.getDiv().offsetWidth;
+
+    if (pixelDims.big.height < pixelDims.big.width) {
+      pixelDims.small.width = this.MAX_PIXEL_SIDE;
+
+      let aspectRatio = pixelDims.big.height / pixelDims.big.width;
+      pixelDims.small.height =
+        Math.floor(this.MAX_PIXEL_SIDE * aspectRatio);
+    } else {
+      pixelDims.small.height = this.MAX_PIXEL_SIDE;
+      let aspectRatio = pixelDims.big.width / pixelDims.big.height;
+      pixelDims.small.width =
+        Math.floor(this.MAX_PIXEL_SIDE * aspectRatio);
+    }
+
+    pixelDims.bigToSmallRatio =
+      pixelDims.big.height / pixelDims.small.height;
+
+    return pixelDims;
+  },
+
+  _calculateLatLngDims(map, pixelDims) {
+    let latLngDims = {
+      big: {},
+      small: {},
+    };
+
+    latLngDims.center = {
+      lat: map.getCenter().lat(),
+      lng: map.getCenter().lng(),
+    };
+
+    latLngDims.big.southWest = {
+      lat: map.getBounds().getSouthWest().lat(),
+      lng: map.getBounds().getSouthWest().lng(),
+    };
+    latLngDims.big.northEast = {
+      lat: map.getBounds().getNorthEast().lat(),
+      lng: map.getBounds().getNorthEast().lng(),
+    };
+
+    latLngDims.big.latHeight =
+      latLngDims.big.northEast.lat - latLngDims.big.southWest.lat;
+    latLngDims.big.lngWidth =
+      latLngDims.big.southWest.lng - latLngDims.big.northEast.lng;
+
+    latLngDims.small.latHeight =
+      latLngDims.big.latHeight / pixelDims.bigToSmallRatio;
+    latLngDims.small.lngWidth =
+      latLngDims.big.lngWidth / pixelDims.bigToSmallRatio;
+
+    latLngDims.small.southWest = {
+      lat: latLngDims.center.lat - (latLngDims.small.latHeight / 2),
+      lng: latLngDims.center.lng + (latLngDims.small.lngWidth / 2),
+    };
+    latLngDims.small.northEast = {
+      lat: latLngDims.center.lat + (latLngDims.small.latHeight / 2),
+      lng: latLngDims.center.lng - (latLngDims.small.lngWidth / 2),
+    };
+
+    latLngDims.small.pixelToLatLngDims = (x, y) => {
+      let lat = latLngDims.small.northEast.lat
+          - (y / pixelDims.small.height) * latLngDims.small.latHeight;
+      let lng = latLngDims.small.southWest.lng
+          - (x / pixelDims.small.width) * latLngDims.small.lngWidth;
+
+      return {
+        lat: lat,
+        lng: lng
+      };
+    };
+
+    return latLngDims;
+  },
+
+  _fetchImageObject(map, pixelDims, latLngDims) {
+    let params = {
+      center: _.at(latLngDims.center, ["lat", "lng"]).join(","),
+      zoom: map.getZoom(),
+      size: `${pixelDims.small.width}x${pixelDims.small.height}`,
+      maptype: "roadmap",
+      key: this.API_KEY
+    };
+
+    let url = this.BASE_URL + "?" + $.param(params);
+    console.log(url);
+    let imageObject = new Image();
+    imageObject.crossOrigin = '';
+    imageObject.src = url;
+
+    return new Promise((resolve, reject) => {
+      imageObject.onload = () => resolve(imageObject);
+    });
+  },
+
+  _extractImageContext(imageObject, pixelDims) {
+    let canvas = document.createElement("canvas");
+    canvas.height = pixelDims.small.height;
+    canvas.width = pixelDims.small.width;
+
+    let context = canvas.getContext("2d");
+    context.drawImage(imageObject, 0, 0);
+
+    return context;
+  },
+
+  _sampleRandomPoint(imageContext, pixelDims, latLngDims) {
+    let x = Math.floor(Math.random() * pixelDims.small.width);
+    let y = Math.floor(Math.random() * pixelDims.small.height);
+
+    let imageData = imageContext.getImageData(x, y, 1, 1);
+    let redIntensity = imageData.data[0];
+    let greenIntensity = imageData.data[1];
+    let blueIntensity = imageData.data[2];
+
+    if ((redIntensity < blueIntensity)
+        || (greenIntensity < blueIntensity)) {
+      // Found water. Ignore water.
+      return null;
+    } else {
+      return latLngDims.small.pixelToLatLngDims(x, y);
+    }
+  },
+
+  sampleRandomPoints(map) {
+    let pixelDims = this._calculatePixelDims(map);
+    let latLngDims = this._calculateLatLngDims(map, pixelDims);
+
+    return this._fetchImageObject(map, pixelDims, latLngDims)
+      .then((imageObject) => {
+        return this._extractImageContext(imageObject, pixelDims);
+      }).then((imageContext) => {
+        // Return up to 100 random points.
+        let randomPoints = [];
+
+        _(100).times(() => {
+          let randomPoint = this._sampleRandomPoint(
+            imageContext, pixelDims, latLngDims
+          );
+
+          if (randomPoint !== null) {
+            randomPoints.push(randomPoint);
+          };
+        });
+
+        return _(randomPoints).take(20).value();
+      });
+  },
+}
+
+StaticMap.MAX_PIXEL_SIDE = 640;
+StaticMap.BASE_URL = "https://maps.googleapis.com/maps/api/staticmap";
+StaticMap.API_KEY = "<%= Rails.application.secrets.static_maps_api_key %>";
