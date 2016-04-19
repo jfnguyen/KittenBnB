@@ -26,8 +26,12 @@ class Listing < ActiveRecord::Base
 
   def self.search_force_results(search_params)
     listings = self.search(search_params).order(:id).take(20).to_a
-    until listings.length >= 20
-      lats, lngs = get_bounds(search_params)
+
+    until (listings.length >= 20) || (search_params["candidateLocations"].empty?)
+      location = search_params["candidateLocations"].shift
+      p location
+      lat = location[1]["lat"]
+      lng = location[1]["lng"]
 
       max_num_guests = search_params["numGuests"].to_i
       num_beds = max_num_guests.fdiv(2).ceil
@@ -39,8 +43,8 @@ class Listing < ActiveRecord::Base
 
       listings << Listing.create!(
         host_id: rand(1000),
-        latitude: lats[0] + (rand * (lats[1] - lats[0])),
-        longitude: lngs[0] + (rand * (lngs[1] - lngs[0])),
+        latitude: lat,
+        longitude: lng,
         max_num_guests: max_num_guests,
         num_bedrooms: num_bedrooms,
         num_beds: num_beds,

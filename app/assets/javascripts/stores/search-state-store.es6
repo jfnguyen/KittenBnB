@@ -7,7 +7,10 @@ let SearchStateStore = {
     return (dispatch, getResults) => {
       let searchParams = getResults().params
 
+      console.log("BEGIN FETCH");
+
       $.ajax({
+        method: "POST",
         url: "/search.json",
         data: { search: searchParams },
       }).then((resultListings) => {

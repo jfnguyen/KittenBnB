@@ -85,10 +85,7 @@ class SearchMapSidebar extends React.Component {
           candidateLocations: randomPoints
         });
 
-        // Shouldn't typically reset here; only because we aren't
-        // fetching ATM.
-        this.resetMarkers();
-        //this.props.fetchResults();
+        this.props.fetchResults();
       });
   }
 
@@ -101,27 +98,29 @@ class SearchMapSidebar extends React.Component {
   }
 
   resetMarkers() {
+    console.log("RESET MARKERS");
+
     if (this.markers !== null) {
       this.markers.forEach((marker) => {
         marker.setMap(null);
       });
     }
 
+    /*
     this.markers = this.props.candidateLocations.map((latLng) => {
       return new google.maps.Marker({
         position: latLng,
         map: this.mapInstance
       });
     });
+    */
 
-    /*
     this.markers = this.props.listings.map((listing) => {
       return new google.maps.Marker({
         position: new google.maps.LatLng(listing.latitude, listing.longitude),
         map: this.mapInstance,
       });
     });
-    */
   }
 }
 
