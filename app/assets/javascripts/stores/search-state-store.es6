@@ -104,6 +104,7 @@ let SearchStateStore = {
       maxPrice: 999,
 
       geoBounds: null,
+      geoCenter: null,
 
       ...initialParams
     };

@@ -1,4 +1,11 @@
 class SearchMapSidebar extends React.Component {
+  recenterMap() {
+    // There may not be a map instance on the initial centering.
+    if (this.mapInstance) {
+      this.mapInstance.setCenter(this.props.geoCenter);
+    }
+  }
+
   componentDidMount() {
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: this.props.location }, (results, status) => {
@@ -7,13 +14,16 @@ class SearchMapSidebar extends React.Component {
         return;
       }
 
-      let center = {
-        lat: results[0].geometry.location.lat(),
-        lng: results[0].geometry.location.lng(),
-      }
+      let location = results[0].geometry.location;
+      this.props.onValuesChange({
+        geoCenter: {
+          lat: location.lat(),
+          lng: location.lng()
+        }
+      });
 
       this.mapInstance = new google.maps.Map(this.refs.map, {
-        center: center,
+        center: this.props.geoCenter,
         disableDefaultUI: true,
         zoomControl: true,
         zoom: 12,
@@ -25,6 +35,12 @@ class SearchMapSidebar extends React.Component {
         250
       ));
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!_(prevProps.geoCenter).isEqual(this.props.geoCenter)) {
+      this.recenterMap();
+    }
   }
 
   onBoundsChanged() {
@@ -61,6 +77,7 @@ SearchMapSidebar.propTypes = {
 
 SearchMapSidebar = ReactRedux.connect(
   (searchState) => ({
+    geoCenter: searchState.params.geoCenter,
     location: searchState.params.location
   }),
   SearchStateStore.onChangeCallbacks

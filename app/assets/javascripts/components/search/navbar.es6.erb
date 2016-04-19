@@ -2,16 +2,35 @@ class SearchNavbar extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      locationInput: this.props.location
-    };
-
-    this.changeLocationInput = this.changeLocationInput.bind(this);
+    this.state = { location: this.props.location };
   }
 
-  changeLocationInput(e) {
-    // TODO: will eventually need to update searchState.location.
-    this.setState({ locationInput: e.target.value  });
+  componentDidMount() {
+    let autocomplete = new google.maps.places.Autocomplete(
+      this.refs.locationInput, {
+        types: ['(cities)']
+      }
+    );
+
+    // Only want to make change to store location when they've
+    // selected from the autocompletion dropdown.
+    autocomplete.addListener("place_changed", () => {
+      let place = autocomplete.getPlace();
+      let placeAddress = place.formatted_address;
+      let geoCenter = {
+        lat: place.geometry.location.lat(),
+        lng: place.geometry.location.lng()
+      };
+
+      this.setState({
+        location: placeAddress
+      });
+
+      this.props.onValuesChange({
+        location: placeAddress,
+        geoCenter: geoCenter
+      });
+    });
   }
 
   render() {
@@ -27,8 +46,9 @@ class SearchNavbar extends React.Component {
           <div className="nav navbar-left search-bar">
             <i className="fa fa-search" aria-hidden="true"></i>
               <input type="text"
-                    value={this.state.locationInput}
-                    onChange={this.changeLocationInput} />
+                     value={this.state.location}
+                     ref="locationInput"
+                     onChange={(e) => this.setState({location: e.target.value})} />
           </div>
 
           <ul className="nav navbar-nav navbar-right">
@@ -45,5 +65,6 @@ class SearchNavbar extends React.Component {
 SearchNavbar = ReactRedux.connect(
   (searchState) => ({
     location: searchState.params.location
-  })
+  }),
+  SearchStateStore.onChangeCallbacks
 )(SearchNavbar)
