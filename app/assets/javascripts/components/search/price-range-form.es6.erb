@@ -12,6 +12,11 @@ class SearchPriceRangeForm extends React.Component {
     });
 
     slider.on("update", (values, handle) => {
+      if ((Math.round(values[0]) === this.props.minPrice)
+          && (Math.round(values[1]) === this.props.maxPrice)) {
+        return;
+      }
+
       this.props.onValuesChange({
         minPrice: Math.round(values[0]),
         maxPrice: Math.round(values[1])
