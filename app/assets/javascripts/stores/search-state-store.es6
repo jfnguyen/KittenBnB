@@ -9,33 +9,35 @@ let SearchStateStore = {
     }
   },
 
-  paramsReducer(state, action) {
-    if (state === undefined) {
-      // Satisfy assertReducerSanity silliness. I will always give an
-      // initial state...
-      return {};
-    }
-
+  paramsReducer(params, action) {
     switch (action.type) {
     case this.UPDATE_SEARCH:
       return {
-        ...state,
+        ...params,
         ...action.props
       };
     default:
-      return state;
+      return params;
     }
   },
 
-  resultsReducer(state, action) {
-    if (state === undefined) {
-      // Satisfy assertReducerSanity silliness. I will always give an
-      // initial state...
-      return {};
+  resultsReducer(results, action) {
+    return results;
+  },
+
+  rootReducer(state, action) {
+    var newState = {
+      params: this.paramsReducer(state.params, action),
+      results: this.resultsReducer(state.results, action)
     }
 
-    // TODO!
-    return state;
+    newState = this.queryReducer(newState);
+
+    return newState;
+  },
+
+  queryReducer(rootState, action) {
+    return rootState;
   },
 
   onChangeCallbacks(dispatch) {
@@ -84,10 +86,7 @@ let SearchStateStore = {
     };
 
     this.storeInstance = Redux.createStore(
-      Redux.combineReducers({
-        params: this.paramsReducer,
-        results: this.resultsReducer
-      }), {
+      this.rootReducer, {
         params: initialParams,
         results: initialResults
       }
