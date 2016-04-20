@@ -1,22 +1,16 @@
 class HomeNavbar extends React.Component {
   render() {
     return (
-      <nav className="navbar hero-nav">
-        <div className="container-fluid">
-        <ul className="nav navbar-nav">
-          <li className="active">
-            <a className="brand-link" href="#">
-              ❤ kittenbnb
-            </a>
-          </li>
-        </ul>
+      <nav className="my-navbar">
+        <div className="brand">
+          <a href="#">❤ kittenbnb</a>
+        </div>
 
-        <ul className="nav navbar-nav navbar-right">
+        <ul className="items">
           <li><a href="#">Help</a></li>
           <li><a href="#">Sign Up</a></li>
           <li><a href="#">Log In</a></li>
         </ul>
-        </div>
       </nav>
     );
   }
