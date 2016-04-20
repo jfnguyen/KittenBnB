@@ -46,18 +46,19 @@ SQL
       boundsWidth = (search_params["geoBounds"]["southWest"]["lng"].to_f
                      - search_params["geoBounds"]["northEast"]["lng"].to_f)
       dist = distFn.call(listing)
-      return false if dist > (0.75 * boundsWidth)
-      rand > 0.5 ? true : false
+      dist < (0.5 * boundsWidth)
     end
 
     # Take only those listings pretty close to the center.
     listings = self.search(search_params).to_a
-    listings.select!(&distFilterFn)
-    listings = listings.shuffle!.take(20)
+    good_listings_count = listings.count(&distFilterFn)
 
     # Create more listings if not enough are close to the center.
     candidateLocations = search_params["candidateLocations"].values
-    until (listings.count >= 20) || (candidateLocations.empty?)
+    while true
+      break if candidateLocations.empty?
+      break if good_listings_count > 8
+
       location = candidateLocations.shift
 
       lat = location["lat"]
@@ -85,10 +86,12 @@ SQL
       if distFilterFn.call(listing)
         listing.save!
         listings << listing
+
+        good_listings_count += 1
       end
     end
 
-    listings
+    listings.sort_by!(&:hash).take(20)
   end
 
   def self.get_bounds(search_params)
