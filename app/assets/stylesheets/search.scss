@@ -1,6 +1,6 @@
 #search {
   .navbar, .search-nav {
-    height: 8vh;
+    min-height: 60px;
     margin-bottom: 0;
 
     border: 0px;
@@ -72,15 +72,11 @@
 
   .search-sidebar {
     position: fixed;
-    top: 8vh;
-    height: 92vh;
+    top: 60px;
+    height: calc(100% - 60px);
     width: 60vw;
 
     overflow: scroll;
-  }
-
-  .search-forms {
-    height: 28vh;
   }
 
   .form-row {
@@ -264,7 +260,7 @@
   .map-sidebar {
     position: fixed;
     bottom: 0px;
-    top: 8vh;
+    top: 60px;
     width: 40vw;
     left: 60vw;
   }
