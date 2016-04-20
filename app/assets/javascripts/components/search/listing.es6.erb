@@ -4,30 +4,31 @@ class SearchListing extends React.Component {
   }
 
   render() {
+    let listing = this.props.listing;
     return (
       <div>
         <div className="half">
           <div className="listing">
             <div className="listing-img-container">
-              <img src={this.props.src} className="listing-photo" />
+              <img src={listing.imagePaths[0]} className="listing-photo" />
 
               <div className="price-container">
                 <div className="inner-price-container">
-                  <sup>$</sup>331
+                  <sup>$</sup>{listing.pricePerNight}
                 </div>
               </div>
 
               <div className="photo-container">
                 <div className="photo-round">
-                  <img src="<%= image_path Host.all.sample.portrait_path %>" />
+                  <img src={listing.hostPortraitPath} />
                 </div>
               </div>
             </div>
 
             <div className="listing-title-detail-wrapper">
-              <h3 className="listing-title">The Langtry: Beautiful 2BR Suite</h3>
+              <h3 className="listing-title">{listing.title}</h3>
               <div className="listing-details">
-                Private Room • Stars • 14 Reviews
+                {listing.roomType} • Stars • 14 Reviews
               </div>
             </div>
           </div>
@@ -36,3 +37,7 @@ class SearchListing extends React.Component {
     );
   }
 }
+
+SearchListing.propTypes = {
+  listing: React.PropTypes.object.isRequired
+};
