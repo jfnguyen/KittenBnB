@@ -38,6 +38,8 @@ class SearchMapSidebar extends React.Component {
         minZoom: 10
       });
 
+      StaticMap.setMap(this.mapInstance);
+
       // Reduce speed of bounds changed reports.
       this.mapInstance.addListener("bounds_changed", _.debounce(
         this.onBoundsChanged.bind(this),
@@ -80,10 +82,7 @@ class SearchMapSidebar extends React.Component {
       geoCenter: geoCenter
     });
 
-    // TODO: random sampling prolly doesn't belong inside here?
-    // But I do need the map instance...
-    StaticMap.sampleRandomPoints(this.mapInstance)
-      .then(this.props.fetchResults);
+    this.props.fetchResults();
   }
 
   render() {

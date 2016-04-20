@@ -1,12 +1,12 @@
 let StaticMap = {
-  _calculatePixelDims(map) {
+  _calculatePixelDims() {
     let pixelDims = {
       big: {},
       small: {},
     };
 
-    pixelDims.big.height = map.getDiv().offsetHeight;
-    pixelDims.big.width  = map.getDiv().offsetWidth;
+    pixelDims.big.height = this._map.getDiv().offsetHeight;
+    pixelDims.big.width  = this._map.getDiv().offsetWidth;
 
     if (pixelDims.big.height < pixelDims.big.width) {
       pixelDims.small.width = this.MAX_PIXEL_SIDE;
@@ -27,24 +27,24 @@ let StaticMap = {
     return pixelDims;
   },
 
-  _calculateLatLngDims(map, pixelDims) {
+  _calculateLatLngDims(pixelDims) {
     let latLngDims = {
       big: {},
       small: {},
     };
 
     latLngDims.center = {
-      lat: map.getCenter().lat(),
-      lng: map.getCenter().lng(),
+      lat: this._map.getCenter().lat(),
+      lng: this._map.getCenter().lng(),
     };
 
     latLngDims.big.southWest = {
-      lat: map.getBounds().getSouthWest().lat(),
-      lng: map.getBounds().getSouthWest().lng(),
+      lat: this._map.getBounds().getSouthWest().lat(),
+      lng: this._map.getBounds().getSouthWest().lng(),
     };
     latLngDims.big.northEast = {
-      lat: map.getBounds().getNorthEast().lat(),
-      lng: map.getBounds().getNorthEast().lng(),
+      lat: this._map.getBounds().getNorthEast().lat(),
+      lng: this._map.getBounds().getNorthEast().lng(),
     };
 
     latLngDims.big.latHeight =
@@ -81,10 +81,10 @@ let StaticMap = {
     return latLngDims;
   },
 
-  _fetchImageObject(map, pixelDims, latLngDims) {
+  _fetchImageObject(pixelDims, latLngDims) {
     let params = {
       center: _.at(latLngDims.center, ["lat", "lng"]).join(","),
-      zoom: map.getZoom(),
+      zoom: this._map.getZoom(),
       size: `${pixelDims.small.width}x${pixelDims.small.height}`,
       maptype: "roadmap",
       key: this.API_KEY
@@ -130,11 +130,11 @@ let StaticMap = {
     }
   },
 
-  sampleRandomPoints(map) {
-    let pixelDims = this._calculatePixelDims(map);
-    let latLngDims = this._calculateLatLngDims(map, pixelDims);
+  sampleRandomPoints() {
+    let pixelDims = this._calculatePixelDims();
+    let latLngDims = this._calculateLatLngDims(pixelDims);
 
-    return this._fetchImageObject(map, pixelDims, latLngDims)
+    return this._fetchImageObject(pixelDims, latLngDims)
       .then((imageObject) => {
         return this._extractImageContext(imageObject, pixelDims);
       }).then((imageContext) => {
@@ -154,6 +154,10 @@ let StaticMap = {
         return randomPoints;
       });
   },
+
+  setMap(map) {
+    this._map = map;
+  }
 }
 
 StaticMap.MAX_PIXEL_SIDE = 640;

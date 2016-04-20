@@ -3,24 +3,27 @@ let SearchStateStore = {
   UPDATE_SEARCH: 'UPDATE_SEARCH',
   storeInstance: null,
 
-  fetchResults(candidateLocations) {
+  fetchResults() {
     return (dispatch, getResults) => {
       let searchParams = getResults().params
 
       console.log("BEGIN FETCH");
 
-      $.ajax({
-        method: "POST",
-        url: "/search.json",
-        data: {
-          search: {
-            ...searchParams,
-            candidateLocations
-          }
-        },
-      }).then((resultListings) => {
-        dispatch(this.replaceListings(resultListings));
-      });
+      return StaticMap.sampleRandomPoints()
+        .then((candidateLocations) => {
+          return $.ajax({
+            method: "POST",
+            url: "/search.json",
+            data: {
+              search: {
+                  ...searchParams,
+                candidateLocations
+              }
+            }
+          });
+        }).then((resultListings) => {
+          dispatch(this.replaceListings(resultListings));
+        });
     };
   },
 
@@ -72,9 +75,9 @@ let SearchStateStore = {
 
   onChangeCallbacks(dispatch) {
     return {
-      fetchResults: (candidateLocations) => {
+      fetchResults: () => {
         // TODO: prolly should rename onChangeCallbacks...
-        dispatch(this.fetchResults(candidateLocations));
+        dispatch(this.fetchResults());
       },
 
       onValuesChange: (props) => {
