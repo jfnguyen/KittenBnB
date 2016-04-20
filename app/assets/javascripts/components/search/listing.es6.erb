@@ -5,6 +5,17 @@ class SearchListing extends React.Component {
 
   render() {
     let listing = this.props.listing;
+
+    var roomType;
+    switch (listing.roomType) {
+    case "private_room":
+      roomType = "Private Room";
+    case "entire_home":
+      roomType = "Entire Home";
+    case "shared_room":
+      roomType = "Shared Room";
+    }
+
     return (
       <div>
         <div className="half">
@@ -28,7 +39,7 @@ class SearchListing extends React.Component {
             <div className="listing-title-detail-wrapper">
               <h3 className="listing-title">{listing.title}</h3>
               <div className="listing-details">
-                {listing.roomType} • Stars • 14 Reviews
+                {roomType} • Stars • 14 Reviews
               </div>
             </div>
           </div>
