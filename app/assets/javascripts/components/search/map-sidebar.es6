@@ -43,7 +43,7 @@ class SearchMapSidebar extends React.Component {
       // Reduce speed of bounds changed reports.
       this.mapInstance.addListener("bounds_changed", _.debounce(
         this.onBoundsChanged.bind(this),
-        250
+        750
       ));
     });
   }
