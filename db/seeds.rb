@@ -5,3 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Dir["./app/assets/images/portraits/*jpg"].map do |path|
+  path.split("/").last
+end.each do |name|
+  name.chomp!(".jpg")
+  Host.create!(
+    fname: name,
+    portrait_path: "portraits/#{name}.jpg"
+  )
+end

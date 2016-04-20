@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160419044755) do
+ActiveRecord::Schema.define(version: 20160420024328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "hosts", force: :cascade do |t|
+    t.string   "fname",         null: false
+    t.string   "portrait_path", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "listings", force: :cascade do |t|
     t.integer  "host_id",         null: false
