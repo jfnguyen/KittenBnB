@@ -51,6 +51,10 @@ SQL
       dist < (0.5 * boundsWidth)
     end
 
+    all_image_paths = Dir["app/assets/images/homes/*.png"].map! do |p|
+      p.split("/")[-2..-1].join("/")
+    end.shuffle!
+
     # Take only those listings pretty close to the center.
     listings = self.search(search_params).to_a
     good_listings_count = listings.count(&distFilterFn)
@@ -75,6 +79,9 @@ SQL
       max_price = search_params["maxPrice"].to_f
       price_per_night = min_price + (rand * (max_price - min_price))
 
+      image_paths = all_image_paths.shift(3)
+      all_image_paths += image_paths
+
       listing = Listing.new(
         host_id: host_ids.sample,
         latitude: lat,
@@ -83,7 +90,8 @@ SQL
         num_bedrooms: num_bedrooms,
         num_beds: num_beds,
         price_per_night: price_per_night,
-        room_type: get_room_types(search_params).sample
+        room_type: get_room_types(search_params).sample,
+        image_paths: image_paths
       )
 
       if distFilterFn.call(listing)

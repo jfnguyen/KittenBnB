@@ -24,16 +24,17 @@ ActiveRecord::Schema.define(version: 20160420024328) do
   end
 
   create_table "listings", force: :cascade do |t|
-    t.integer  "host_id",         null: false
-    t.float    "latitude",        null: false
-    t.float    "longitude",       null: false
-    t.integer  "max_num_guests",  null: false
-    t.integer  "num_bedrooms",    null: false
-    t.integer  "num_beds",        null: false
-    t.integer  "price_per_night", null: false
-    t.string   "room_type",       null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "host_id",                      null: false
+    t.float    "latitude",                     null: false
+    t.float    "longitude",                    null: false
+    t.integer  "max_num_guests",               null: false
+    t.integer  "num_bedrooms",                 null: false
+    t.integer  "num_beds",                     null: false
+    t.integer  "price_per_night",              null: false
+    t.string   "room_type",                    null: false
+    t.string   "image_paths",     default: [],              array: true
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
 end
