@@ -3,7 +3,7 @@ let SearchStateStore = {
   UPDATE_SEARCH: 'UPDATE_SEARCH',
   storeInstance: null,
 
-  fetchResults() {
+  fetchResults(candidateLocations) {
     return (dispatch, getResults) => {
       let searchParams = getResults().params
 
@@ -12,7 +12,12 @@ let SearchStateStore = {
       $.ajax({
         method: "POST",
         url: "/search.json",
-        data: { search: searchParams },
+        data: {
+          search: {
+            ...searchParams,
+            candidateLocations
+          }
+        },
       }).then((resultListings) => {
         dispatch(this.replaceListings(resultListings));
       });
@@ -67,9 +72,9 @@ let SearchStateStore = {
 
   onChangeCallbacks(dispatch) {
     return {
-      fetchResults: () => {
+      fetchResults: (candidateLocations) => {
         // TODO: prolly should rename onChangeCallbacks...
-        dispatch(this.fetchResults());
+        dispatch(this.fetchResults(candidateLocations));
       },
 
       onValuesChange: (props) => {
@@ -107,8 +112,6 @@ let SearchStateStore = {
 
       geoBounds: null,
       geoCenter: null,
-
-      candidateLocations: [],
 
       ...initialParams
     };

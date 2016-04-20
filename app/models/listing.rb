@@ -56,11 +56,12 @@ SQL
     listings = listings.shuffle!.take(20)
 
     # Create more listings if not enough are close to the center.
-    until (listings.count >= 20) || (search_params["candidateLocations"].empty?)
-      location = search_params["candidateLocations"].shift
+    candidateLocations = search_params["candidateLocations"].values
+    until (listings.count >= 20) || (candidateLocations.empty?)
+      location = candidateLocations.shift
 
-      lat = location[1]["lat"]
-      lng = location[1]["lng"]
+      lat = location["lat"]
+      lng = location["lng"]
 
       max_num_guests = search_params["numGuests"].to_i
       num_beds = max_num_guests.fdiv(2).ceil

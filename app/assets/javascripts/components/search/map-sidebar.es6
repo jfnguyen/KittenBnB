@@ -51,7 +51,7 @@ class SearchMapSidebar extends React.Component {
       this.recenterMap();
     }
 
-    this.resetMarkers();
+    this.refreshMarkers()
   }
 
   onBoundsChanged() {
@@ -81,14 +81,9 @@ class SearchMapSidebar extends React.Component {
     });
 
     // TODO: random sampling prolly doesn't belong inside here?
+    // But I do need the map instance...
     StaticMap.sampleRandomPoints(this.mapInstance)
-      .then((randomPoints) => {
-        this.props.onValuesChange({
-          candidateLocations: randomPoints
-        });
-
-        this.props.fetchResults();
-      });
+      .then(this.props.fetchResults);
   }
 
   render() {
@@ -99,30 +94,36 @@ class SearchMapSidebar extends React.Component {
     );
   }
 
-  resetMarkers() {
-    console.log("RESET MARKERS");
-
-    if (this.markers !== null) {
-      this.markers.forEach((marker) => {
-        marker.setMap(null);
-      });
+  refreshMarkers() {
+    if (this.markers === null) {
+      this.markers = [];
     }
 
-    /*
-    this.markers = this.props.candidateLocations.map((latLng) => {
-      return new google.maps.Marker({
-        position: latLng,
-        map: this.mapInstance
-      });
+    let newMarkers = [];
+    this.markers.forEach(marker => {
+      if (_(this.props.listings).some(l => l.id == marker.listingId)) {
+        newMarkers.push(marker);
+      } else {
+        marker.setMap(null);
+      }
     });
-    */
 
-    this.markers = this.props.listings.map((listing) => {
-      return new google.maps.Marker({
+    this.props.listings.forEach(listing => {
+      if (_(newMarkers).some(m => m.listingId == listing.id)) {
+        return;
+      }
+
+      let marker = new google.maps.Marker({
         position: new google.maps.LatLng(listing.latitude, listing.longitude),
         map: this.mapInstance,
       });
+
+      marker.listingId = listing.id;
+
+      newMarkers.push(marker);
     });
+
+    this.markers = newMarkers;
   }
 }
 
@@ -132,7 +133,6 @@ SearchMapSidebar.propTypes = {
 
 SearchMapSidebar = ReactRedux.connect(
   (searchState) => ({
-    candidateLocations: searchState.params.candidateLocations,
     geoBounds: searchState.params.geoBounds,
     geoCenter: searchState.params.geoCenter,
     listings: searchState.results.listings,
