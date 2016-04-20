@@ -1,5 +1,6 @@
 ## TODO
 
+* Add more faces.
 * Navbar links do nothing.
     * Don't need to fill these out, really.
 * Show stars in the listing item.
@@ -8,7 +9,6 @@
 * Add listing titles.
 * Add reviews.
 * Make search persist past refresh.
-* Maybe API Key for staticmaps is not being used?
 * Make more responsive.
 * Listing page!
     * Details of the listing.

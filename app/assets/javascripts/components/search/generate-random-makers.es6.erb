@@ -162,4 +162,4 @@ let StaticMap = {
 
 StaticMap.MAX_PIXEL_SIDE = 640;
 StaticMap.BASE_URL = "https://maps.googleapis.com/maps/api/staticmap";
-StaticMap.API_KEY = "<%= Rails.application.secrets.static_maps_api_key %>";
+StaticMap.API_KEY = "<%= Rails.application.secrets.static_maps_api_key.html_safe %>";
