@@ -81,7 +81,12 @@
 
   .form-row {
     padding: 15px 20px 15px 20px;
-    height: 69px;
+
+    &:after {
+      display: block;
+      content: " ";
+      clear: both;
+    }
 
     label {
       float: left;
@@ -92,11 +97,20 @@
 
       line-height: 36px;
       vertical-align: middle;
+
+      @media (max-width: 1248px) {
+        width: 100%;
+        text-align: center;
+      }
     }
 
     form {
       float: left;
       width: 75%;
+
+      @media (max-width: 1248px) {
+        width: 100%;
+      }
     }
 
     // TODO: Breaks on smaller screens.
@@ -179,10 +193,13 @@
 
     // Slider stuff.
     form.slider-form {
-      position: relative;
       width: 75%;
       border-left: 6.25px;
       border-right: 12.5px;
+
+      @media (max-width: 1248px) {
+        width: 100%;
+      }
 
       .slider {
         height: 24px !important;
@@ -193,6 +210,7 @@
 
         padding-left: 6.25px;
         padding-right: 6.25px;
+        margin-bottom: 10px;
       }
 
       .noUi-background {
@@ -228,15 +246,14 @@
       }
 
       .min-price {
-        position: absolute;
-        left: 0px;
-        transform: translate(-50%, 0%);
+        float: left;
+        width: 50%;
       }
 
       .max-price {
-        position: absolute;
-        right: 0px;
-        transform: translate(25%, 0%);
+        float: left;
+        width: 50%;
+        text-align: right;
       }
     }
   }

@@ -138,6 +138,12 @@
       color: white;
       font-weight: bold;
     }
+
+    @media (max-width: 1000px) {
+      .item.first-item {
+        width: 220px;
+      }
+    }
   }
 
   nav.hero-nav {
