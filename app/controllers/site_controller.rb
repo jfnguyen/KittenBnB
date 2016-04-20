@@ -12,7 +12,8 @@ class SiteController < ApplicationController
       end
 
       format.json do
-        render json: Listing.search_force_results(@search_params)
+        @listings = Listing.search_force_results(@search_params)
+        render "listings"
       end
     end
   end

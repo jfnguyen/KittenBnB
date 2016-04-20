@@ -1,4 +1,6 @@
 class Listing < ActiveRecord::Base
+  belongs_to :host
+
   validates(*[ :host_id,
                :latitude,
                :longitude,
@@ -55,6 +57,7 @@ SQL
 
     # Create more listings if not enough are close to the center.
     candidateLocations = search_params["candidateLocations"].values
+    host_ids = Host.pluck(:id)
     while true
       break if candidateLocations.empty?
       break if good_listings_count > 8
@@ -73,7 +76,7 @@ SQL
       price_per_night = min_price + (rand * (max_price - min_price))
 
       listing = Listing.new(
-        host_id: rand(1000),
+        host_id: host_ids.sample,
         latitude: lat,
         longitude: lng,
         max_num_guests: max_num_guests,
