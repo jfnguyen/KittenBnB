@@ -50,13 +50,23 @@
     }
   }
 
+  // Search/Map sidebars sit side-by-side.
   .search-sidebar {
-    position: fixed;
-    top: 60px;
-    height: calc(100% - 60px);
+    height: calc(100vh - 60px);
     width: 60vw;
+    float: left;
 
     overflow: scroll;
+  }
+
+  .map-sidebar {
+    height: calc(100vh - 60px);
+    width: 40vw;
+    float: left;
+
+    .map {
+      height: 100%
+    }
   }
 
   .form-row {
@@ -252,17 +262,5 @@
 
   .listings {
     background-color: #f5f5f5;
-  }
-
-  .map-sidebar {
-    position: fixed;
-    bottom: 0px;
-    top: 60px;
-    width: 40vw;
-    left: 60vw;
-  }
-
-  .map {
-    height: 100%
   }
 }
