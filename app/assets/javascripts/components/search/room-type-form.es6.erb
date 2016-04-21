@@ -22,7 +22,8 @@ class SearchRoomTypeForm extends React.Component {
               Entire home/apt
 
              <input type="checkbox"
-                    value={this.props.entireHome}
+                    value="true"
+                    checked={this.props.entireHome}
                     onChange={changeHandlers.entireHome} />
             </div>
           </div>
@@ -33,7 +34,8 @@ class SearchRoomTypeForm extends React.Component {
               Private room
 
              <input type="checkbox"
-                    value={this.props.entireHome}
+                    value="true"
+                    checked={this.props.privateRoom}
                     onChange={changeHandlers.privateRoom} />
             </div>
           </div>
@@ -44,7 +46,8 @@ class SearchRoomTypeForm extends React.Component {
               Shared room
 
              <input type="checkbox"
-                    value={this.props.entireHome}
+                    value="true"
+                    checked={this.props.sharedRoom}
                     onChange={changeHandlers.sharedRoom} />
             </div>
           </div>

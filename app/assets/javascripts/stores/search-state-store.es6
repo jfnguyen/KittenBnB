@@ -10,6 +10,10 @@ let SearchStateStore = {
     };
   },
 
+  queryUrl(searchParams) {
+    return "/search?" + $.param({ search: searchParams });
+  },
+
   fetchResults() {
     return (dispatch, getResults) => {
       let searchParams = getResults().params
@@ -60,9 +64,12 @@ let SearchStateStore = {
     }
   },
 
-  resultsReducer(results, action) {
+  resultsReducer(results, action, searchState) {
     switch (action.type) {
     case this.BEGIN_FETCH:
+      // TODO: Not pure. But React Router is overkill for this.
+      history.replaceState(null, null, this.queryUrl(searchState.params));
+
       return {
         ...results,
         isLoading: true
@@ -77,13 +84,17 @@ let SearchStateStore = {
     }
   },
 
-  rootReducer(state, action) {
-    var newState = {
-      params: this.paramsReducer(state.params, action),
-      results: this.resultsReducer(state.results, action)
+  rootReducer(searchState, action) {
+    var newSearchState = {
+      params: this.paramsReducer(
+        searchState.params, action, searchState
+      ),
+      results: this.resultsReducer(
+        searchState.results, action, searchState
+      ),
     }
 
-    return newState;
+    return newSearchState;
   },
 
   onChangeCallbacks(dispatch) {
