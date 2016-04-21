@@ -1,8 +1,4 @@
 #home {
-  // Content will be centered below using display: absolute, so height
-  // cannot be inferred. Not that this really matters...
-  height: 100vh;
-
   // Background slideshow.
   .looper-hero {
     position: absolute;
@@ -10,7 +6,7 @@
     width: 100vw;
 
     // I think items with opacity otherwise appear in front?
-    z-index: -1;
+    z-index: -2;
 
     .img {
       // Else has no height since div is empty.
@@ -21,40 +17,8 @@
 
   // Navbar.
   .my-navbar {
-    width: 100vw;
-
-    .items {
-      float: right;
-
-      list-style-type: none;
-
-      .item {
-        padding: 15px;
-        float: left;
-      }
-    }
-
     a {
       color: rgba(255, 255, 255, .85);
-    }
-
-    .brand {
-      float: left;
-
-      padding-left: 10px;
-      padding-top: 10px;
-
-      a {
-        font-size: 24px;
-        line-height: 1;
-      }
-    }
-
-    // Make sure to clear after floats.
-    &:after {
-      display: block;
-      content: " ";
-      clear: both;
     }
   }
 
@@ -62,6 +26,9 @@
   .content-outer {
     position: absolute;
     top: 0;
+
+    // Don't obscure navbar.
+    z-index: -1;
 
     // For vertical centering of inner div.
     display: table;

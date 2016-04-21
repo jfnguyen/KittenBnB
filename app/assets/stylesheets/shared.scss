@@ -1,0 +1,36 @@
+// Navbar.
+.my-navbar {
+  width: 100vw;
+
+  .items {
+    float: right;
+
+    .item {
+      padding: 15px;
+      float: left;
+    }
+  }
+
+  .brand {
+    float: left;
+
+    padding-left: 10px;
+    padding-top: 10px;
+
+    a {
+      font-size: 24px;
+      line-height: 1;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  // Make sure to clear after floats.
+  &:after {
+    display: block;
+    content: " ";
+    clear: both;
+  }
+}
