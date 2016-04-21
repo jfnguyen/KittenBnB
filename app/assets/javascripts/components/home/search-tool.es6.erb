@@ -52,9 +52,9 @@ class HomeSearchTool extends React.Component {
     // First input exists only for datepicker to interact with.
     let dateRangeStartInput = (
       <div className="item" onClick={this.triggerClick}>
-        <input ref="dateRange"
-               type="text"
-               style={{ width: "0px", paddingLeft: "0px" }} />
+        <input className="phantom-input"
+               ref="dateRange"
+               type="text" />
         <input name="search[dateRangeStart]"
                type="text"
                style={{ display: "none" }}
@@ -80,7 +80,7 @@ class HomeSearchTool extends React.Component {
     };
     let numGuestsSelect = (
       <NumGuestsSelect name="search[numGuests]"
-                       className="last-item item"
+                       className="guests-item item"
                        key="numGuestsSelect"
                        onChange={numGuestsOnChange}
                        value={this.state.numGuests} />
@@ -101,9 +101,9 @@ class HomeSearchTool extends React.Component {
     return (
       <div className="search">
         <form className="searchbar" action="/search" method="GET">
-          <div className="first-item item">
+          <div className="item location-item">
             {locationInput}
-          </div>{dateRangeStartInput}<div className="graphic-item item">
+          </div>{dateRangeStartInput}<div className="item graphic-item">
             →
           </div>{ [dateRangeEndInput, numGuestsSelect, submitButton] }
 
