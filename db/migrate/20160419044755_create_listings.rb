@@ -9,6 +9,7 @@ class CreateListings < ActiveRecord::Migration
       t.integer :num_beds, null: false
       t.integer :price_per_night, null: false
       t.string :room_type, null: false
+      t.string :title, null: false
       t.string :image_paths, array: true, default: []
 
       t.timestamps null: false

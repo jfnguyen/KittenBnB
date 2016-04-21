@@ -64,20 +64,21 @@
     }
 
     .title-detail-wrapper {
-      padding: 10px;
+      padding: 12px 10px 10px 10px;
 
       .title {
         color: rgb(86, 90, 92);
         font-size: 16px;
         font-weight: normal;
+
+        // Reset.
         padding: 0;
-        margin-top: 6.25px;
-        margin-bottom: 0px;
+        margin: 0;
       }
 
       .details {
-        font-size: 13px;
         color: rgba(86, 90, 92, 0.8);
+        font-size: 13px;
       }
     }
   }

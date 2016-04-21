@@ -1,5 +1,5 @@
 json.array! @listings do |listing|
-  json.extract! listing, :id, :latitude, :longitude
+  json.extract! listing, :id, :latitude, :longitude, :title
 
   json.hostPortraitPath (asset_url listing.host.portrait_path)
   json.imagePaths (listing.image_paths.map { |ip| asset_url ip })

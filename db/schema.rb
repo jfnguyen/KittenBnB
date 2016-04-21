@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20160420024328) do
     t.integer  "num_beds",                     null: false
     t.integer  "price_per_night",              null: false
     t.string   "room_type",                    null: false
+    t.string   "title",                        null: false
     t.string   "image_paths",     default: [],              array: true
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false

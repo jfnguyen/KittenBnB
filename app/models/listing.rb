@@ -91,7 +91,8 @@ SQL
         num_beds: num_beds,
         price_per_night: price_per_night,
         room_type: get_room_types(search_params).sample,
-        image_paths: image_paths
+        image_paths: image_paths,
+        title: (0...8).map { ("A".ord + rand(26)).chr }.join,
       )
 
       if distFilterFn.call(listing)
