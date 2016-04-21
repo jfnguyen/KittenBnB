@@ -1,71 +1,51 @@
 #search {
-  .navbar, .search-nav {
-    min-height: 60px;
-    margin-bottom: 0;
+  .my-navbar {
+    border-bottom: 1px solid rgba(195, 195, 195, 0.4);
 
-    border: 0px;
-    border-bottom: 1px;
-    border-color: rgba(195, 195, 195, 0.4);
-    border-style: solid;
-
-    .search-bar {
-      height: 60px;
-
-      border: 0px;
-      border-left: 1px;
-      border-style: solid;
-      border-left-color: rgba(195, 195, 195, 0.4);
-      padding-left: 15px;
-
-      i.fa {
-        color: rgba(195, 195, 195, 0.6);
-        font-size: 20px;
-        line-height: 60px;
-      }
-
-      input {
-        background-color: transparent;
-        height: 60px;
-        vertical-align: top;
-        border: 0px;
-        padding-left: 10px;
-        width: 300px;
-      }
-
-      input:focus {
-        outline: none;
-      }
-    }
-
-    a.brand-link {
+    .brand a {
       color: rgba(255, 90, 95, .85);
 
-      font-size: 20px;
-      font-weight: bold;
-      padding-right: 10px;
+      // Center logo by setting line-height to full height of div.
+      line-height: 40px;
     }
 
-    a {
-      color: rgb(86, 90, 92);
-      line-height: 60px;
-      padding-bottom: 0px;
-      padding-top: 0px;
+    .nav-search-bar {
+      height: 60px;
+      float: left;
+
+      border-left: 1px solid rgba(195, 195, 195, 0.4);
+      padding-left: 10px;
+
+      i.fa {
+        // Center search icon. Since inline can't change height.
+        line-height: 60px;
+
+        color: rgba(195, 195, 195, 0.6);
+        font-size: 20px;
+      }
+
+      input[type=text] {
+        // Make plenty long.
+        height: 100%;
+        width: 400px;
+
+        padding-left: 10px;
+
+        // Unstyle the text input.
+        background-color: transparent;
+        border: 0px;
+
+        &:focus {
+          outline: none;
+        }
+      }
     }
 
-    a:hover,
-    a:focus {
-      text-decoration: none;
-    }
-
-    li {
-      border: 0px;
-      border-left: 1px;
-      border-style: solid;
-      border-left-color: rgba(195, 195, 195, 0.4);
+    .items .item {
+      border-left: 1px solid rgba(195, 195, 195, 0.4);
 
       a {
-        padding-left: 20px;
-        padding-right: 20px;
+        color: rgb(86, 90, 92);
       }
     }
   }

@@ -35,27 +35,23 @@ class SearchNavbar extends React.Component {
 
   render() {
     return (
-      <nav className="navbar search-nav">
-        <div className="container-fluid">
-          <div className="nav navbar-left">
-            <a className="brand-link" href="/">
-              ❤ kittenbnb
-            </a>
-          </div>
+      <nav className="my-navbar">
+        <div className="brand">
+          <a href="/">❤ kittenbnb</a>
+        </div>
 
-          <div className="nav navbar-left search-bar">
-            <i className="fa fa-search" aria-hidden="true"></i>
-              <input type="text"
-                     value={this.state.location}
-                     ref="locationInput"
-                     onChange={(e) => this.setState({location: e.target.value})} />
-          </div>
+        <div className="nav-search-bar">
+          <i className="fa fa-search" aria-hidden="true"></i>
+            <input type="text"
+                   value={this.state.location}
+                   ref="locationInput"
+                   onChange={(e) => this.setState({location: e.target.value})} />
+        </div>
 
-          <ul className="nav navbar-nav navbar-right">
-            <li><a href="#">Help</a></li>
-            <li><a href="#">Sign Up</a></li>
-            <li><a href="#">Log In</a></li>
-          </ul>
+        <div className="items">
+          <div className="item"><a href="#">Help</a></div>
+          <div className="item"><a href="#">Sign Up</a></div>
+          <div className="item"><a href="#">Log In</a></div>
         </div>
       </nav>
     );
