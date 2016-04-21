@@ -1,12 +1,10 @@
 class SearchSearchSidebar extends React.Component {
   render() {
-    let listingRows = _(this.props.listings).chunk(2).map((listings, idx) => {
-      let listingRows =
-          listings.map(l => <SearchListing listing={l} key={"listing" + l.id} />);
-      // Just for niceness to have heights computed correctly.
-      listingRows.push(<div className="clearfix" key={"clearfix" + idx} />);
-      return listingRows;
-    }).flatten().value();
+    let listingRows = this.props.listings.map((listing) => {
+      return <SearchListing listing={listing} key={listing.id} />;
+    });
+
+    listingRows.push(<div className="clearfix" key="clearfix"/>);
 
     let classNames = "listings";
     if (this.props.loading) {
