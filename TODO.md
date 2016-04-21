@@ -1,16 +1,25 @@
-## TODO
+## TODO General
 
 * Add more faces.
 * Navbar links do nothing.
     * Don't need to fill these out, really.
     * But do need to explain.
-* Show stars in the listing item.
-* Gray out while performing search.
+
+## Search Page
+
 * Make markers look nice.
+    * Need to highlight on scrollover.
+* Image carousel on search page.
+    * Would make it feel more dynamic.
+
+## TODO Reviews
+
+* Show stars in the listing item.
 * Add reviews, reviews model.
-* Make search persist past refresh.
+
+## TODO Listing Page
+
 * Listing page!
     * Details of the listing.
     * Reviews from users.
     * Table for request
-* Image carousel on search page.
