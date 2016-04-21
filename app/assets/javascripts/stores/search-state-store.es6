@@ -1,13 +1,20 @@
 let SearchStateStore = {
+  BEGIN_FETCH: 'BEGIN_FETCH',
   REPLACE_LISTINGS: 'REPLACE_LISTINGS',
   UPDATE_SEARCH: 'UPDATE_SEARCH',
   storeInstance: null,
+
+  beginFetch() {
+    return {
+      type: this.BEGIN_FETCH
+    };
+  },
 
   fetchResults() {
     return (dispatch, getResults) => {
       let searchParams = getResults().params
 
-      console.log("BEGIN FETCH");
+      dispatch(this.beginFetch());
 
       return StaticMap.sampleRandomPoints()
         .then((candidateLocations) => {
@@ -55,9 +62,15 @@ let SearchStateStore = {
 
   resultsReducer(results, action) {
     switch (action.type) {
+    case this.BEGIN_FETCH:
+      return {
+        ...results,
+        isLoading: true
+      }
     case this.REPLACE_LISTINGS:
       return {
-        listings: action.listings
+        listings: action.listings,
+        isLoading: false
       };
     default:
       return results;
@@ -120,7 +133,8 @@ let SearchStateStore = {
     };
 
     let initialResults = {
-      listings: []
+      listings: [],
+      isLoading: false
     };
 
     this.storeInstance = Redux.createStore(

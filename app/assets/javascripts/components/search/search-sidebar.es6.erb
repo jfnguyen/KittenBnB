@@ -2,16 +2,21 @@ class SearchSearchSidebar extends React.Component {
   render() {
     let listingRows = _(this.props.listings).chunk(2).map((listings, idx) => {
       let listingRows =
-          listings.map(l => <SearchListing listing={l} key={l.id} />);
+          listings.map(l => <SearchListing listing={l} key={"listing" + l.id} />);
       // Just for niceness to have heights computed correctly.
-      listingRows.push(<div className="clearfix" key={idx} />);
+      listingRows.push(<div className="clearfix" key={"clearfix" + idx} />);
       return listingRows;
     }).flatten().value();
+
+    let classNames = "listings";
+    if (this.props.loading) {
+      classNames += " loading";
+    }
 
     return (
       <div className="search-sidebar">
         <SearchForms />
-        <div className="listings">
+        <div className={classNames}>
           {listingRows}
         </div>
       </div>
@@ -21,6 +26,7 @@ class SearchSearchSidebar extends React.Component {
 
 SearchSearchSidebar = ReactRedux.connect(
   (searchState) => ({
-    listings: searchState.results.listings
+    listings: searchState.results.listings,
+    loading: searchState.results.isLoading
   })
 )(SearchSearchSidebar)
