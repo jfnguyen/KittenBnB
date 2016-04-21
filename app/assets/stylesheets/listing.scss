@@ -74,11 +74,20 @@
         // Reset.
         padding: 0;
         margin: 0;
+
+        a {
+          color: inherit;
+        }
       }
 
       .details {
         color: rgba(86, 90, 92, 0.8);
         font-size: 13px;
+
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
       }
     }
   }

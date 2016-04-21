@@ -16,11 +16,12 @@ class SearchListing extends React.Component {
       roomType = "Shared Room";
     }
 
+    let listingUrl = "#";
     return (
       <div className="half listing">
+        <a href={listingUrl}>
           <div className="img-container">
             <img src={listing.imagePaths[0]} className="photo" />
-
             <div className="price-container">
               <div className="inner-price-container">
                 <sup>$</sup>{listing.pricePerNight}
@@ -33,13 +34,17 @@ class SearchListing extends React.Component {
               </div>
             </div>
           </div>
+        </a>
 
-          <div className="title-detail-wrapper">
-            <h3 className="title">{listing.title}</h3>
-            <div className="details">
-              {roomType} • Stars • 14 Reviews
-            </div>
+        <div className="title-detail-wrapper">
+          <h3 className="title">
+            <a href={listingUrl}>{listing.title}</a>
+          </h3>
+
+          <div className="details">
+            <a href={listingUrl}>{roomType} • Stars • 14 Reviews</a>
           </div>
+        </div>
       </div>
     );
   }
