@@ -2,12 +2,14 @@ class HomeMain extends React.Component {
   render() {
     return (
       <div>
+        <HomeImageLoop />
         <HomeNavbar />
-        <div className="hero-main">
-          <HomeImageLoop />
-          <HomeTitle />
 
-          <HomeSearchTool />
+        <div className="content-outer">
+          <div className="content-inner">
+            <HomeTitle />
+            <HomeSearchTool />
+          </div>
         </div>
       </div>
     );

@@ -1,33 +1,77 @@
 #home {
-  .hero-main {
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
+  // Content will be centered below using display: absolute, so height
+  // cannot be inferred. Not that this really matters...
+  height: 100vh;
 
+  // Background slideshow.
   .looper-hero {
+    position: absolute;
     height: 100vh;
-    z-index: -100;
+    width: 100vw;
+
+    // I think items with opacity otherwise appear in front?
+    z-index: -1;
+
+    .img {
+      // Else has no height since div is empty.
+      height: 100vh;
+      width: 100vw;
+    }
   }
 
-  .looper-hero .img {
-    height: 100vh;
-    z-index: -50;
+  // Navbar.
+  .my-navbar {
+    height: 60px;
+    width: 100vw;
+
+    ul.items {
+      float: right;
+
+      list-style-type: none;
+
+      li {
+        padding: 15px;
+        float: left;
+      }
+    }
+
+    a {
+      color: rgba(255, 90, 95, .85);
+      font-weight: bold;
+    }
+
+    .brand {
+      float: left;
+
+      padding-left: 10px;
+      padding-top: 10px;
+
+      a {
+        font-size: 24px;
+        line-height: 1;
+      }
+    }
   }
 
-  .hero-heading {
+  // Center content.
+  .content-outer {
     position: absolute;
     top: 0;
-    left: 0;
-    height: 60vh;
-    width: 100%;
-    display: table;
 
-    .hero-heading-inner {
-      height: 100%;
-      display: table-cell;
+    // For vertical centering of inner div.
+    display: table;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .content-inner {
+    // Vertically centered!
+    display: table-cell;
+    vertical-align: middle;
+
+    .title {
+      // Horizontal centering.
       text-align: center;
-      vertical-align: middle;
 
       h1 {
         font-size: 60px;
@@ -39,39 +83,29 @@
         color: rgba(255, 255, 255, 1.0);
       }
     }
+
+    .search {
+      margin-top: 10vh;
+    }
   }
 
-  #hero-search {
-    /*background-color: rgba(0,0,0,0.6);*/
-    bottom: 40vh;
+  .search .error-messages {
+    // Make sure addition of error-messages doesn't affect size of the
+    // content div. And also make sure it is horizontally centered.
     position: absolute;
-    left: 0;
-    right: 0;
+    width: 100vw;
+    text-align: center;
 
-    height: 84px;
+    .item {
+      // Horizontally centered!
+      display: inline-block;
 
-    .error-message {
-      height: 30px;
-
-      display: table;
-
-      margin-left: auto;
-      margin-right: auto;
       margin-top: 22px;
       margin-bottom: 2px;
 
-      span {
-        display: table-cell;
-
-        padding-left: 10px;
-        padding-right: 10px;
-
-        background-color: rgba(255, 90, 95, .85);
-        text-align: center;
-        line-height: 30px;
-
-        border-radius: 4px;
-      }
+      background-color: rgba(255, 90, 95, .85);
+      padding: 5px 10px 5px 10px;
+      border-radius: 4px;
     }
   }
 
@@ -138,40 +172,6 @@
     @media (max-width: 1000px) {
       .item.first-item {
         width: 220px;
-      }
-    }
-  }
-
-  .my-navbar {
-    top: 0;
-    position: absolute;
-    width: 100%;
-
-    ul.items {
-      float: right;
-
-      list-style-type: none;
-
-      li {
-        padding: 15px;
-        float: left;
-      }
-    }
-
-    a {
-      color: rgba(255, 90, 95, .85);
-      font-weight: bold;
-    }
-
-    .brand {
-      float: left;
-
-      padding-left: 10px;
-      padding-top: 10px;
-
-      a {
-        font-size: 24px;
-        line-height: 1;
       }
     }
   }

@@ -93,13 +93,13 @@ class HomeSearchTool extends React.Component {
     );
 
     let errorMessage = this.state.currentError == null ? null : (
-        <div className="error-message">
-          <span>{this.state.currentError}</span>
+        <div className="error-messages">
+          <span className="item">{this.state.currentError}</span>
         </div>
     );
 
     return (
-      <div id="hero-search">
+      <div className="search">
         <form className="searchbar" action="/search" method="GET">
           <div className="first-item item">
             {locationInput}
