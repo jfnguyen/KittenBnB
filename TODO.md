@@ -3,13 +3,14 @@
 * Add more faces.
 * Navbar links do nothing.
     * Don't need to fill these out, really.
+    * But do need to explain.
 * Show stars in the listing item.
 * Gray out while performing search.
 * Make markers look nice.
-* Add listing titles.
-* Add reviews.
+* Add reviews, reviews model.
 * Make search persist past refresh.
 * Listing page!
     * Details of the listing.
     * Reviews from users.
     * Table for request
+* Image carousel on search page.
