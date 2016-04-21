@@ -1,4 +1,5 @@
 .listings {
+  // Two listings per row.
   .half {
     width: 50%;
     float: left;
@@ -6,72 +7,78 @@
     padding-left: 12.5px;
     padding-right: 12.5px;
 
-    margin-bottom: 12.5px;
-  }
-
-  .listing-img-container {
-    position: relative;
-  }
-
-  img.listing-photo {
-    width: 100%;
-  }
-
-  .price-container {
-    position: absolute;
-    bottom: 30px;
-    left: 0px;
-
-    padding: 0px 10px 0px 10px;
-
-    background: rgba(0, 0, 0, 0.6);
-
-    .inner-price-container {
-      sup {
-        font-size: 14px;
-      }
-
-      color: white;
-      font-size: 24px;
-    }
-  }
-
-  .photo-container {
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-
-    height: 60px;
-    width: 60px;
-    transform: translate(-20%, +50%);
-
-    .photo-round {
-      border-radius: 50%;
-      border: 1px solid white;
-      overflow: hidden;
-
-      img {
-        height: 60px;
-        width: 60px;
-      }
-    }
-  }
-
-  .listing-title-detail-wrapper {
-    padding: 10px;
-  }
-
-  .listing-title {
-    color: rgb(86, 90, 92);
-    font-size: 16px;
-    font-weight: normal;
-    padding: 0;
     margin-top: 6.25px;
-    margin-bottom: 0px;
+    margin-bottom: 6.25px;
   }
 
-  .listing-details {
-    font-size: 13px;
-    color: rgba(86, 90, 92, 0.8);
+  .listing {
+    // Will need to be relative for us to do overlays.
+    .img-container {
+      position: relative;
+
+      img.photo {
+        width: 100%;
+      }
+    }
+
+    // Price tag.
+    .img-container .price-container {
+      position: absolute;
+      bottom: 30px;
+
+      padding: 0px 10px 0px 10px;
+
+      background: rgba(0, 0, 0, 0.6);
+
+      .inner-price-container {
+        // Raise up dollar sign.
+        sup {
+          font-size: 14px;
+        }
+
+        color: white;
+        font-size: 24px;
+      }
+    }
+
+    .img-container .portrait-container {
+      // Position.
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      transform: translate(-20%, +50%);
+
+      .portrait-round {
+        border-radius: 50%;
+        border: 2px solid white;
+        overflow: hidden;
+
+        // Coverup slight misalignment of photos.
+        background: white;
+
+        img {
+          height: 60px;
+          width: 60px;
+        }
+      }
+    }
+
+    .title-detail-wrapper {
+      padding: 10px;
+
+      .title {
+        color: rgb(86, 90, 92);
+        font-size: 16px;
+        font-weight: normal;
+        padding: 0;
+        margin-top: 6.25px;
+        margin-bottom: 0px;
+      }
+
+      .details {
+        font-size: 13px;
+        color: rgba(86, 90, 92, 0.8);
+      }
+    }
   }
 }

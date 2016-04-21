@@ -17,33 +17,29 @@ class SearchListing extends React.Component {
     }
 
     return (
-      <div>
-        <div className="half">
-          <div className="listing">
-            <div className="listing-img-container">
-              <img src={listing.imagePaths[0]} className="listing-photo" />
+      <div className="half listing">
+          <div className="img-container">
+            <img src={listing.imagePaths[0]} className="photo" />
 
-              <div className="price-container">
-                <div className="inner-price-container">
-                  <sup>$</sup>{listing.pricePerNight}
-                </div>
-              </div>
-
-              <div className="photo-container">
-                <div className="photo-round">
-                  <img src={listing.hostPortraitPath} />
-                </div>
+            <div className="price-container">
+              <div className="inner-price-container">
+                <sup>$</sup>{listing.pricePerNight}
               </div>
             </div>
 
-            <div className="listing-title-detail-wrapper">
-              <h3 className="listing-title">{listing.title}</h3>
-              <div className="listing-details">
-                {roomType} • Stars • 14 Reviews
+            <div className="portrait-container">
+              <div className="portrait-round">
+                <img src={listing.hostPortraitPath} />
               </div>
             </div>
           </div>
-        </div>
+
+          <div className="title-detail-wrapper">
+            <h3 className="title">{listing.title}</h3>
+            <div className="details">
+              {roomType} • Stars • 14 Reviews
+            </div>
+          </div>
       </div>
     );
   }
