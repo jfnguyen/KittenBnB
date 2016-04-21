@@ -49,7 +49,7 @@ class HomeSearchTool extends React.Component {
              value={this.state.location} />
     );
 
-    // First input exists only for datepicker to interact with.
+    // Phantom input exists only for datepicker to interact with.
     let dateRangeStartInput = (
       <div className="item" onClick={this.triggerClick}>
         <input className="phantom-input"
@@ -106,7 +106,6 @@ class HomeSearchTool extends React.Component {
           </div>{dateRangeStartInput}<div className="item graphic-item">
             →
           </div>{ [dateRangeEndInput, numGuestsSelect, submitButton] }
-
         </form>
 
         {errorMessage}
@@ -135,9 +134,9 @@ class HomeSearchTool extends React.Component {
       return "Check out date cannot be blank.";
     }
 
-    let validDates = (moment(new Date(this.state.dateRangeStart)).isBefore(
-      moment(new Date(this.state.dateRangeEnd))));
-    if (!validDates) {
+    let dateRangeStart = moment(new Date(this.state.dateRangeStart));
+    let dateRangeEnd = moment(new Date(this.state.dateRangeEnd));
+    if (!dateRangeStart.isBefore(dateRangeEnd)) {
       return "Check out must occur after check-in.";
     }
 
