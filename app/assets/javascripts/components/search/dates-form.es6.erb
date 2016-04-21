@@ -58,22 +58,26 @@ class SearchDatesForm extends React.Component {
       <div className="form-row">
         <label>Dates</label>
 
-        <form>
-          <div className="inline-form-control">
+        <div className="inline-inputs">
+          <div className="inline-input">
             <input type="text"
-                   ref="dateRangeStartInput"
-                   value={this.props.dateRangeStart}
-                   readOnly />
-          </div><div className="inline-form-control">
+                 ref="dateRangeStartInput"
+                 value={this.props.dateRangeStart}
+                 readOnly />
+          </div>
+
+          <div className="inline-input">
             <input type="text"
                    ref="dateRangeEndInput"
                    value={this.props.dateRangeEnd}
                    readOnly />
-          </div><div className="inline-form-control">
+          </div>
+
+          <div className="inline-input">
             <NumGuestsSelect value={this.props.numGuests}
                              onChange={numGuestsChangeHandler} />
           </div>
-        </form>
+        </div>
       </div>
     );
   }

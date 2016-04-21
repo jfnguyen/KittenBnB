@@ -15,8 +15,8 @@ class SearchRoomTypeForm extends React.Component {
       <div className="form-row">
         <label>Room Type</label>
 
-        <form>
-          <div className="inline-form-control">
+        <div className="inline-inputs">
+          <div className="inline-input">
             <div className="mycheckbox">
               <img src="<%= image_url "home_airglyphs.svg" %>" className="icon" />
               Entire home/apt
@@ -25,7 +25,9 @@ class SearchRoomTypeForm extends React.Component {
                     value={this.props.entireHome}
                     onChange={changeHandlers.entireHome} />
             </div>
-          </div><div className="inline-form-control">
+          </div>
+
+          <div className="inline-input">
             <div className="mycheckbox">
               <img src="<%= image_url "private-room_airglyphs.svg" %>" className="icon" e/>
               Private room
@@ -34,7 +36,9 @@ class SearchRoomTypeForm extends React.Component {
                     value={this.props.entireHome}
                     onChange={changeHandlers.privateRoom} />
             </div>
-          </div><div className="inline-form-control">
+          </div>
+
+          <div className="inline-input">
             <div className="mycheckbox">
               <img src="<%= image_url "shared-room_airglyphs.svg" %>" className="icon" />
               Shared room
@@ -44,7 +48,7 @@ class SearchRoomTypeForm extends React.Component {
                     onChange={changeHandlers.sharedRoom} />
             </div>
           </div>
-        </form>
+        </div>
       </div>
     );
   }

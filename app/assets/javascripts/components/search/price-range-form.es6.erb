@@ -34,12 +34,12 @@ class SearchPriceRangeForm extends React.Component {
       <div className="form-row">
         <label>Price Range</label>
 
-        <form className="slider-form">
+        <div className="slider-inline-input inline-inputs">
           <div ref="slider" className="slider"></div>
 
           <div className="min-price">${this.props.minPrice}</div>
           <div className="max-price">${this.props.maxPrice}</div>
-        </form>
+        </div>
       </div>
     );
   }

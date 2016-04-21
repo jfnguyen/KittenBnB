@@ -1,4 +1,5 @@
 #search {
+  // Navbar
   .my-navbar {
     border-bottom: 1px solid rgba(195, 195, 195, 0.4);
 
@@ -77,24 +78,30 @@
       content: " ";
       clear: both;
     }
+  }
 
+  // Inline form labels/vertical sizing/inputs.
+  .form-row {
     label {
       float: left;
-      width: 17%;
-      height: 100%;
+      width: 15%;
 
+      // Remove label styling.
+      margin: 0;
       font-weight: normal;
 
+      // Center text vertically.
       line-height: 36px;
       vertical-align: middle;
 
+      // Move onto own line if screen is too small.
       @media (max-width: 1248px) {
         width: 100%;
         text-align: center;
       }
     }
 
-    form {
+    .inline-inputs {
       float: left;
       width: 75%;
 
@@ -103,26 +110,28 @@
       }
     }
 
-    // TODO: Breaks on smaller screens.
-    div.inline-form-control {
-      height: 36px;
+    .inline-input {
       width: calc(100% / 3);
 
-      display: inline-block;
+      float: left;
       padding-left: 6.25px;
       padding-right: 6.25px;
     }
 
     input, select, .mycheckbox {
       height: 36px;
-      padding: 8px 10px 8px 10px;
+      // Force inline element to take all space.
       width: 100%;
 
+      padding: 8px 0px 8px 8px;
+
+      // Display light outline.
       border: 1px;
       border-color: rgba(195, 195, 195, 1.0);
       border-style: solid;
     }
 
+    // Align text to middle of inputs. Round corners.
     input, select {
       vertical-align: middle;
       border-radius: 2px;
@@ -132,126 +141,140 @@
       line-height: 36px;
     }
 
-    .mycheckbox {
-      background-color: rgb(237, 239, 237);
-      padding: 8px 0px 8px 10px;
+    select {
+      background-color: white;
+      -webkit-appearance: none;
+    }
+  }
+
+  // Everything pertaining to checkboxes
+  .form-row .inline-input .mycheckbox {
+    // Tweak colors a little.
+    background-color: rgb(237, 239, 237);
+    border-color: rgba(195, 195, 195, 0.4);
+
+    // TODO: This sucks.
+    .icon {
+      height: 16px;
+      padding-right: 4px;
+      display: block;
+      float: left;
+    }
+
+    input[type=checkbox] {
+      // Float to the left.
       display: inline-block;
+      float: right;
 
-      border-color: rgba(195, 195, 195, 0.4);
+      // Remove default appearance.
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      -webkit-appearance: none;
 
-      .icon {
-        height: 18px;
-      }
+      // Size appropriately. 18px because of one pixel border.
+      height: 18px;
+      width: 18px;
+      margin-right: 5px;
 
-      input[type=checkbox] {
-        display: inline-block;
-        float: right;
-        position: relative;
+      // Positioning relative to (1) allow us to make this taller, and
+      // (2) absolute position the checkmark inside.
+      position: relative;
 
-        margin: 0;
-        padding: 0;
-        margin-right: 5px;
-
-        background-color: white;
-        -webkit-appearance: none;
-        height: 1.25em;
-        width: 1.25em;
-      }
-
-      input[type="checkbox"]:checked:before {
+      // Hackery to put a little red square inside the checkbox.
+      &:checked:before {
         content: "";
+
         position: absolute;
-        background-color: #ff5a5f;
-        color: #ff5a5f;
         left: 1px;
         top: 1px;
         bottom: 1px;
         right: 1px;
 
+        background-color: #ff5a5f;
         border-radius: 1px;
       }
 
-      input[type="checkbox"]:focus {
+      // Don't outline on toggling.
+      &:focus {
         outline: none;
       }
     }
+  }
 
-    select {
-      background-color: white;
-      -webkit-appearance: none;
+  // Slider stuff.
+  .inline-inputs.slider-inline-input {
+    // Move this in a little bit since inputs in other rows have padding
+    // which we need to emulate.
+    padding-left: 6.25px;
+    padding-right: 6.25px;
+
+    .min-price {
+      float: left;
+      width: 50%;
     }
 
-    // Slider stuff.
-    form.slider-form {
-      width: 75%;
-      border-left: 6.25px;
-      border-right: 12.5px;
-
-      @media (max-width: 1248px) {
-        width: 100%;
-      }
-
-      .slider {
-        height: 24px !important;
-
-        border: none;
-        box-shadow: none;
-        background: transparent !important;
-
-        padding-left: 6.25px;
-        padding-right: 6.25px;
-        margin-bottom: 10px;
-      }
-
-      .noUi-background {
-        height: 4px;
-        border-bottom: 2px solid white;
-
-        background: #dce0e0;
-      }
-
-      .noUi-base {
-        background: #dce0e0;
-        height: 24px;
-        border-bottom: 11px solid white;
-        border-top: 11px solid white;
-      }
-
-      .noUi-connect {
-        background: #ff5a5f;
-        height: 4px;
-        box-shadow: none;
-      }
-
-      .noUi-handle {
-        border-radius: 100%;
-        height: 24px;
-        width: 24px;
-        top: -10px;
-      }
-
-      .noUi-handle:before,
-      .noUi-handle:after {
-        content: none;
-      }
-
-      .min-price {
-        float: left;
-        width: 50%;
-      }
-
-      .max-price {
-        float: left;
-        width: 50%;
-        text-align: right;
-      }
+    .max-price {
+      float: left;
+      width: 50%;
+      text-align: right;
     }
   }
 
-  .form-row-tall {
-    height: 116px;
+  .slider-inline-input .slider {
+    height: 24px !important;
+
+    // Remove any border/background around the entire slider.
+    border: none;
+    box-shadow: none;
+    background: transparent !important;
+
+    // Masks top end gray.
+    .noUi-background {
+      height: 4px;
+      border-bottom: 2px solid white;
+
+      background: #dce0e0;
+    }
+
+    // Masks bottom end gray, and also makes background white.
+    .noUi-base {
+      background: #dce0e0;
+      height: 24px;
+      border-bottom: 11px solid white;
+      border-top: 11px solid white;
+    }
+
+    // Makes connected part red.
+    .noUi-connect {
+      background: #ff5a5f;
+      height: 4px;
+      box-shadow: none;
+    }
+
+    // Make the handles circular.
+    .noUi-handle {
+      border-radius: 100%;
+      height: 24px;
+      width: 24px;
+      // Recenter handle properly. It's absolutely positioned.
+      // Not 12px prolly because of width of bar.
+      top: -10px;
+    }
+
+    // Not sure what this is for, but aplies an ugly border-radius
+    .noUi-origin {
+      border-radius: 0px;
+    }
+
+    // Removes obnoxious hash marks inside handles.
+    .noUi-handle:before,
+    .noUi-handle:after {
+      content: none;
+    }
   }
 
+  // TODO
   .form-break {
     padding: 0px 20px 0px 20px;
     .break {
