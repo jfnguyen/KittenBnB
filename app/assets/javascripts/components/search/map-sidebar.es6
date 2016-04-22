@@ -112,9 +112,13 @@ class SearchMapSidebar extends React.Component {
         return;
       }
 
-      let marker = new google.maps.Marker({
+      let marker = new rich.RichMarker({
         position: new google.maps.LatLng(listing.latitude, listing.longitude),
         map: this.mapInstance,
+        draggable: false,
+        flat: true,
+        anchor: rich.RichMarkerPosition.MIDDLE,
+        content: `<div class="map-marker"><sup>$</sup>${listing.pricePerNight}</div>`
       });
 
       marker.listingId = listing.id;

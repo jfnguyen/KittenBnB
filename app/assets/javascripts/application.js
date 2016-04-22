@@ -19,6 +19,7 @@
 //= require daterangepicker
 //= require looper
 //= require nouislider
+//= require richmarker
 //= require react
 //= require react_ujs
 //= require redux
