@@ -1,6 +1,9 @@
 class SearchListing extends React.Component {
   constructor(props) {
     super(props)
+
+    this.highlight = this.highlight.bind(this);
+    this.unhighlight = this.unhighlight.bind(this);
   }
 
   render() {
@@ -18,7 +21,7 @@ class SearchListing extends React.Component {
 
     let listingUrl = "#";
     return (
-      <div className="half listing">
+      <div className="half listing" onMouseEnter={this.highlight} onMouseLeave={this.unhighlight}>
         <a href={listingUrl}>
           <div className="img-container">
             <img src={listing.imagePaths[0]} className="photo" />
@@ -48,8 +51,25 @@ class SearchListing extends React.Component {
       </div>
     );
   }
+
+  highlight() {
+    this.props.focusListing(this.props.listing);
+  }
+
+  unhighlight() {
+    this.props.focusListing(null);
+  }
 }
 
 SearchListing.propTypes = {
   listing: React.PropTypes.object.isRequired
 };
+
+SearchListing = ReactRedux.connect(
+  (searchState) => ({}),
+  (dispatch) => ({
+    focusListing(listing) {
+      dispatch(SearchStateStore.focusListing(listing));
+    }
+  })
+)(SearchListing);

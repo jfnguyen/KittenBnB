@@ -1,5 +1,6 @@
 let SearchStateStore = {
   BEGIN_FETCH: 'BEGIN_FETCH',
+  FOCUS_LISTING: 'FOCUS_LISTING',
   REPLACE_LISTINGS: 'REPLACE_LISTINGS',
   UPDATE_SEARCH: 'UPDATE_SEARCH',
   storeInstance: null,
@@ -8,10 +9,6 @@ let SearchStateStore = {
     return {
       type: this.BEGIN_FETCH
     };
-  },
-
-  queryUrl(searchParams) {
-    return "/search?" + $.param({ search: searchParams });
   },
 
   fetchResults() {
@@ -35,6 +32,13 @@ let SearchStateStore = {
         }).then((resultListings) => {
           dispatch(this.replaceListings(resultListings));
         });
+    };
+  },
+
+  focusListing(listing) {
+    return {
+      type: this.FOCUS_LISTING,
+      listing: listing
     };
   },
 
@@ -73,7 +77,12 @@ let SearchStateStore = {
       return {
         ...results,
         isLoading: true
-      }
+      };
+    case this.FOCUS_LISTING:
+      return {
+        ...results,
+        focusedListing: action.listing
+      };
     case this.REPLACE_LISTINGS:
       return {
         listings: action.listings,
@@ -145,7 +154,8 @@ let SearchStateStore = {
 
     let initialResults = {
       listings: [],
-      isLoading: false
+      isLoading: false,
+      focusedListing: null
     };
 
     this.storeInstance = Redux.createStore(
@@ -155,6 +165,10 @@ let SearchStateStore = {
       },
       Redux.applyMiddleware(ReduxThunk.default)
     );
+  },
+
+  queryUrl(searchParams) {
+    return "/search?" + $.param({ search: searchParams });
   },
 };
 
