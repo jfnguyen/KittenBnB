@@ -20,7 +20,9 @@ Object.assign(SearchMapListingPopover, {
     // Open for styling!
     $target.addClass("open");
     // HACK to open wrapper.
-    $target.parent().parent().addClass("open");
+    let markerWrapper = $target.parent().parent();
+    markerWrapper.addClass("open");
+    markerWrapper.on("dblclick", (e) => e.stopPropagation());
 
     let listingElement = React.createElement(
       SearchListing.WrappedComponent, {
