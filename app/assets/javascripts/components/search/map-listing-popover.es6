@@ -32,30 +32,12 @@ Object.assign(SearchMapListingPopover, {
     this.clickListener = null;
   },
 
-  installBackgroundClickHandler() {
-    // Only install once.
-    if (this._backgroundClickHandler) {
-      return;
-    }
+  // HACK! This is really terrible, but the only way I can figure out.
+  ignoreCurrentEvent() {
+    this._ignoreCurrentEvent = true;
+    // When done processing this event, don't ignore more events!
 
-    // HACK to intercept clicks to dismiss the popover.
-    let $backdrop = this.$markerWrapper.parent();
-    $backdrop.css({ height: "100vh" });
-
-    this._backgroundClickHandler = $backdrop.on("click", (e) => {
-      if (this.$mapMarker === null) {
-        // Nothing to hide.
-        return;
-      }
-
-      if (this.$mapMarker[0] === e.target) {
-        // IGNORE: event happened to map marker.
-      } else if ($.contains(this.$mapMarker[0], e.target)) {
-        // IGNORE: event is inside map marker.
-      } else {
-        this.hidePopover();
-      }
-    });
+    _.defer(() => { this._ignoreCurrentEvent = false });
   },
 
   showPopover(marker, listing, event) {
@@ -89,12 +71,35 @@ Object.assign(SearchMapListingPopover, {
       }
     );
 
+    // Set map up to hide popover on click outside the popover. This is
+    // hard because there's no way to get the event in Google's listener
+    // class...
+    this._mapClickListener = marker.map.addListener("click", () => {
+      console.log("w?");
+      if (this._ignoreCurrentEvent) {
+        return;
+      } else {
+        this.hidePopover();
+      }
+
+      // Cleanup this listener.
+      this._mapClickListener.remove();
+      this._mapClickListener = null;
+    });
+
+    // Because events will bubble to map, we need to be careful clicks
+    // within the popover don't trigger it to hide. We'd use
+    // stopPropagation, but React needs propagation to body where it
+    // captures events.
+    this.$mapMarker.on("click", (event) =>{
+      this.ignoreCurrentEvent();
+    });
+    // This very click shouldn't hide the popover we've just shown!
+    this.ignoreCurrentEvent();
+
     ReactDOM.render(
       listingElement,
       this.$mapMarker[0]
     );
-
-    // Dismiss popover on background click.
-    this.installBackgroundClickHandler();
   }
 });
