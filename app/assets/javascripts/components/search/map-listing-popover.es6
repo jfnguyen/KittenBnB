@@ -22,7 +22,10 @@ Object.assign(SearchMapListingPopover, {
     // HACK to open wrapper.
     let markerWrapper = $target.parent().parent();
     markerWrapper.addClass("open");
+    // HACK to stop doubleclicks from zooming the map.
     markerWrapper.on("dblclick", (e) => e.stopPropagation());
+    // HACK to make sure popover appears above other price markers.
+    markerWrapper.parent().append(markerWrapper);
 
     let listingElement = React.createElement(
       SearchListing.WrappedComponent, {
