@@ -7,8 +7,6 @@
 
 ## Search Page
 
-* Make markers look nice.
-    * Need to highlight on scrollover.
 * Image carousel on search page.
     * Would make it feel more dynamic.
 

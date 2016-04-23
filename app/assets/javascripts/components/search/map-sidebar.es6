@@ -53,6 +53,10 @@ class SearchMapSidebar extends React.Component {
       this.recenterMap();
     }
 
+    if (prevProps.focusedListing !== this.props.focusedListing) {
+      this.updateFocusedMarker();
+    }
+
     this.refreshMarkers()
   }
 
@@ -128,6 +132,28 @@ class SearchMapSidebar extends React.Component {
 
     this.markers = newMarkers;
   }
+
+  updateFocusedMarker() {
+    let focusedListingId = this.props.focusedListing && this.props.focusedListing.id;
+    console.log(focusedListingId);
+
+    this.markers.forEach(marker => {
+      // Cheat and access the DOM node for the marker via private API.
+      let markerNode = marker.markerContent_.firstChild;
+
+      if (marker.listingId === focusedListingId) {
+        console.log("FOCUS");
+        $(markerNode).addClass("focused");
+        marker.setZIndex(999);
+        marker.isFocused = true;
+      } else if (marker.isFocused) {
+        console.log("UNFOCUS");
+        $(markerNode).removeClass("focused");
+        marker.setZIndex(0);
+        marker.isFocused = false;
+      }
+    });
+  }
 }
 
 SearchMapSidebar.propTypes = {
@@ -136,6 +162,7 @@ SearchMapSidebar.propTypes = {
 
 SearchMapSidebar = ReactRedux.connect(
   (searchState) => ({
+    focusedListing: searchState.results.focusedListing,
     geoBounds: searchState.params.geoBounds,
     geoCenter: searchState.params.geoCenter,
     listings: searchState.results.listings,
