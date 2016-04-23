@@ -123,12 +123,8 @@ class SearchMapSidebar extends React.Component {
         draggable: false,
         flat: true,
         anchor: rich.RichMarkerPosition.MIDDLE,
-        content: `
-          <div class="map-marker" data-listing-id=${listing.id}>
-            <sup>$</sup>${listing.pricePerNight}
-          </div>
-        `
       });
+
       // So that we can know which ones to add/remove later.
       marker.listingId = listing.id;
 
@@ -140,8 +136,17 @@ class SearchMapSidebar extends React.Component {
         $(marker.markerWrapper_).addClass("map-marker-wrapper");
       };
 
+    marker.restore = function () {
+      this.set("content", `
+        <div class="map-marker" data-listing-id=${listing.id}>
+          <sup>$</sup>${listing.pricePerNight}
+        </div>
+      `);
+
       // Install callback to show popover when clicked.
       SearchMapListingPopover.attachToMarker(marker, listing);
+    };
+    marker.restore();
 
       newMarkers.push(marker);
     });

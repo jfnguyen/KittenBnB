@@ -16,14 +16,18 @@ Object.assign(SearchMapListingPopover, {
       return;
     }
 
-    // Return To old class style.
+    // Return to old class style.
     this.$mapMarker.removeClass("open");
     this.$mapMarker.parent().parent().removeClass("open");
 
     // Remove React node here.
     ReactDOM.unmountComponentAtNode(this.$mapMarker[0]);
 
+    // Ask marker to fill itself out again.
+    this.marker.restore();
+
     // Reset instance variables.
+    this.marker = null;
     this.$mapMarker = null;
     this.clickListener = null;
   },
@@ -58,6 +62,7 @@ Object.assign(SearchMapListingPopover, {
     // If any popover is open, hide it first.
     this.hidePopover();
 
+    this.marker = marker;
     // Sometimes event.target isn't set to the content div...
     this.$mapMarker = $(marker.markerContent_).find(".map-marker");
     // HACK: do need to make some changes to the wrapper.
