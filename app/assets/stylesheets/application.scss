@@ -55,15 +55,49 @@
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 0;
-  right: 0;
+  height: 100vh;
+  width: 100vw;
 
   // Dim.
   background: rgba(0, 0, 0, 0.8);
+
   // Some pesky things would be in front...
   z-index: 1;
 
-  .content {
-    position: relative;
+  // For vertical centering.
+  display: table;
+
+  .content-outer {
+    // Vertical center.
+    display: table-cell;
+    vertical-align: middle;
+
+    .content-inner {
+      // Limit width.
+      width: calc(40vw);
+      margin: auto;
+
+      background: white;
+      border-radius: 6px;
+
+      .my-modal-header {
+        padding: 10px;
+
+        h1 {
+          font-size: 24px;
+          margin: 0px
+        }
+
+        border-bottom: 1px solid #e5e5e5;
+      }
+
+      .my-modal-body {
+        padding: 10px;
+
+        p {
+          font-size: 14px;
+        }
+      }
+    }
   }
 }
