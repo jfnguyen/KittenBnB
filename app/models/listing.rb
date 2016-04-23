@@ -46,7 +46,7 @@ SQL
 
     distFilterFn = -> (listing) do
       boundsWidth = (search_params["geoBounds"]["southWest"]["lng"].to_f
-                     - search_params["geoBounds"]["northEast"]["lng"].to_f)
+                     - search_params["geoBounds"]["northEast"]["lng"].to_f).abs
       dist = distFn.call(listing)
       dist < (0.5 * boundsWidth)
     end
