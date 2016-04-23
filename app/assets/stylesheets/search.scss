@@ -132,10 +132,45 @@
   .map-marker.open {
     background: white;
 
-    width: 260px;
+    padding: 0;
+    width: 280px;
+
+    border: 0px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 
     .listing {
       @include listing;
+
+      padding: 10px;
+
+      // Make advance/reverse icons a little smaller.
+      .img-container {
+        &:hover .reverse, &:hover .advance {
+          font-size: 30px;
+        }
+      }
+
+      // Don't display the host portrait.
+      .img-container .portrait-container {
+        display: none;
+      }
+
+      // Sink price container to bottom of image.
+      .img-container .price-container {
+        bottom: 0px;
+      }
+
+      .title-detail-wrapper {
+        padding: 5px;
+
+        .title {
+          font-size: 14px;
+        }
+
+        .details {
+          font-size: 12px;
+        }
+      }
     }
 
     &:after {

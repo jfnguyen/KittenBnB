@@ -11,7 +11,6 @@ Object.assign(SearchMapListingPopover, {
 
   showPopover(marker, listing, event) {
     let $target = $(event.target);
-    console.log($target);
 
     // Remove listener.
     // TODO: will have to eventually restore it.
@@ -26,6 +25,9 @@ Object.assign(SearchMapListingPopover, {
     markerWrapper.on("dblclick", (e) => e.stopPropagation());
     // HACK to make sure popover appears above other price markers.
     markerWrapper.parent().append(markerWrapper);
+
+    // Debugging for now.
+    console.log(markerWrapper[0])
 
     let listingElement = React.createElement(
       SearchListing.WrappedComponent, {
