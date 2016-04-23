@@ -13,10 +13,13 @@ class SearchListing extends React.Component {
     switch (listing.roomType) {
     case "private_room":
       roomType = "Private Room";
+      break;
     case "entire_home":
       roomType = "Entire Home";
+      break;
     case "shared_room":
       roomType = "Shared Room";
+      break;
     }
 
     let listingUrl = "#";
