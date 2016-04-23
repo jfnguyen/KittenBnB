@@ -125,6 +125,8 @@ class SearchMapSidebar extends React.Component {
         content: `<div class="map-marker"><sup>$</sup>${listing.pricePerNight}</div>`
       });
 
+      marker.addListener("click", (marker) => { debugger });
+
       marker.listingId = listing.id;
 
       newMarkers.push(marker);
