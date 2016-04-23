@@ -20,3 +20,31 @@
  */
 
 @import "shared", "home", "search";
+
+// Restyle google autocomplete.
+.pac-container {
+  // No horrible looking place icon!
+  .pac-icon {
+    display: none;
+  }
+
+  // Style results nicely.
+  .pac-item {
+    padding: 0.4em 1.6em;
+
+    // alternate white and gray.
+    &:nth-child(odd) {
+      background: #f5f5f5;
+    }
+
+    // Look pretty when hovered/selected.
+    &:hover, &.pac-item-selected {
+      background: #ff5a5f;
+      color: white;
+
+      .pac-item-query, .pac-matched {
+        color: white;
+      }
+    }
+  }
+}
