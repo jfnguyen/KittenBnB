@@ -83,6 +83,9 @@
     color: white;
     font-size: 13px;
 
+    // To make sure that position is centered at bottom of marker.
+    transform: translate(-50%, -100%);
+
     padding: 2px 4px 1px 4px;
     border-radius: 2px;
     box-shadow: 0 0 0 1px rgba(0,0,0,0.3);
@@ -114,6 +117,30 @@
 
     &:after {
       border-top-color: #007a87;
+    }
+  }
+
+  .map-marker.open {
+    // Because the open marker is bigger than the closed one, we need to
+    // back this up a little bit, so that the tip of the bottom triangle
+    // remains at the same point.
+    position: relative;
+    top: -10px;
+
+    background: white;
+
+    width: 260px;
+
+    .listing {
+      @include listing;
+    }
+
+    &:after {
+      @include triangle(15px, white);
+    }
+
+    &:before {
+      @include triangle(16px, rgba(0, 0, 0, 0.3));
     }
   }
 
