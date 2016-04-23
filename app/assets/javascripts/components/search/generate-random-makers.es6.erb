@@ -91,7 +91,6 @@ let StaticMap = {
     };
 
     let url = this.BASE_URL + "?" + $.param(params);
-    console.log(url);
     let imageObject = new Image();
     imageObject.crossOrigin = '';
     imageObject.src = url;
@@ -112,22 +111,34 @@ let StaticMap = {
     return context;
   },
 
-  _sampleRandomPoint(imageContext, pixelDims, latLngDims) {
-    let x = Math.floor(Math.random() * pixelDims.small.width);
-    let y = Math.floor(Math.random() * pixelDims.small.height);
-
-    let imageData = imageContext.getImageData(x, y, 1, 1);
-    let redIntensity = imageData.data[0];
-    let greenIntensity = imageData.data[1];
-    let blueIntensity = imageData.data[2];
+  _pixelIsWater: function (imageData, pixelNum) {
+    let redIntensity = imageData.data[4*pixelNum + 0];
+    let greenIntensity = imageData.data[4*pixelNum + 1];
+    let blueIntensity = imageData.data[4*pixelNum + 2];
 
     if ((redIntensity < blueIntensity)
         || (greenIntensity < blueIntensity)) {
       // Found water. Ignore water.
-      return null;
+      return true;
     } else {
-      return latLngDims.small.pixelToLatLngDims(x, y);
+      return false;
     }
+  },
+
+  _sampleRandomPoint(imageContext, pixelDims, latLngDims) {
+    let x = Math.floor(Math.random() * pixelDims.small.width);
+    let y = Math.floor(Math.random() * pixelDims.small.height);
+
+    let imageData = imageContext.getImageData(x, y, 20, 20);
+
+    var pixelNum;
+    for (pixelNum = 0; pixelNum < imageData.data.length; pixelNum += 4) {
+      if (this._pixelIsWater(imageData, pixelNum)) {
+        return null;
+      }
+    }
+
+    return latLngDims.small.pixelToLatLngDims(x, y);
   },
 
   sampleRandomPoints() {
