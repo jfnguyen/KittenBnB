@@ -31,6 +31,7 @@ class SearchMapSidebar extends React.Component {
 
       this.mapInstance = new google.maps.Map(this.refs.map, {
         center: this.props.geoCenter,
+        clickableIcons: false, // don't let user click "points of interest"
         disableDefaultUI: true,
         zoomControl: true,
         zoom: 12,
