@@ -44,8 +44,10 @@ Object.assign(SearchMapListingPopover, {
         return;
       }
 
-      if (e.target === this.$mapMarker[0]) {
-        // IGNORE
+      if (this.$mapMarker[0] === e.target) {
+        // IGNORE: event happened to map marker.
+      } else if ($.contains(this.$mapMarker[0], e.target)) {
+        // IGNORE: event is inside map marker.
       } else {
         this.hidePopover();
       }
