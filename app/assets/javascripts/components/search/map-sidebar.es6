@@ -122,10 +122,25 @@ class SearchMapSidebar extends React.Component {
         draggable: false,
         flat: true,
         anchor: rich.RichMarkerPosition.MIDDLE,
-        content: `<div class="map-marker"><sup>$</sup>${listing.pricePerNight}</div>`
+        content: `<div class="map-marker" data-listing-id=${listing.id}><sup>$</sup>${listing.pricePerNight}</div>`
       });
 
-      marker.addListener("click", (marker) => { debugger });
+      // TODO: clean me up! Get this working!
+      marker.addListener("click", (event) => {
+        let $target = $(event.target)
+        let listingId = $target.data("listing-id");
+        let listing = _(this.props.listings).find({ id: listingId });
+        debugger
+        let listingComponent = React.createElement(
+          SearchListing.WrappedComponent,
+          { listing: listing }
+        );
+
+        ReactDOM.render(
+          listingComponent,
+          event.target
+        );
+      });
 
       marker.listingId = listing.id;
 
