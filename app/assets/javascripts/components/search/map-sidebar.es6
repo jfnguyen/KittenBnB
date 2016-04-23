@@ -154,7 +154,7 @@ class SearchMapSidebar extends React.Component {
 
     this.markers.forEach(marker => {
       // Cheat and access the DOM node for the marker via private API.
-      let markerNode = marker.markerContent_.firstChild;
+      let markerNode = $(marker.markerContent_).children(":first");
 
       if (marker.listingId === focusedListingId) {
         $(markerNode).addClass("focused");
