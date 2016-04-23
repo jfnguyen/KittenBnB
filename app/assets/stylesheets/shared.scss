@@ -44,3 +44,84 @@
     clear: both;
   }
 }
+
+// Modal
+.my-modal {
+  // Span whole screen.
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+
+  // Dim.
+  background: rgba(0, 0, 0, 0.8);
+
+  // Some pesky things would be in front...
+  z-index: 1;
+
+  // For vertical centering.
+  display: table;
+
+  .content-outer {
+    // Vertical center.
+    display: table-cell;
+    vertical-align: middle;
+
+    .content-inner {
+      // Limit width.
+      width: calc(40vw);
+      margin: auto;
+
+      background: white;
+      border-radius: 6px;
+
+      .my-modal-header {
+        padding: 10px;
+
+        h1 {
+          font-size: 24px;
+          margin: 0px
+        }
+
+        border-bottom: 1px solid #e5e5e5;
+      }
+
+      .my-modal-body {
+        padding: 10px;
+
+        p {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+// Restyle google autocomplete.
+.pac-container {
+  // No horrible looking place icon!
+  .pac-icon {
+    display: none;
+  }
+
+  // Style results nicely.
+  .pac-item {
+    padding: 0.4em 1.6em;
+
+    // alternate white and gray.
+    &:nth-child(odd) {
+      background: #f5f5f5;
+    }
+
+    // Look pretty when hovered/selected.
+    &:hover, &.pac-item-selected {
+      background: #ff5a5f;
+      color: white;
+
+      .pac-item-query, .pac-matched {
+        color: white;
+      }
+    }
+  }
+}
