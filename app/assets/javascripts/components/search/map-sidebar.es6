@@ -140,6 +140,7 @@ class SearchMapSidebar extends React.Component {
         $(marker.markerWrapper_).addClass("map-marker-wrapper");
       };
 
+      // Install callback to show popover when clicked.
       SearchMapListingPopover.attachToMarker(marker, listing);
 
       newMarkers.push(marker);
