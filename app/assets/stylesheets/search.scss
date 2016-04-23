@@ -78,13 +78,15 @@
     }
   }
 
+  // Make sure point of popup touchs location of listing.
+  .map-marker-wrapper {
+    transform: translate(-50%, -100%);
+  }
+
   .map-marker {
     background: #ff5a5f;
     color: white;
     font-size: 13px;
-
-    // To make sure that position is centered at bottom of marker.
-    transform: translate(-50%, -100%);
 
     padding: 2px 4px 1px 4px;
     border-radius: 2px;
@@ -120,13 +122,14 @@
     }
   }
 
-  .map-marker.open {
-    // Because the open marker is bigger than the closed one, we need to
-    // back this up a little bit, so that the tip of the bottom triangle
-    // remains at the same point.
-    position: relative;
-    top: -10px;
+  .map-marker-wrapper.open {
+    // Because the open marker triangle is bigger than the closed one,
+    // we need to back this up a little bit, so that the tip of the
+    // bottom triangle remains at the same point.
+    transform: translate(-50%, -100%) translateY(-10px);
+  }
 
+  .map-marker.open {
     background: white;
 
     width: 260px;

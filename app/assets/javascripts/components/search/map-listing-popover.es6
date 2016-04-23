@@ -19,6 +19,8 @@ Object.assign(SearchMapListingPopover, {
 
     // Open for styling!
     $target.addClass("open");
+    // HACK to open wrapper.
+    $target.parent().parent().addClass("open");
 
     let listingElement = React.createElement(
       SearchListing.WrappedComponent, {

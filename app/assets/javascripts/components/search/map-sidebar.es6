@@ -131,6 +131,14 @@ class SearchMapSidebar extends React.Component {
       // So that we can know which ones to add/remove later.
       marker.listingId = listing.id;
 
+      let oldOnAdd = marker.onAdd;
+      marker.onAdd = () => {
+        oldOnAdd.apply(marker, arguments)
+
+        // I need to style the outer div.
+        $(marker.markerWrapper_).addClass("map-marker-wrapper");
+      };
+
       SearchMapListingPopover.attachToMarker(marker, listing);
 
       newMarkers.push(marker);
