@@ -10,7 +10,8 @@ Object.assign(SearchMapListingPopover, {
   },
 
   showPopover(marker, listing, event) {
-    let $target = $(event.target);
+    // Sometimes event.target isn't set to the content div...
+    let $target = $(marker.markerContent_).find(".map-marker");
 
     // Remove listener.
     // TODO: will have to eventually restore it.
