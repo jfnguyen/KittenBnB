@@ -207,7 +207,7 @@ rich.initialize = function () {
    * zIndex changed event.
    */
   RichMarker.prototype.zIndex_changed = function() {
-    if (this.getZIndex() && this.ready_) {
+    if ((this.getZIndex() || (this.getZIndex() == 0)) && this.ready_) {
       this.markerWrapper_.style.zIndex = this.getZIndex();
     }
   };
