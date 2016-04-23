@@ -7,8 +7,8 @@
 
 ## Search Page
 
-* Image carousel on search page.
-    * Would make it feel more dynamic.
+* Do something when you click on the markers.
+    * AirBnb shows a popover, but I don't need to do exactly that.
 
 ## TODO Reviews
 

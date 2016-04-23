@@ -2,44 +2,55 @@ class SearchListing extends React.Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      imageIdx: 0
+    };
+
     this.highlight = this.highlight.bind(this);
     this.unhighlight = this.unhighlight.bind(this);
   }
 
+  renderImageContainer() {
+    let listing = this.props.listing;
+    let imageUrl = listing.imagePaths[this.state.imageIdx];
+
+    let advanceImage = (e) => this.advanceImage(e, 1);
+    let reverseImage = (e) => this.advanceImage(e, -1);
+
+    return (
+      <div className="img-container">
+        <div className="reverse" onClick={reverseImage}>
+          <i className="fa fa-chevron-left" />
+        </div>
+
+        <img src={imageUrl} className="photo" />
+        <div className="advance" onClick={advanceImage}>
+          <i className="fa fa-chevron-right" />
+        </div>
+
+        <div className="price-container">
+          <div className="inner-price-container">
+            <sup>$</sup>{listing.pricePerNight}
+          </div>
+        </div>
+
+        <div className="portrait-container">
+          <div className="portrait-round">
+            <img src={listing.hostPortraitPath} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     let listing = this.props.listing;
-
-    var roomType;
-    switch (listing.roomType) {
-    case "private_room":
-      roomType = "Private Room";
-      break;
-    case "entire_home":
-      roomType = "Entire Home";
-      break;
-    case "shared_room":
-      roomType = "Shared Room";
-      break;
-    }
-
     let listingUrl = "#";
+
     return (
       <div className="half listing" onMouseEnter={this.highlight} onMouseLeave={this.unhighlight}>
         <a href={listingUrl}>
-          <div className="img-container">
-            <img src={listing.imagePaths[0]} className="photo" />
-            <div className="price-container">
-              <div className="inner-price-container">
-                <sup>$</sup>{listing.pricePerNight}
-              </div>
-            </div>
-
-            <div className="portrait-container">
-              <div className="portrait-round">
-                <img src={listing.hostPortraitPath} />
-              </div>
-            </div>
-          </div>
+          {this.renderImageContainer()}
         </a>
 
         <div className="title-detail-wrapper">
@@ -48,15 +59,36 @@ class SearchListing extends React.Component {
           </h3>
 
           <div className="details">
-            <a href={listingUrl}>{roomType} • Stars • 14 Reviews</a>
+            <a href={listingUrl}>{this.roomType()} • Stars • 14 Reviews</a>
           </div>
         </div>
       </div>
     );
   }
 
+  advanceImage(event, increment) {
+    event.preventDefault();
+
+    let numImages = this.props.listing.imagePaths.length;
+    // Mote BS to ensure never negative.
+    this.setState({
+      imageIdx: ((this.state.imageIdx + numImages + increment) % numImages)
+    });
+  }
+
   highlight() {
     this.props.focusListing(this.props.listing);
+  }
+
+  roomType() {
+    switch (this.props.listing.roomType) {
+    case "private_room":
+      return "Private Room";
+    case "entire_home":
+      return "Entire Home";
+    case "shared_room":
+      return "Shared Room";
+    }
   }
 
   unhighlight() {

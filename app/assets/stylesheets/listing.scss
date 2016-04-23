@@ -35,6 +35,35 @@
       img.photo {
         width: 100%;
       }
+
+      // Show arrows to advance
+      &:hover {
+        .reverse, .advance {
+          display: block;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+
+          font-size: 40px;
+          color: rgba(255, 255, 255, 0.8);
+
+          &:hover {
+            color: rgba(255, 255, 255, 0.9);
+          }
+        }
+
+        .reverse {
+          left: 12px;
+        }
+
+        .advance {
+          right: 12px;
+        }
+      }
+
+      .reverse, .advance {
+        display: none;
+      }
     }
 
     // Price tag.
