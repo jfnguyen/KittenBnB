@@ -135,19 +135,16 @@ class SearchMapSidebar extends React.Component {
 
   updateFocusedMarker() {
     let focusedListingId = this.props.focusedListing && this.props.focusedListing.id;
-    console.log(focusedListingId);
 
     this.markers.forEach(marker => {
       // Cheat and access the DOM node for the marker via private API.
       let markerNode = marker.markerContent_.firstChild;
 
       if (marker.listingId === focusedListingId) {
-        console.log("FOCUS");
         $(markerNode).addClass("focused");
         marker.setZIndex(999);
         marker.isFocused = true;
       } else if (marker.isFocused) {
-        console.log("UNFOCUS");
         $(markerNode).removeClass("focused");
         marker.setZIndex(0);
         marker.isFocused = false;
