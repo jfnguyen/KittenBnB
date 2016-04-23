@@ -40,6 +40,12 @@
           outline: none;
         }
       }
+
+      @media (max-width: 1248px) {
+        input[type=text] {
+          width: 200px;
+        }
+      }
     }
 
     .items .item {
