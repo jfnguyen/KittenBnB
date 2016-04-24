@@ -123,6 +123,8 @@ class SearchMapSidebar extends React.Component {
     // original appearance of the marker.
     marker.restore = function () {
       // Return to old class style.
+      marker.isOpen = false;
+      marker.setZIndex(0);
 
       this.set("content", `
         <div class="map-marker" data-listing-id=${listing.id}>
@@ -174,7 +176,7 @@ class SearchMapSidebar extends React.Component {
 
       if (marker.listingId === focusedListingId) {
         $(markerNode).addClass("focused");
-        marker.setZIndex(999);
+        marker.setZIndex(99);
         marker.isFocused = true;
       } else if (marker.isFocused) {
         $(markerNode).removeClass("focused");

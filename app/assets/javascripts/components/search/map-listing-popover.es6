@@ -39,6 +39,8 @@ Object.assign(SearchMapListingPopover, {
     this.hidePopover();
 
     this.marker = marker;
+    this.marker.isOpen = true;
+
     // Sometimes event.target isn't set to the content div...
     let $mapMarker = $(marker.markerContent_).find(".map-marker");
     // HACK: do need to make some changes to the wrapper.
@@ -54,8 +56,8 @@ Object.assign(SearchMapListingPopover, {
     // HACK to stop doubleclicks from zooming the map.
     $markerWrapper.on("dblclick", (e) => e.stopPropagation());
 
-    // HACK to make sure popover appears above other price markers.
-    $markerWrapper.parent().append($markerWrapper);
+    // Make sure popover appears above other price markers.
+    marker.setZIndex(999);
 
     // Render the popover into the marker.
     let listingElement = React.createElement(
