@@ -1,7 +1,6 @@
 ## TODO Major
 
 * Add more faces.
-* Maybe scroll popover to center when revealed?
 * Show stars in the listing item.
 * Add reviews, reviews model.
 * Listing page!

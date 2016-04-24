@@ -175,10 +175,20 @@ class SearchMapSidebar extends React.Component {
       let markerNode = $(marker.markerContent_).children(":first");
 
       if (marker.listingId === focusedListingId) {
+        if (marker.getZIndex() !== 0) {
+          // Hack to avoid messing with zindex of popover.
+          return;
+        }
+
         $(markerNode).addClass("focused");
         marker.setZIndex(99);
         marker.isFocused = true;
       } else if (marker.isFocused) {
+        if (marker.getZIndex() !== 99) {
+          // Hack to avoid messing with zindex of popover.
+          return;
+        }
+
         $(markerNode).removeClass("focused");
         marker.setZIndex(0);
         marker.isFocused = false;
