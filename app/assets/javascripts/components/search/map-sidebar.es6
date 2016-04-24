@@ -116,6 +116,7 @@ class SearchMapSidebar extends React.Component {
 
       // I need to style the outer div.
       $(marker.markerWrapper_).addClass("map-marker-wrapper");
+      $(marker.markerWrapper_).children(":first").addClass("map-marker-wrapper-inner");
     };
 
     // This function is added so that others may easily restore the
