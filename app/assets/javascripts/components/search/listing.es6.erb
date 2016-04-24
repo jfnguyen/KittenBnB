@@ -43,9 +43,42 @@ class SearchListing extends React.Component {
     );
   }
 
+  renderStars() {
+    let rating = this.props.listing.rating;
+    let starChr = '\uf005';
+    let halfStarChr = '\uf089';
+
+    let goldStars = _.times(Math.floor(rating / 2), (idx) => {
+      return <span className="gold" key={idx}>{starChr}</span>;
+    });
+
+    // Handle the half!
+    var halfStar = null;
+    if (rating % 2 === 1) {
+      halfStar = (
+        <span className="half-star">{starChr}</span>
+      );
+    }
+
+    let numGrayStars = Math.floor((10 - rating) / 2);
+    let grayStars = _.times(numGrayStars, (idx) => {
+      return <span className="gray" key={idx}>{starChr}</span>;
+    });
+
+    return (
+      <span className="stars">
+        {goldStars}
+        {halfStar}
+        {grayStars}
+      </span>
+    );
+  }
+
   render() {
     let listing = this.props.listing;
     let listingUrl = "#";
+
+    let starsSpan = this.renderStars();
 
     return (
       <div className="half listing" onMouseEnter={this.highlight} onMouseLeave={this.unhighlight}>
@@ -59,7 +92,7 @@ class SearchListing extends React.Component {
           </h3>
 
           <div className="details">
-            <a href={listingUrl}>{this.roomType()} • Stars • 14 Reviews</a>
+            <a href={listingUrl}>{this.roomType()} • {starsSpan} • 14 Reviews</a>
           </div>
         </div>
       </div>

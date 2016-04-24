@@ -105,6 +105,39 @@
         text-decoration: none;
       }
     }
+
+    .stars {
+      font: normal normal normal 14px/1 FontAwesome;
+
+      // Gray out the stars
+      color: #cacccd;
+
+      .gold {
+        color: #ffb400;
+      }
+
+      .half-star {
+        // Will position the overlapping star relative to this.
+        position: relative;
+        // So everything has a consistent size.
+        display: inline-block;
+
+        &:before {
+          // Positions flush left.
+          position: absolute;
+          top: 0;
+          left: 0;
+
+          // Obscure half the character.
+          width: 50%;
+          overflow: hidden;
+
+          // Make it a gold star!
+          color: #ffb400;
+          content: '\f005';
+        }
+      }
+    }
   }
 }
 
