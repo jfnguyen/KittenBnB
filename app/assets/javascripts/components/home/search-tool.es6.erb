@@ -36,6 +36,9 @@ class HomeSearchTool extends React.Component {
       this.setState({
         dateRangeEnd: date.format("MM/DD/YYYY")
       });
+
+      // Move them forward through the form.
+      this.refs.guestsSelect.focus();
     });
   }
 
@@ -55,10 +58,10 @@ class HomeSearchTool extends React.Component {
       <div className="item" onClick={this.triggerClick}>
         <input className="phantom-input"
                ref="dateRange"
+               tabIndex="2"
                type="text" />
         <input name="search[dateRangeStart]"
-               type="text"
-               style={{ display: "none" }}
+               type="hidden"
                value={this.state.dateRangeStart} readOnly />
         {this.state.dateRangeStart}
       </div>
@@ -69,8 +72,7 @@ class HomeSearchTool extends React.Component {
            key="dateRangeEndInput"
            onClick={this.triggerClick}>
         <input name="search[dateRangeEnd]"
-               type="text"
-               style={{ display: "none" }}
+               type="hidden"
                value={this.state.dateRangeEnd} readOnly />
         {this.state.dateRangeEnd}
       </div>
@@ -84,6 +86,7 @@ class HomeSearchTool extends React.Component {
                        className="guests-item item"
                        key="numGuestsSelect"
                        onChange={numGuestsOnChange}
+                       ref="guestsSelect"
                        value={this.state.numGuests} />
     );
 

@@ -1,4 +1,8 @@
 class NumGuestsSelect extends React.Component {
+  focus() {
+    $(this.refs.guestsSelect).focus();
+  }
+
   render() {
     let nums = [2, 3, 4, 5, 6];
 
@@ -7,6 +11,7 @@ class NumGuestsSelect extends React.Component {
               className={this.props.className}
               key="numGuestsSelect"
               onChange={this.props.onChange}
+              ref="guestsSelect"
               value={this.props.value}>
         <option value="1">1 Guest</option>
         { nums.map(i => <option key={i} value={i}>{i} Guests</option>) }
