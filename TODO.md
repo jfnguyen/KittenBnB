@@ -1,7 +1,7 @@
 ## TODO Major
 
 * Add more faces.
-* Get popover on click working.
+* Popovers work, except new markers can be placed over them!
 * Show stars in the listing item.
 * Add reviews, reviews model.
 * Listing page!

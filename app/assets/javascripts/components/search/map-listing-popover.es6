@@ -10,26 +10,20 @@ Object.assign(SearchMapListingPopover, {
   },
 
   hidePopover() {
-    if (!this.$mapMarker) return;
-
-    if (!this.$mapMarker) {
-      return;
-    }
-
-    // Return to old class style.
-    this.$mapMarker.removeClass("open");
-    this.$mapMarker.parent().parent().removeClass("open");
+    if (!this.marker) return;
 
     // Remove React node here.
-    ReactDOM.unmountComponentAtNode(this.$mapMarker[0]);
+    ReactDOM.unmountComponentAtNode(this.marker.markerContent_);
 
     // Ask marker to fill itself out again.
     this.marker.restore();
 
     // Reset instance variables.
     this.marker = null;
-    this.$mapMarker = null;
-    this.clickListener = null;
+
+    // Cleanup this the dismissal click listener.
+    this._mapClickListener.remove();
+    this._mapClickListener = null;
   },
 
   // HACK! This is really terrible, but the only way I can figure out.
@@ -46,22 +40,22 @@ Object.assign(SearchMapListingPopover, {
 
     this.marker = marker;
     // Sometimes event.target isn't set to the content div...
-    this.$mapMarker = $(marker.markerContent_).find(".map-marker");
+    let $mapMarker = $(marker.markerContent_).find(".map-marker");
     // HACK: do need to make some changes to the wrapper.
-    this.$markerWrapper = this.$mapMarker.parent().parent();
+    let $markerWrapper = $mapMarker.parent().parent();
 
     // Remove listener on marker to show popover.
     google.maps.event.clearListeners(marker, 'click');
 
     // Add open for styling!
-    this.$mapMarker.addClass("open");
-    this.$markerWrapper.addClass("open");
+    $mapMarker.addClass("open");
+    $markerWrapper.addClass("open");
 
     // HACK to stop doubleclicks from zooming the map.
-    this.$markerWrapper.on("dblclick", (e) => e.stopPropagation());
+    $markerWrapper.on("dblclick", (e) => e.stopPropagation());
 
     // HACK to make sure popover appears above other price markers.
-    this.$markerWrapper.parent().append(this.$markerWrapper);
+    $markerWrapper.parent().append($markerWrapper);
 
     // Render the popover into the marker.
     let listingElement = React.createElement(
@@ -75,23 +69,18 @@ Object.assign(SearchMapListingPopover, {
     // hard because there's no way to get the event in Google's listener
     // class...
     this._mapClickListener = marker.map.addListener("click", () => {
-      console.log("w?");
       if (this._ignoreCurrentEvent) {
         return;
       } else {
         this.hidePopover();
       }
-
-      // Cleanup this listener.
-      this._mapClickListener.remove();
-      this._mapClickListener = null;
     });
 
     // Because events will bubble to map, we need to be careful clicks
     // within the popover don't trigger it to hide. We'd use
     // stopPropagation, but React needs propagation to body where it
     // captures events.
-    this.$mapMarker.on("click", (event) =>{
+    $mapMarker.on("click", (event) => {
       this.ignoreCurrentEvent();
     });
     // This very click shouldn't hide the popover we've just shown!
@@ -99,7 +88,7 @@ Object.assign(SearchMapListingPopover, {
 
     ReactDOM.render(
       listingElement,
-      this.$mapMarker[0]
+      $mapMarker[0]
     );
   }
 });

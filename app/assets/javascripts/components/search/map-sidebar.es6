@@ -98,6 +98,46 @@ class SearchMapSidebar extends React.Component {
     );
   }
 
+  installNewMarker(listing) {
+    let marker = new rich.RichMarker({
+      position: new google.maps.LatLng(listing.latitude, listing.longitude),
+      map: this.mapInstance,
+      draggable: false,
+      flat: true,
+      anchor: rich.RichMarkerPosition.MIDDLE,
+    });
+
+    // So that we can know which ones to add/remove later.
+    marker.listingId = listing.id;
+
+    let oldOnAdd = marker.onAdd;
+    marker.onAdd = () => {
+      oldOnAdd.apply(marker, arguments)
+
+      // I need to style the outer div.
+      $(marker.markerWrapper_).addClass("map-marker-wrapper");
+    };
+
+    // This function is added so that others may easily restore the
+    // original appearance of the marker.
+    marker.restore = function () {
+      // Return to old class style.
+
+      this.set("content", `
+        <div class="map-marker" data-listing-id=${listing.id}>
+          <sup>$</sup>${listing.pricePerNight}
+        </div>
+      `);
+
+      // Install callback to show popover when clicked.
+      SearchMapListingPopover.attachToMarker(marker, listing);
+    };
+
+    marker.restore();
+
+    return marker;
+  }
+
   refreshMarkers() {
     if (this.markers === null) {
       this.markers = [];
@@ -117,37 +157,7 @@ class SearchMapSidebar extends React.Component {
         return;
       }
 
-      let marker = new rich.RichMarker({
-        position: new google.maps.LatLng(listing.latitude, listing.longitude),
-        map: this.mapInstance,
-        draggable: false,
-        flat: true,
-        anchor: rich.RichMarkerPosition.MIDDLE,
-      });
-
-      // So that we can know which ones to add/remove later.
-      marker.listingId = listing.id;
-
-      let oldOnAdd = marker.onAdd;
-      marker.onAdd = () => {
-        oldOnAdd.apply(marker, arguments)
-
-        // I need to style the outer div.
-        $(marker.markerWrapper_).addClass("map-marker-wrapper");
-      };
-
-    marker.restore = function () {
-      this.set("content", `
-        <div class="map-marker" data-listing-id=${listing.id}>
-          <sup>$</sup>${listing.pricePerNight}
-        </div>
-      `);
-
-      // Install callback to show popover when clicked.
-      SearchMapListingPopover.attachToMarker(marker, listing);
-    };
-    marker.restore();
-
+      let marker = this.installNewMarker(listing)
       newMarkers.push(marker);
     });
 
