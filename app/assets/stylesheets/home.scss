@@ -57,7 +57,7 @@
     }
 
     .search {
-      margin-top: 10vh;
+      margin-top: 5vh;
     }
   }
 
@@ -153,4 +153,8 @@
       font-weight: bold;
     }
   }
+}
+
+.daterangepicker_input {
+  display: none;
 }
