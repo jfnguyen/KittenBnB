@@ -46,6 +46,7 @@ class HomeSearchTool extends React.Component {
              ref="locationInput"
              placeholder="Where do you want to go?"
              onChange={(e) => this.setState({location: e.target.value})}
+             tabIndex="1"
              value={this.state.location} />
     );
 
