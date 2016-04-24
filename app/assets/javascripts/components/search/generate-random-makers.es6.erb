@@ -66,17 +66,47 @@ let StaticMap = {
       lng: latLngDims.center.lng - (latLngDims.small.lngWidth / 2),
     };
 
-    latLngDims.small.pixelToLatLngDims = (x, y) => {
-      let lat = latLngDims.small.northEast.lat
-          - (y / pixelDims.small.height) * latLngDims.small.latHeight;
-      let lng = latLngDims.small.southWest.lng
-          - (x / pixelDims.small.width) * latLngDims.small.lngWidth;
+    let pixelToLatLngDims = (pixelDims, latLngDims, x, y) => {
+      let lat = latLngDims.northEast.lat
+          - (y / pixelDims.height) * latLngDims.latHeight;
+      let lng = latLngDims.southWest.lng
+          - (x / pixelDims.width) * latLngDims.lngWidth;
 
       return {
         lat: lat,
         lng: lng
       };
     };
+
+    latLngDims.small.pixelToLatLngDims = pixelToLatLngDims.bind(
+      null,
+      pixelDims.small,
+      latLngDims.small
+    );
+    latLngDims.big.pixelToLatLngDims = pixelToLatLngDims.bind(
+      null,
+      pixelDims.big,
+      latLngDims.big
+    );
+
+    let latLngToPixelDims = (pixelDims, latLngDims, lat, lng) => {
+      let x = ((latLngDims.southWest.lng - lng) / latLngDims.lngWidth)
+          * pixelDims.width;
+      let y = ((latLngDims.northEast.lat - lat) / latLngDims.latHeight)
+          * pixelDims.height;
+
+      return { x, y };
+    };
+    pixelDims.small.latLngToPixelDims = latLngToPixelDims.bind(
+      null,
+      pixelDims.small,
+      latLngDims.small
+    );
+    pixelDims.big.latLngToPixelDims = latLngToPixelDims.bind(
+      null,
+      pixelDims.big,
+      latLngDims.big
+    );
 
     return latLngDims;
   },
