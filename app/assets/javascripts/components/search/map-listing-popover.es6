@@ -34,12 +34,28 @@ Object.assign(SearchMapListingPopover, {
     _.defer(() => { this._ignoreCurrentEvent = false });
   },
 
+  maybePanTo(marker) {
+    let pixelDims = StaticMap._calculatePixelDims(marker.map);
+    let latLngDims = StaticMap._calculateLatLngDims(marker.map, pixelDims);
+
+    let { x, y } = pixelDims.big.latLngToPixelDims(
+      marker.getPosition().lat(),
+      marker.getPosition().lng(),
+    );
+
+    if ((y < 280) || (x < 140) || ((pixelDims.big.width - 140) < x)) {
+      marker.map.panTo(marker.getPosition());
+    }
+  },
+
   showPopover(marker, listing, event) {
     // If any popover is open, hide it first.
     this.hidePopover();
 
     this.marker = marker;
     this.marker.isOpen = true;
+
+    this.maybePanTo(marker);
 
     // Sometimes event.target isn't set to the content div...
     let $mapMarker = $(marker.markerContent_).find(".map-marker");
