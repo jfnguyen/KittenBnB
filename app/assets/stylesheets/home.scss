@@ -155,6 +155,20 @@
   }
 }
 
+// Daterangepicker is attached directly to body, so can't scope these
+// under #home.
+.daterangepicker {
+  // Reduce padding to make calendar fit better on small resolutions.
+  .calendar {
+    margin: 0px;
+
+    td {
+      min-width: 26px;
+      padding: 2px;
+    }
+  }
+}
+
 .daterangepicker_input {
   display: none;
 }
