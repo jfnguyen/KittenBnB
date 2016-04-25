@@ -35,8 +35,7 @@ class SearchMapSidebar extends React.Component {
         disableDefaultUI: true,
         zoomControl: true,
         zoom: 12,
-        maxZoom: 15,
-        minZoom: 10
+        maxZoom: 15
       });
 
       StaticMap.setMap(this.mapInstance);
